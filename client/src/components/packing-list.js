@@ -1,4 +1,5 @@
 import React from 'react';
+import PackingListItem from './packing-list-item';
 
 class PackingList extends React.Component {
 
@@ -9,8 +10,9 @@ class PackingList extends React.Component {
   render() {
     return (
       <div className="packing-list">
-        <input type="checkbox" /> &nbsp;
-        <label for="goggles" className="packing-list-name">Goggles</label>
+        <PackingListItem />
+        <PackingListItem />
+        <PackingListItem />
       </div>
     )
   }
