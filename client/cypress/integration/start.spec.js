@@ -7,7 +7,10 @@ context('Start page', () => {
   })
 
   it('renders a start form', () => {
-    cy.get('.start-button').contains('Start')
+    // cy.get('startForm').contains('Start')
+    cy.get('.start-form').within(() => {
+      cy.get('input[name="destination"]').should('have.value', '')
+    })
   })
 
 })

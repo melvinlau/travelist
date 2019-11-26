@@ -10,11 +10,11 @@ class StartForm extends React.Component {
   render() {
     return (
 
-      <div>
+      <div className="start-form">
         <input type="text" placeholder="Destination" /> <br />
         <input type="date" placeholder="Date From" /> <br />
         <input type="date" placeholder="Date To" /> <br />
-        <button class="start-button">Start planning!</button>
+        <button className="start-button">Start planning!</button>
       </div>
 
 
