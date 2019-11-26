@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
+import StartForm from './components/start-form';
+
 class App extends Component {
   //initialize state
   state = {
@@ -90,6 +92,7 @@ class App extends Component {
     const { data } = this.state;
     return (
       <div>
+        <StartForm />
         <ul>
           {data.length <= 0
             ? 'NO DB ENTRIES YET'
