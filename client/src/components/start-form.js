@@ -14,7 +14,7 @@ class StartForm extends React.Component {
         <input type="text" placeholder="Destination" /> <br />
         <input type="date" placeholder="Date From" /> <br />
         <input type="date" placeholder="Date To" /> <br />
-        <button>Start planning!</button>
+        <button class="start-button">Start planning!</button>
       </div>
 
 
