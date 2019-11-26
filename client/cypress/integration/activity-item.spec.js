@@ -10,8 +10,8 @@ context('Activity Item', () => {
   it('renders individual activity list item', () => {
     cy.get('.activity-list-item').within(() => {
       cy.get('[type="checkbox"]').should('be.visible');
-      cy.get('.activity-item-name').should('be.visible');
-      cy.get('.activity-item-name').should('not.be.empty');
+      cy.get('.activity-list-item-name').should('be.visible');
+      cy.get('.activity-list-item-name').should('not.be.empty');
     });
   });
 

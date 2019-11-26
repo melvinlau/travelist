@@ -11,8 +11,8 @@ context('Packing List', () => {
   it('renders individual packing list item', () => {
     cy.get('.packing-list-item').within(() => {
       cy.get('[type="checkbox"]').should('be.visible');
-      cy.get('.packing-list-name').should('be.visible');
-      cy.get('.packing-list-name').should('not.be.empty');
+      cy.get('.packing-list-item-name').should('be.visible');
+      cy.get('.packing-list-item-name').should('not.be.empty');
     });
   });
 
