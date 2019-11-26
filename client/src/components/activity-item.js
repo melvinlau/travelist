@@ -17,8 +17,8 @@ class ActivityItem extends React.Component {
     return (
       <div className="activity-item">
         <input type="checkbox" name="skiing" /> &nbsp;
-        <label for="skiing" className="activity-item-name">Skiing</label>
-        <button className="get-list-button" onClick={this.handleClick}>Start planning!</button>
+        <label htmlFor="skiing" className="activity-item-name">Skiing</label>
+        <button className="get-list-button" onClick={this.handleClick}>Generate a packing list!</button>
       </div>
     )
   }
