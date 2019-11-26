@@ -7,8 +7,8 @@ context('Activity Item', () => {
     cy.get('.start-button').click();
   })
 
-  it('renders individual activity item', () => {
-    cy.get('.activity-item').within(() => {
+  it('renders individual activity list item', () => {
+    cy.get('.activity-list-item').within(() => {
       cy.get('[type="checkbox"]').should('be.visible');
       cy.get('.activity-item-name').should('be.visible');
       cy.get('.activity-item-name').should('not.be.empty');

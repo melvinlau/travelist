@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ActivityItem from './activity-item';
+import ActivityList from './activity-list';
 
 class StartForm extends React.Component {
 
@@ -10,7 +10,7 @@ class StartForm extends React.Component {
   }
 
   handleClick(event) {
-    ReactDOM.render(<ActivityItem />, document.getElementById('root'));
+    ReactDOM.render(<ActivityList />, document.getElementById('root'));
   }
 
   render() {

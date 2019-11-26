@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ActivityListItem from './activity-list-item';
 import PackingList from './packing-list';
 
-class ActivityItem extends React.Component {
+class ActivityList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,10 +16,10 @@ class ActivityItem extends React.Component {
 
   render() {
     return (
-      <div className="activity-item">
-        <input type="checkbox" name="skiing" /> &nbsp;
-        <label htmlFor="skiing" className="activity-item-name">Skiing</label>
-        <br />
+      <div className="activity-list">
+        <ActivityListItem />
+        <ActivityListItem />
+        <ActivityListItem />
         <button className="get-list-button" onClick={this.handleClick}>Generate a packing list!</button>
       </div>
     )
@@ -26,4 +27,5 @@ class ActivityItem extends React.Component {
 
 }
 
-export default ActivityItem;
+export default ActivityList;
+

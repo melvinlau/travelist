@@ -10,7 +10,7 @@ class PackingListItem extends React.Component {
     return (
       <div className="packing-list-item">
         <input type="checkbox" /> &nbsp;
-        <label className="packing-list-name">Goggles</label>
+        <label className="packing-list-item-name">Goggles</label>
       </div>
     )
   }
