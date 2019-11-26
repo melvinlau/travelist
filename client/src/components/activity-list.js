@@ -17,6 +17,7 @@ class ActivityList extends React.Component {
   render() {
     return (
       <div className="activity-list">
+        <h2>What I will be doing:</h2>
         <ActivityListItem />
         <ActivityListItem />
         <ActivityListItem />

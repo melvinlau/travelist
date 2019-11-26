@@ -10,6 +10,7 @@ class PackingList extends React.Component {
   render() {
     return (
       <div className="packing-list">
+        <h2>Things to pack</h2>
         <PackingListItem />
         <PackingListItem />
         <PackingListItem />
