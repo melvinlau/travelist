@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import StartForm from './components/start-form';
+import StartView from './components/start-view';
 
 class App extends Component {
   //initialize state
@@ -92,7 +92,7 @@ class App extends Component {
     const { data } = this.state;
     return (
       <div>
-        <StartForm />
+        <StartView />
         <ul>
           {data.length <= 0
             ? 'NO DB ENTRIES YET'
