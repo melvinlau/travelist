@@ -3,7 +3,7 @@
 context('Activity Item', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
     cy.get('.start-button').click();
   })
 

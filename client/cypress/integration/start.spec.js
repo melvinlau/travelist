@@ -3,7 +3,7 @@
 context('Start page', () => {
 
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.visit('/');
   })
 
   it('renders a start form', () => {
