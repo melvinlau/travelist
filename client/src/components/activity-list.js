@@ -11,7 +11,7 @@ class ActivityList extends React.Component {
   }
 
   handleClick(event) {
-    ReactDOM.render(<PackingList />, document.getElementById('root'));
+    ReactDOM.render(<PackingList />, document.getElementById('main-content'));
   }
 
   render() {
@@ -20,7 +20,9 @@ class ActivityList extends React.Component {
         <ActivityListItem />
         <ActivityListItem />
         <ActivityListItem />
-        <button className="get-list-button" onClick={this.handleClick}>Generate a packing list!</button>
+        <button className="get-list-button" onClick={this.handleClick}>
+          Generate a packing list!
+        </button>
       </div>
     )
   }
@@ -28,4 +30,3 @@ class ActivityList extends React.Component {
 }
 
 export default ActivityList;
-

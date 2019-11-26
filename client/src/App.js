@@ -10,13 +10,13 @@ class App extends Component {
     return (
       <div className="container p-4">
 
-        <div className="header row">
+        <div id="header" className="row">
           <div className="col-12">
             <h1>Travelist</h1>
           </div>
         </div>
 
-        <div className="main-content row">
+        <div id="main-content" className="row">
           <div className="col-12">
             <StartView />
           </div>
