@@ -16,7 +16,7 @@ class App extends Component {
   //fetch data when component mounts. Then incorporate logic that can easily see if our db has changed
   //and implement those changes into our UI
   componentDidMount() {
-    this.getDataFromDb();
+    this.getDataFromDB();
     if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getDataFromDb, 1000);
       this.setState({ intervalIsSet: interval });
