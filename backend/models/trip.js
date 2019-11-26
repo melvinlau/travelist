@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const TripSchema = new Schema(
   {
     destination: String,
-    activities: Array,
     dateFrom: Date,
     dateTo: Date
   },
