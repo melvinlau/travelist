@@ -8,7 +8,18 @@ class StartForm extends React.Component {
   }
 
   render() {
-    return 'Hello world';
+    return (
+
+      <div>
+        <input type="text" placeholder="Destination" /> <br />
+        <input type="date" placeholder="Date From" /> <br />
+        <input type="date" placeholder="Date To" /> <br />
+        <button>Start planning!</button>
+      </div>
+
+
+    );
+
   }
 
 }
