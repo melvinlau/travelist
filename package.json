@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+    "start": "concurrently \"cd backend && nodemon server.js\" \"cd client && nodemon start\""
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/melvinlau/travel/issues"
   },
-  "homepage": "https://github.com/melvinlau/travel#readme"
+  "homepage": "https://github.com/melvinlau/travel#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
 }
