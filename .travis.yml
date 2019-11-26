@@ -16,6 +16,9 @@ cache:
     # we also need to cache folder with Cypress binary
     - ~/.cache
 
+before_install:
+  - cd $TRAVIS_BUILD_DIR/client
+
 install:
   - npm ci
 
@@ -26,7 +29,6 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - cd $TRAVIS_BUILD_DIR/client
   - npm start && wait-on http://localhost:3000
   - npm test
   - $(npm bin)/cypress run
