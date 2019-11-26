@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 //database structure
-const TripSchema = new Schema(
+const DataSchema = new Schema(
   {
+    id: Number,
     destination: String,
-    activities: Array,
-    dateFrom: Date,
-    dateTo: Date
+    activity: String
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Trip", TripSchema);
+module.exports = mongoose.model("Data", DataSchema);

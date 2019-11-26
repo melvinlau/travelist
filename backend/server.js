@@ -3,7 +3,8 @@ const express = require("express");
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const Data = require("./models/trip");
+const Data = require("./models/data");
+const Trip = require("./mongoose");
 
 const API_PORT = 3001;
 const app = express();
@@ -37,6 +38,8 @@ router.get("/getData", (req, res) => {
   });
 });
 
+// router.post("/trips", Trip.createTrip);
+
 //update method for database
 router.post("/updateData", (req, res) => {
   const { id, update } = req.body;
@@ -59,15 +62,16 @@ router.delete("/deleteData", (req, res) => {
 router.post("/putData", (req, res) => {
   let data = new Data();
 
-  const { id, destination } = req.body;
+  const { id, activity } = req.body;
 
-  if ((!id && id !== 0) || !destination) {
+  if ((!id && id !== 0) || !activity) {
     return res.json({
       success: false,
       error: "INVALID INPUTS"
     });
   }
-  data.destination = destination;
+  // data.destination = destination;
+  data.activity = activity;
   data.id = id;
   data.save(err => {
     if (err) return res.json({ success: false, error: err });
