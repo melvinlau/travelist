@@ -1,5 +1,5 @@
 {
-  "name": "travel",
+  "name": "travelist",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,7 +18,7 @@
     "concurrently": "^4.1.2"
   },
   "bugs": {
-    "url": "https://github.com/melvinlau/travel/issues"
+    "url": "https://github.com/melvinlau/travelist/issues"
   },
-  "homepage": "https://github.com/melvinlau/travel#readme"
+  "homepage": "https://github.com/melvinlau/travelist"
 }

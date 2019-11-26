@@ -1,5 +1,5 @@
 {
-  "name": "packing-app",
+  "name": "travelist-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,6 +32,7 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "cypress": "^3.6.1"
+    "cypress": "^3.6.1",
+    "wait-on": "^3.3.0"
   }
 }
