@@ -3,7 +3,8 @@ const Data = require("../mongoose");
 
 const router = express.Router();
 
-router.post("/createTrip", Data.createTrip);
+// router.post("/createTrip", Data.createTrip);
+// router.post("/addActivity", Data.addActivity);
 
 //get method for database
 // router.get("/getData", (req, res) => {
@@ -13,7 +14,7 @@ router.post("/createTrip", Data.createTrip);
 //   });
 // });
 
-// //update method for database
+//update method for database
 // router.post("/updateData", (req, res) => {
 //   const { id, update } = req.body;
 //   Data.findAndModify(id, update, err => {

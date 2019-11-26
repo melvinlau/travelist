@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 
 router.post("/createTrip", Data.createTrip);
+// router.post("/addActivity", Data.addActivity);
+router.post("/updateTrip", Data.updateTrip);
 
 //append /api for http requests
 app.use("/api", router);

@@ -7,6 +7,7 @@ class App extends Component {
     data: [],
     id: 0,
     destination: null,
+    activity: null,
     intervalIsSet: false,
     idToDelete: null,
     idToUpdate: null,
@@ -48,7 +49,7 @@ class App extends Component {
 
     axios.post("http://localhost:3001/api/putData", {
       id: idToBeAdded,
-      destination: message
+      activity: message
     });
   };
 
@@ -94,21 +95,21 @@ class App extends Component {
           {data.length <= 0
             ? "NO DB ENTRIES YET"
             : data.map(dat => (
-                <li style={{ padding: "10px" }} key={data.destination}>
+                <li style={{ padding: "10px" }} key={data.activity}>
                   <span style={{ color: "gray" }}> id: </span> {dat.id} <br />
                   <span style={{ color: "gray" }}> data: </span>
-                  {dat.destination}
+                  {dat.activity}
                 </li>
               ))}
         </ul>
         <div style={{ padding: "10px" }}>
           <input
             type="text"
-            onChange={e => this.setState({ destination: e.target.value })}
-            placeholder="add something in the database"
+            onChange={e => this.setState({ activity: e.target.value })}
+            placeholder="activity"
             style={{ width: "200px" }}
           />
-          <button onClick={() => this.putDataToDB(this.state.destination)}>
+          <button onClick={() => this.putDataToDB(this.state.activity)}>
             ADD
           </button>
         </div>
