@@ -29,8 +29,8 @@ script:
   # Jest tests
   - npm test
   # Cypress tests
-  - npm start -- --silent &
-  - npm run cypress:run
+  # - npm start -- --silent &
+  # - npm run cypress:run
 
 after_script:
   # Run `after-build` command after test suite completes to send a report to Code Climate
