@@ -29,8 +29,7 @@ script:
   # Jest tests
   - npm test
   # Start the server for Cypress tests
-  - npm start && wait-on http://localhost:3000
-  - $(npm bin)/cypress run
+  - npm start-server-and-test
 
 after_script:
   # Run `after-build` command after test suite completes to send a report to Code Climate
