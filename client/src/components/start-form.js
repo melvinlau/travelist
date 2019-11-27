@@ -21,12 +21,18 @@ class StartForm extends React.Component {
   }
 
   handleSubmit(event) {
-
     axios.post(
       'http://localhost:3001/api/trips/',
       this.state
     )
-    .then(response => console.log(response.data))
+    .then(
+      response => {
+        ReactDOM.render(
+          <ActivityList trip={response.data.trip} />,
+          document.getElementById('main-content')
+        );
+      }
+    )
     .catch(console.log);
   }
 
