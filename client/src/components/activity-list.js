@@ -23,7 +23,7 @@ class ActivityList extends React.Component {
   }
 
   handleClick(event) {
-    ReactDOM.render(<PackingList />, document.getElementById('main-content'));
+    ReactDOM.render(<PackingList trip={this.props.trip}/>, document.getElementById('main-content'));
   }
 
   render() {
