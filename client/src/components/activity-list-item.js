@@ -29,7 +29,7 @@ class ActivityListItem extends React.Component {
           onChange={this.toggleCheck}
         />
         &nbsp;
-        <label className="activity-list-item-name">{this.props.activity}</label>
+        <label className="activity-list-item-name">{this.props.activity.name}</label>
       </div>
     )
   }

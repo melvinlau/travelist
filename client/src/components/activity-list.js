@@ -10,25 +10,18 @@ class ActivityList extends React.Component {
     super(props);
     this.state = {
       activities: [
-        'skiing',
-        'shopping',
-        'business',
-        'mountain climbing',
-        'hiking',
-        'biking',
-        'surfing',
-        'relaxing on the beach'
+        { name: 'skiing', items: ['goggles', 'gloves', 'ski boots'] },
+        { name: 'hiking', items: ['walking shoes', 'hat', 'shorts'] },
+        { name: 'surfing', items: ['wetsuit', 'boardshorts'] }
       ],
       selectedActivities: []
     }
     this.handleClick = this.handleClick.bind(this);
     this.addActivity = this.addActivity.bind(this);
     this.removeActivity = this.removeActivity.bind(this);
-
   }
 
   handleClick(event) {
-    console.log(this.state.selectedActivities)
     axios.patch(
       `http://localhost:3001/api/trips/${this.props.trip._id}`,
       {
@@ -39,7 +32,6 @@ class ActivityList extends React.Component {
     )
     .then(
       response => {
-        console.log(response.data);
         ReactDOM.render(
           <PackingList trip={response.data.trip} />,
           document.getElementById('main-content')
@@ -47,7 +39,6 @@ class ActivityList extends React.Component {
       }
     )
     .catch(console.log);
-
   }
 
   addActivity(activity) {
@@ -55,10 +46,6 @@ class ActivityList extends React.Component {
   }
 
   removeActivity(activity) {
-    
-    this.state.selectedActivities.splice(
-      this.state.selectedActivities.indexOf(activity)
-    );
   }
 
   render() {
