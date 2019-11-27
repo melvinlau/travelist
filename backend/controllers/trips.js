@@ -107,17 +107,7 @@ const deleteTrip = async (req, res, next) => {
 
   let trip;
   try {
-    trip = await Trip.findById(tripId);
-  } catch (err) {
-    const error = new HttpError(
-      "Something went wrong, could not update trip.",
-      500
-    );
-    return next(error);
-  }
-
-  try {
-    await trip.remove();
+    trip = await Trip.findByIdAndRemove(tripId);
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not update trip.",
