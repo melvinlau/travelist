@@ -19,9 +19,6 @@ cache:
 before_install:
   - cd $TRAVIS_BUILD_DIR/client
 
-install:
-  - npm ci
-
 before_script:
   # Run `before-build` command before running test suite to notify Code Climate of a pending report
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -29,8 +26,10 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - npm start && wait-on http://localhost:3000
+  # Jest tests
   - npm test
+  # Start the server for Cypress tests
+  - npm start
   - $(npm bin)/cypress run
 
 after_script:
