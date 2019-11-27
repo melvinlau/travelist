@@ -31,15 +31,23 @@ const getTripsByUserId = (req, res, next) => {
 
   let trips;
 
-  const = 
+  try {
+    trips = await Trip.find({ user: userId });
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching places failed, please try again later',
+      500
+    );
+    return next(error);
+  }
 
-  if (!trip) {
+  if (!trips || trips.length === 0) {
     return next(
-      new HttpError("Could not find a trip for the provided user id.", 404)
+      new HttpError("Could not find a trips for the provided user id.", 404)
     );
   }
 
-  res.json({ trip });
+  res.json({ trips: trips.map(trip => trip.toObject({getters: true})) });
 };
 
 const createTrip = async (req, res, next) => {
