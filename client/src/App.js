@@ -6,7 +6,8 @@ import {
   Link
 } from "react-router-dom";
 
-import StartForm from './components/start-form';
+import StartForm from './components/StartForm';
+import ActivityList from './components/ActivityList';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/activities">
-          Activities view
+          <ActivityList />
         </Route>
         <Route path="/travelist">
           Travelist view

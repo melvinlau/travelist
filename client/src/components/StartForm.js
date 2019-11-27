@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function StartForm() {
   return (
@@ -18,9 +24,11 @@ function StartForm() {
         name="date-to"
         placeholder="To"
       /> <br />
-      <button className="start-button">
-        Start planning
-      </button>
+      <Link to="/activities">
+        <button className="start-button">
+          Start planning
+        </button>
+      </Link>
     </div>
   );
 }
