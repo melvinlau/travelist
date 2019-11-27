@@ -7,10 +7,11 @@ class ActivityListItem extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="activity-list-item">
         <input type="checkbox" /> &nbsp;
-        <label className="activity-list-item-name">Skiing</label>
+        <label className="activity-list-item-name">{this.props.activity}</label>
       </div>
     )
   }

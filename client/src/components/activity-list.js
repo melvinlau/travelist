@@ -7,8 +7,19 @@ class ActivityList extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      activities: [
+        'skiing',
+        'shopping',
+        'business',
+        'mountain climbing',
+        'hiking',
+        'biking',
+        'surfing',
+        'relaxing on the beach'
+      ]
+    }
     this.handleClick = this.handleClick.bind(this);
-    console.log(this.props);
   }
 
   handleClick(event) {
@@ -19,9 +30,13 @@ class ActivityList extends React.Component {
     return (
       <div className="activity-list">
         <h2>What I will be doing in {this.props.trip.destination}:</h2>
-        <ActivityListItem />
-        <ActivityListItem />
-        <ActivityListItem />
+
+        {
+          this.state.activities.map((activity) => {
+            return (<ActivityListItem activity={activity} />)
+          })
+        }
+
         <button className="get-list-button" onClick={this.handleClick}>
           Generate a packing list!
         </button>
