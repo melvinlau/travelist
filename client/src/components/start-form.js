@@ -16,7 +16,7 @@ class StartForm extends React.Component {
   }
 
   handleClick(event) {
-    alert(this.state.destination);
+    alert(this.state.destination + ' ' + this.state.dateFrom + ' ' + this.state.dateTo );
   }
 
   handleSubmit(event) {
@@ -41,8 +41,24 @@ class StartForm extends React.Component {
         />
 
         <br />
-        <input type="date" name="start-date" placeholder="From" /> <br />
-        <input type="date" name="end-date" placeholder="To" /> <br />
+        <input 
+          type="date"
+          name="dateFrom" 
+          placeholder="From" 
+          value={this.state.dateFrom}
+          onChange={this.handleChange}
+        /> 
+
+         <br />
+        <input 
+          type="date" 
+          name="dateTo" 
+          placeholder="To"
+          value={this.state.dateTo}
+          onChange={this.handleChange}
+        /> 
+        
+        <br />
         <button className="start-button" onClick={this.handleClick}>Start planning!</button>
       </div>
     );
