@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/:tid", tripsControllers.getTripById);
 
-// router.get("/user/:uid", tripsControllers.getTripsByUserId);
+router.get("/user/:uid", tripsControllers.getTripsByUserId);
 
 router.post("/", tripsControllers.createTrip);
 
