@@ -94,14 +94,35 @@ const updateTrip = async (req, res, next) => {
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
 
-// const deleteTrip = (req, res, next) => {
-//   const placeId = req.params.pid;
-//   DUMMY_TRIPS = DUMMY_TRIPS.filter(p => p.id !== placeId);
-//   res.status(200).json({ message: "Deleted place." });
-// };
+const deleteTrip = async (req, res, next) => {
+  const tripId = req.params.tid;
+
+  let trip;
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update trip.",
+      500
+    );
+    return next(error);
+  }
+
+  try {
+    await trip.remove();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update trip.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ message: "Deleted trip." });
+};
 
 exports.getTripById = getTripById;
 exports.getTripByUserId = getTripByUserId;
 exports.createTrip = createTrip;
 exports.updateTrip = updateTrip;
-// exports.deleteTrip = deleteTrip;
+exports.deleteTrip = deleteTrip;

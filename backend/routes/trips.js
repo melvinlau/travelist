@@ -11,6 +11,6 @@ router.post("/", tripsControllers.createTrip);
 
 router.patch("/:tid", tripsControllers.updateTrip);
 
-// router.delete("/:tid", tripsControllers.deleteTrip);
+router.delete("/:tid", tripsControllers.deleteTrip);
 
 module.exports = router;
