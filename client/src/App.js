@@ -8,6 +8,7 @@ import {
 
 import StartForm from './components/StartForm';
 import ActivityList from './components/ActivityList';
+import PackingList from './components/PackingList';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <ActivityList />
         </Route>
         <Route path="/travelist">
-          Travelist view
+          <PackingList />
         </Route>
         <Route path="/">
           <StartForm />
