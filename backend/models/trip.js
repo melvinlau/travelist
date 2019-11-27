@@ -6,7 +6,9 @@ const TripSchema = new Schema(
     destination: String,
     dateFrom: Date,
     dateTo: Date,
-    activity: String
+    activity: Array,
+    items: Array,
+    user: String
   },
   { timestamps: true }
 );
