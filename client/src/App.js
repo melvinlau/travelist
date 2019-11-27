@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
+import StartForm from './components/start-form';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           Travelist view
         </Route>
         <Route path="/">
-          Start view
+          <StartForm />
         </Route>
       </Switch>
     </Router>

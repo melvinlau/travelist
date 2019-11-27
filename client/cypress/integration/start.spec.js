@@ -1,16 +1,16 @@
 /// <reference types="Cypress" />
 
-context('Start page', () => {
+context('Index page', () => {
 
   beforeEach(() => {
     cy.visit('/');
   })
 
-  it('renders a start form', () => {
+  it('renders a form for user to begin journey on Travelist', () => {
     cy.get('.start-form').within(() => {
       cy.get('input[name="destination"]').should('have.value', '');
-      cy.get('input[name="start-date"]').should('have.value', '');
-      cy.get('input[name="end-date"]').should('have.value', '');
+      cy.get('input[name="date-from"]').should('have.value', '');
+      cy.get('input[name="date-to"]').should('have.value', '');
       cy.get('.start-button').should('contain','Start planning');
     });
   });
