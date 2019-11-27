@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import ActivityList from './activity-list';
 
 class StartForm extends React.Component {
@@ -10,17 +11,23 @@ class StartForm extends React.Component {
       destination: '',
       dateFrom: '',
       dateTo: ''
-    }
-    this.handleClick = this.handleClick.bind(this);
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleClick(event) {
-    alert(this.state.destination + ' ' + this.state.dateFrom + ' ' + this.state.dateTo );
+  renderActivityList() {
+    ReactDOM.render(<ActivityList />, document.getElementById('main-content'));
   }
 
   handleSubmit(event) {
-    ReactDOM.render(<ActivityList />, document.getElementById('main-content'));
+
+    axios.post(
+      'http://localhost:3001/api/trips/',
+      this.state
+    )
+    .then(response => console.log(response.data))
+    .catch(console.log);
   }
 
   handleChange(event) {
@@ -41,25 +48,25 @@ class StartForm extends React.Component {
         />
 
         <br />
-        <input 
+        <input
           type="date"
-          name="dateFrom" 
-          placeholder="From" 
+          name="dateFrom"
+          placeholder="From"
           value={this.state.dateFrom}
           onChange={this.handleChange}
-        /> 
+        />
 
          <br />
-        <input 
-          type="date" 
-          name="dateTo" 
+        <input
+          type="date"
+          name="dateTo"
           placeholder="To"
           value={this.state.dateTo}
           onChange={this.handleChange}
-        /> 
-        
+        />
+
         <br />
-        <button className="start-button" onClick={this.handleClick}>Start planning!</button>
+        <button className="start-button" onClick={this.handleSubmit}>Start planning!</button>
       </div>
     );
 
