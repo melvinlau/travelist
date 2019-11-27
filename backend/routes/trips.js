@@ -3,12 +3,14 @@ const tripsControllers = require("../controllers/trips");
 
 const router = express.Router();
 
-router.get("/:iid", itemsControllers.getItemById);
+router.get("/:tid", tripsControllers.getTripById);
 
-router.post("/", itemsControllers.createItem);
+router.get("/user/:uid", tripsControllers.getTripsByUserId);
 
-router.post("/", itemsControllers.createItem);
+router.post("/", tripsControllers.createTrip);
 
-router.delete("/:iid", itemsControllers.deleteItem);
+router.patch("/:tid", tripsControllers.updateTrip);
+
+router.delete("/:tid", tripsControllers.deleteTrip);
 
 module.exports = router;

@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema(
   {
     name: String,
-    tags: Array,
     category: String,
+    activities: Array,
     weather: Array
   },
   { timestamps: true }
