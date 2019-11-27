@@ -35,6 +35,7 @@
   "devDependencies": {
     "cypress": "^3.6.1",
     "start-server-and-test": "^1.10.6",
-    "wait-on": "^3.3.0"
+    "wait-on": "^3.3.0",
+    "nodemon": "^2.0.1"
   }
 }
