@@ -1,31 +1,7 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
-
-import StartView from './components/start-view';
-
-class App extends Component {
-  
-
-  render() {
-    return (
-      <div className="container p-4">
-
-        <div id="header" className="row">
-          <div className="col-12">
-            <h1>Travelist</h1>
-          </div>
-        </div>
-
-        <div id="main-content" className="row">
-          <div className="col-12">
-            <StartView />
-          </div>
-        </div>
-
-      </div>
-    );
-  }
+function App() {
+  return 'Hello world!';
 }
 
 export default App;
