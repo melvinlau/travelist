@@ -43,6 +43,7 @@ const getTripByUserId = (req, res, next) => {
 
 const createTrip = async (req, res, next) => {
   const { destination, dateFrom, dateTo, activity, user } = req.body;
+
   const createdTrip = new Trip({
     destination,
     dateFrom,
@@ -51,24 +52,47 @@ const createTrip = async (req, res, next) => {
     user
   });
 
-  const result = await createdTrip.save();
+  try {
+    await createdTrip.save();
+  } catch (err) {
+    const error = new HttpError("Creating trip failed, please try again.", 500);
+    return next(error);
+  }
 
-  res.json(result);
+  res.status(201).json({ trip: createdTrip });
 };
 
-// const updateTrip = (req, res, next) => {
-//   const { title, description } = req.body;
-//   const tripId = req.params.pid;
+const updateTrip = async (req, res, next) => {
+  const { destination, activity, items } = req.body;
+  const tripId = req.params.tid;
 
-//   const updatedTrip = { ...DUMMY_TRIPS.find(p => p.id === placeId) };
-//   const tripIndex = DUMMY_TRIPS.findIndex(p => p.id === placeId);
-//   updatedTrip.title = title;
-//   updatedTrip.description = description;
+  let trip;
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update trip.",
+      500
+    );
+    return next(error);
+  }
 
-//   DUMMY_TRIPS[placeIndex] = updatedPlace;
+  trip.destination = destination;
+  trip.activity = activity;
+  trip.items = items;
 
-//   res.status(200).json({ place: updatedPlace });
-// };
+  try {
+    await trip.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not update trip.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ trip: trip.toObject({ getters: true }) });
+};
 
 // const deleteTrip = (req, res, next) => {
 //   const placeId = req.params.pid;
@@ -79,5 +103,5 @@ const createTrip = async (req, res, next) => {
 exports.getTripById = getTripById;
 exports.getTripByUserId = getTripByUserId;
 exports.createTrip = createTrip;
-// exports.updateTrip = updateTrip;
+exports.updateTrip = updateTrip;
 // exports.deleteTrip = deleteTrip;
