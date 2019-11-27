@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import ActivityListItem from './activity-list-item';
 import PackingList from './packing-list';
 
@@ -27,7 +28,26 @@ class ActivityList extends React.Component {
   }
 
   handleClick(event) {
-    ReactDOM.render(<PackingList trip={this.props.trip}/>, document.getElementById('main-content'));
+    console.log(this.state.selectedActivities)
+    axios.patch(
+      `http://localhost:3001/api/trips/${this.props.trip._id}`,
+      {
+        "destination": this.props.trip.destination,
+        "activity": this.state.selectedActivities,
+        "items": this.props.trip.items
+      }
+    )
+    .then(
+      response => {
+        console.log(response.data);
+        ReactDOM.render(
+          <PackingList trip={response.data.trip} />,
+          document.getElementById('main-content')
+        );
+      }
+    )
+    .catch(console.log);
+
   }
 
   addActivity(activity) {
@@ -35,6 +55,7 @@ class ActivityList extends React.Component {
   }
 
   removeActivity(activity) {
+    
     this.state.selectedActivities.splice(
       this.state.selectedActivities.indexOf(activity)
     );

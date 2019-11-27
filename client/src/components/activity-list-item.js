@@ -26,7 +26,7 @@ class ActivityListItem extends React.Component {
         <input
           type="checkbox"
           checked={this.state.isChecked}
-          onClick={this.toggleCheck}
+          onChange={this.toggleCheck}
         />
         &nbsp;
         <label className="activity-list-item-name">{this.props.activity}</label>
