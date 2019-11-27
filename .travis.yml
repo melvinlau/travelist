@@ -1,0 +1,37 @@
+language: node_js
+
+node_js:
+  - 12.12.0
+
+addons:
+  apt:
+    packages:
+      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+      - libgconf-2-4
+cache:
+  # Caches $HOME/.npm when npm ci is default script command
+  # Caches node_modules in all other cases
+  npm: true
+  directories:
+    # we also need to cache folder with Cypress binary
+    - ~/.cache
+
+before_install:
+  - cd $TRAVIS_BUILD_DIR/client
+
+before_script:
+  # Run `before-build` command before running test suite to notify Code Climate of a pending report
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  # Jest tests
+  - npm test
+  # Cypress tests
+  # - npm start -- --silent &
+  # - npm run cypress:run
+
+after_script:
+  # Run `after-build` command after test suite completes to send a report to Code Climate
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
