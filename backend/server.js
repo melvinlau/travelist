@@ -37,7 +37,7 @@ app.use((error, req, res, next) => {
 //launch backend
 mongoose
   .connect(
-    "mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/development?retryWrites=true&w=majority",
     { useNewUrlParser: true },
     () => console.log('connected to database')
   )
