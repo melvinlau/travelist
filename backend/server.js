@@ -3,8 +3,8 @@ var cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const tripsRoutes = require("./routes/trips");
-const HttpError = require("./models/http-error");
+const tripsRoutes = require("./src/routes/trips");
+const HttpError = require("./src/models/http-error");
 
 const router = express.Router();
 
