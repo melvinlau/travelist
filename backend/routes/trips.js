@@ -7,4 +7,10 @@ router.get("/:tid", tripsControllers.getTripById);
 
 router.get("/user/:uid", tripsControllers.getTripByUserId);
 
+router.post("/", tripsControllers.createTrip);
+
+// router.patch("/:tid", tripsControllers.updateTrip);
+
+// router.delete("/:tid", tripsControllers.deleteTrip);
+
 module.exports = router;
