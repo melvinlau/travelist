@@ -29,7 +29,7 @@ script:
   # Jest tests
   - npm test
   # Start the server for Cypress tests
-  - npm start
+  - npm start && wait-on http://localhost:3000
   - $(npm bin)/cypress run
 
 after_script:
