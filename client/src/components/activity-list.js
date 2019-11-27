@@ -17,13 +17,27 @@ class ActivityList extends React.Component {
         'biking',
         'surfing',
         'relaxing on the beach'
-      ]
+      ],
+      selectedActivities: []
     }
     this.handleClick = this.handleClick.bind(this);
+    this.addActivity = this.addActivity.bind(this);
+    this.removeActivity = this.removeActivity.bind(this);
+
   }
 
   handleClick(event) {
     ReactDOM.render(<PackingList trip={this.props.trip}/>, document.getElementById('main-content'));
+  }
+
+  addActivity(activity) {
+    this.state.selectedActivities.push(activity);
+  }
+
+  removeActivity(activity) {
+    this.state.selectedActivities.splice(
+      this.state.selectedActivities.indexOf(activity)
+    );
   }
 
   render() {
@@ -33,7 +47,13 @@ class ActivityList extends React.Component {
 
         {
           this.state.activities.map((activity) => {
-            return (<ActivityListItem activity={activity} />)
+            return (
+              <ActivityListItem
+                activity={activity}
+                addActivity={this.addActivity}
+                removeActivity={this.removeActivity}
+              />
+            )
           })
         }
 
