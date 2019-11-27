@@ -1,5 +1,10 @@
 {
   "name": "travelist-client",
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,8 +40,11 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "cypress": "^3.6.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.1",
     "start-server-and-test": "^1.10.6",
-    "wait-on": "^3.3.0",
-    "nodemon": "^2.0.1"
+    "wait-on": "^3.3.0"
   }
 }
