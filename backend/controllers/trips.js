@@ -1,36 +1,37 @@
 const HttpError = require("../models/http-error");
 const Trip = require("../models/trip");
 
-const DUMMY_TRIP = [
-  {
-    id: "t1",
-    destination: "Paris",
-    dateFrom: "2019-11-28",
-    dateTo: "2019-11-29",
-    activity: "fishing",
-    user: "u1"
-  }
-];
-
 const getTripById = (req, res, next) => {
   const tripId = req.params.tid;
-  const trip = DUMMY_TRIP.find(t => {
-    return t.id === tripId;
-  });
+  let trip;
 
-  if (!trip) {
-    throw new HttpError("Could not find a trip for the provided id.", 404);
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a place.', 500
+    );
+    return next(error);
   }
 
-  res.json({ trip });
+
+  if (!trip) {
+    const error = new HttpError(
+      "Could not find a trip for the provided id.", 
+      404
+      );
+    return next(error);
+  }
+
+  res.json({ trip: trip.toObject({ getters: true }) });
 };
 
-const getTripByUserId = (req, res, next) => {
+const getTripsByUserId = (req, res, next) => {
   const userId = req.params.uid;
 
-  const trip = DUMMY_TRIP.find(t => {
-    return t.user === userId;
-  });
+  let trips;
+
+  const = 
 
   if (!trip) {
     return next(
@@ -122,7 +123,7 @@ const deleteTrip = async (req, res, next) => {
 };
 
 exports.getTripById = getTripById;
-exports.getTripByUserId = getTripByUserId;
+exports.getTripByUserId = getTripsByUserId;
 exports.createTrip = createTrip;
 exports.updateTrip = updateTrip;
 exports.deleteTrip = deleteTrip;
