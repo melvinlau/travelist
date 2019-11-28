@@ -28,7 +28,10 @@ function App() {
             renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/activities">
-                <ActivityList trip={trip}/>
+                <ActivityList
+                  trip={trip}
+                  updateTrip={updateTrip}
+                />
               </Route>
               <Route path="/travelist">
                 <PackingList />

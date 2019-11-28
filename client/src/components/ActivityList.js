@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import ActivityListItem from './ActivityListItem';
 
-function ActivityList({ destination, dateTo, dateFrom }) {
+function ActivityList({ trip, updateTrip }) {
 
   const [activities, setActivities] = useState(['skiing', 'hiking', 'surfing']);
   const [selectedActivities, setSelectedActivities] = useState([]);
@@ -26,7 +26,7 @@ function ActivityList({ destination, dateTo, dateFrom }) {
 
   return (
     <div>
-      <h1>Things I'll be doing in {destination}</h1>
+      <h1>Things I'll be doing in {trip.destination}</h1>
       {
         activities.map((activity, index) => {
           return (
