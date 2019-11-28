@@ -20,10 +20,10 @@ const Trip = require('../../src/models/trip');
 //   console.error('connection error:', err)
 // })
 
-describe("Trips tests", () => {
+describe('Trips tests', () => {
   beforeAll(async () => {
     const mongoDB = 'mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/test?retryWrites=true&w=majority';
-    mongoose.connect(mongoDB, { useNewUrlParser: true })
+    mongoose.connect(mongoDB, { useNewUrlParser: true });
     await Trip.remove({});
   });
 
@@ -35,25 +35,24 @@ describe("Trips tests", () => {
     await mongoose.connection.close();
   });
 
-  describe("Trip model test", () => {
-    it("has a module", () => {
+  describe('Trip model test', () => {
+    it('has a module', () => {
       expect(Trip).toBeDefined();
     });
   });
 
-  describe("creates and saves a trip successfully", () => {
-    it("gets a trip", async () => {
-      const trip = new Trip({ destination: 'Sydney', dateFrom: "2020-05-01", dateTo: "2020-05-05" });
+  describe('creates and saves a trip successfully', () => {
+    it('gets a trip', async () => {
+      const trip = new Trip({ destination: 'Sydney', dateFrom: '2020-05-01', dateTo: '2020-05-05' });
       await trip.save();
 
-      const foundTrip = await Trip.findOne({ destination: "Sydney" });
-      const expected = "Sydney";
+      const foundTrip = await Trip.findOne({ destination: 'Sydney' });
+      const expected = 'Sydney';
       const actual = foundTrip.destination;
       expect(actual).toEqual(expected);
     });
   });
-})
-
+});
 
 
 // describe('Trip model test', () => {

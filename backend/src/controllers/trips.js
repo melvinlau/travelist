@@ -51,8 +51,8 @@ const getTripsByUserId = async (req, res, next) => {
 
 const createTrip = async (req, res, next) => {
   const {
- destination, dateFrom, dateTo, activity, user 
-} = req.body;
+    destination, dateFrom, dateTo, activity, user,
+  } = req.body;
 
   const createdTrip = new Trip({
     destination,
@@ -73,7 +73,7 @@ const createTrip = async (req, res, next) => {
 };
 
 const updateTrip = async (req, res, next) => {
-  const { destination, activity, items } = req.body;
+  const { destination, activities, items } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -88,8 +88,9 @@ const updateTrip = async (req, res, next) => {
   }
 
   trip.destination = destination;
-  trip.activity = activity;
+  trip.activities = activities;
   trip.items = items;
+  // trip.items.push(ItemController.getItemByActivity(activities));
 
   try {
     await trip.save();

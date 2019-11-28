@@ -1,16 +1,16 @@
-const express = require("express");
-const itemsControllers = require("../controllers/items");
+const express = require('express');
+const itemsControllers = require('../controllers/items');
 
 const router = express.Router();
 
-router.get("/:iid", itemsControllers.getItemById);
+router.get('/:iid', itemsControllers.getItemById);
 
-router.post("/", itemsControllers.createItem);
+router.post('/', itemsControllers.createItem);
 
-router.delete("/:iid", itemsControllers.deleteItem);
+router.delete('/:iid', itemsControllers.deleteItem);
 
-router.get("/activity/:name", itemsControllers.getItemsByActivity);
+router.get('/activity/:name', itemsControllers.getItemsByActivity);
 
-router.get("/weather/:tag", itemsControllers.getItemsByWeather);
+router.get('/weather/:tag', itemsControllers.getItemsByWeather);
 
 module.exports = router;
