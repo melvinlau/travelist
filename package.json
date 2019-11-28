@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/melvinlau/travelist",
   "devDependencies": {
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^2.0.1"
   }
 }
