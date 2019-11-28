@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
 import PackingListItem from './PackingListItem';
 
 function PackingList({ trip, updateTrip }) {
 
+  // Temporarily hardcoded list
   const [items, updateItems] = useState([
     'shirts', 'socks', 'shoes', 'trousers'
   ]);
+
+  const [completedItems, updateCompletedItems] = useState([]);
+
+  // WHen a user deletes
+  // When a user adds an item
+
+  // const deleteItem = (item) => {
+  //
+  // }
 
   return (
     <div>
@@ -21,7 +24,6 @@ function PackingList({ trip, updateTrip }) {
           return <PackingListItem name={item} />
         })
       }
-
     </div>
   );
 }
