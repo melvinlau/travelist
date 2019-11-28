@@ -8,10 +8,20 @@ import {
 
 import PackingListItem from './PackingListItem';
 
-function PackingList() {
+function PackingList({ trip, updateTrip }) {
+
+  const [items, updateItems] = useState([
+    'shirts', 'socks', 'shoes', 'trousers'
+  ]);
+
   return (
     <div>
-      <PackingListItem />
+      {
+        items.map((item) => {
+          return <PackingListItem name={item} />
+        })
+      }
+
     </div>
   );
 }

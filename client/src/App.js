@@ -34,7 +34,10 @@ function App() {
                 />
               </Route>
               <Route path="/travelist">
-                <PackingList />
+                <PackingList
+                  trip={trip}
+                  updateTrip={updateTrip}
+                />
               </Route>
               <Route path="/">
                 <Start
