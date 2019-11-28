@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/:tid', tripsControllers.getTripById);
 
+router.get('/:tid/weather', tripsControllers.getTripWeatherById);
+
 router.get('/user/:uid', tripsControllers.getTripsByUserId);
 
 router.post('/', tripsControllers.createTrip);

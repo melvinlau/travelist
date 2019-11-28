@@ -1,5 +1,5 @@
-const HttpError = require('../models/http-error');
-const Trip = require('../models/trip');
+const HttpError = require("../models/http-error");
+const Trip = require("../models/trip");
 
 const getTripById = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -9,19 +9,45 @@ const getTripById = async (req, res, next) => {
     trip = await Trip.findById(tripId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not find a place.',
-      500,
+      "Something went wrong, could not find a place.",
+      500
     );
     return next(error);
   }
 
   if (!trip) {
     const error = new HttpError(
-      'Could not find a trip for the provided id.',
-      404,
+      "Could not find a trip for the provided id.",
+      404
     );
     return next(error);
   }
+
+  res.json({ trip: trip.toObject({ getters: true }) });
+};
+
+const getTripWeatherById = async (req, res, next) => {
+  const tripId = req.params.tid;
+  let trip;
+
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a place.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!trip) {
+    const error = new HttpError(
+      "Could not find a trip for the provided id.",
+      404
+    );
+    return next(error);
+  }
+  const destination = trip.destination;
 
   res.json({ trip: trip.toObject({ getters: true }) });
 };
@@ -34,38 +60,36 @@ const getTripsByUserId = async (req, res, next) => {
     trips = await Trip.find({ user: userId });
   } catch (err) {
     const error = new HttpError(
-      'Fetching places failed, please try again later',
-      500,
+      "Fetching places failed, please try again later",
+      500
     );
     return next(error);
   }
 
   if (!trips || trips.length === 0) {
     return next(
-      new HttpError('Could not find trips for the provided user id.', 404),
+      new HttpError("Could not find trips for the provided user id.", 404)
     );
   }
 
-  res.json({ trips: trips.map((trip) => trip.toObject({ getters: true })) });
+  res.json({ trips: trips.map(trip => trip.toObject({ getters: true })) });
 };
 
 const createTrip = async (req, res, next) => {
-  const {
- destination, dateFrom, dateTo, activity, user 
-} = req.body;
+  const { destination, dateFrom, dateTo, activity, user } = req.body;
 
   const createdTrip = new Trip({
     destination,
     dateFrom,
     dateTo,
     activity,
-    user,
+    user
   });
 
   try {
     await createdTrip.save();
   } catch (err) {
-    const error = new HttpError('Creating trip failed, please try again.', 500);
+    const error = new HttpError("Creating trip failed, please try again.", 500);
     return next(error);
   }
 
@@ -81,8 +105,8 @@ const updateTrip = async (req, res, next) => {
     trip = await Trip.findById(tripId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update trip.',
-      500,
+      "Something went wrong, could not update trip.",
+      500
     );
     return next(error);
   }
@@ -95,8 +119,8 @@ const updateTrip = async (req, res, next) => {
     await trip.save();
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update trip.',
-      500,
+      "Something went wrong, could not update trip.",
+      500
     );
     return next(error);
   }
@@ -112,17 +136,18 @@ const deleteTrip = async (req, res, next) => {
     trip = await Trip.findByIdAndRemove(tripId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not update trip.',
-      500,
+      "Something went wrong, could not update trip.",
+      500
     );
     return next(error);
   }
 
-  res.status(200).json({ message: 'Deleted trip.' });
+  res.status(200).json({ message: "Deleted trip." });
 };
 
 exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
+exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
 exports.updateTrip = updateTrip;
 exports.deleteTrip = deleteTrip;
