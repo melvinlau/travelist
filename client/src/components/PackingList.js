@@ -52,7 +52,7 @@ function PackingList({ trip, updateTrip }) {
       }
 
       <AddItemForm addItem={addItem} />
-      <Link to="/trips">
+      <Link to="/signup">
         <button>
           Save
         </button>
