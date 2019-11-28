@@ -14,14 +14,12 @@ function ActivityList({ destination, dateTo, dateFrom }) {
 
   const selectActivity = (activity) => {
     setSelectedActivities([...selectedActivities, activity]);
-    console.log(selectedActivities);
   }
 
   const deselectActivity = (index) => {
     const newSelectedActivities = [...selectedActivities];
     newSelectedActivities.splice(index, 1);
     setSelectedActivities(newSelectedActivities);
-    console.log(selectedActivities);
   }
 
   return (
