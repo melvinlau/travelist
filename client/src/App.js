@@ -6,7 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
-import StartForm from './components/StartForm';
+import Start from './components/Start';
 import ActivityList from './components/ActivityList';
 import PackingList from './components/PackingList';
 
@@ -34,7 +34,7 @@ function App() {
                 <PackingList />
               </Route>
               <Route path="/">
-                <StartForm />
+                <Start />
               </Route>
             </Switch>
           </Router>
