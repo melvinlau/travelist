@@ -25,9 +25,6 @@ function App() {
       <div className="row">
         <div className="col-12">
           <Router>
-            <Link to="/">Step 1: Start view</Link> &nbsp;
-            <Link to="/activities">Step 2: Activities</Link> &nbsp;
-            <Link to="/travelist">Step 3: Travelist</Link> &nbsp;
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
             <Switch>
