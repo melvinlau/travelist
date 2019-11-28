@@ -10,6 +10,7 @@ import axios from 'axios';
 import Start from './components/Start';
 import ActivityList from './components/ActivityList';
 import PackingList from './components/PackingList';
+import Trips from './components/Trips';
 
 function App() {
   const [trip, updateTrip] = useState({});
@@ -38,6 +39,9 @@ function App() {
                   trip={trip}
                   updateTrip={updateTrip}
                 />
+              </Route>
+              <Route path="/trips">
+                <Trips />
               </Route>
               <Route path="/">
                 <Start

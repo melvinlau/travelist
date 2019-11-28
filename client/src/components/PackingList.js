@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 
@@ -46,10 +52,11 @@ function PackingList({ trip, updateTrip }) {
       }
 
       <AddItemForm addItem={addItem} />
-
-      <button>
-        Save
-      </button>
+      <Link to="/trips">
+        <button>
+          Save
+        </button>
+      </Link>
     </div>
   );
 }
