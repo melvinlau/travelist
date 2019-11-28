@@ -8,14 +8,42 @@ import {
 import ActivityListItem from './ActivityListItem';
 
 function ActivityList({ destination, dateTo, dateFrom }) {
+
+  const [activities, setActivities] = useState(['skiing', 'hiking', 'surfing']);
+  const [selectedActivities, setSelectedActivities] = useState([]);
+
+  const selectActivity = (activity) => {
+    setSelectedActivities([...selectedActivities, activity]);
+    console.log(selectedActivities);
+  }
+
+  const deselectActivity = (index) => {
+    const newSelectedActivities = [...selectedActivities];
+    newSelectedActivities.splice(index, 1);
+    setSelectedActivities(newSelectedActivities);
+    console.log(selectedActivities);
+  }
+
   return (
     <div>
-      <h1>Trip to {destination}</h1>
-      <h2>Start date: {dateFrom}</h2>
-      <h2>End date: {dateTo}</h2>
-      <ActivityListItem />
+      <h1>Things I'll be doing in {destination}</h1>
+      {
+        activities.map((activity, index) => {
+          return (
+            <ActivityListItem
+              id={index}
+              key={index}
+              name={activity}
+              select={selectActivity}
+              deselect={deselectActivity}
+            />
+          )
+        })
+      }
       <Link to="/travelist">
-        <button className="get-list-button">Generate a Travelist!</button>
+        <button className="get-list-button">
+          Generate a Travelist!
+        </button>
       </Link>
     </div>
   );
