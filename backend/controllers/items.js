@@ -89,11 +89,11 @@ const getItemsByActivity = async (req, res, next) => {
 };
 
 const getItemsByWeather = async (req, res, next) => {
-  const weatherTag = req.params.tag;
+  const weatherTag = req.params.name;
   let items;
 
   try {
-    items = await Item.find({ weather: weatherTag });
+    items = await Item.find({ activities: weatherTag });
   } catch (err) {
     const error = new HttpError(
       "Fetching items failed, please try again",
