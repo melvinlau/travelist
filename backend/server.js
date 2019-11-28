@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const tripsRoutes = require("./routes/trips");
+const itemsRoutes = require("./routes/items");
 const HttpError = require("./models/http-error");
 
 const router = express.Router();
@@ -20,6 +21,7 @@ app.use(logger("dev"));
 
 //append /api for http requests
 app.use("/api/trips", tripsRoutes);
+app.use("/api/items", itemsRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
