@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ActivityListItem({ id, key, name, select, deselect }) {
+function ActivityListItem({ id, name, select, deselect }) {
 
   const [isSelected, setSelected] = useState(false);
 
@@ -17,7 +17,7 @@ function ActivityListItem({ id, key, name, select, deselect }) {
   return (
     <div className="activity-list-item">
       <input type="checkbox"
-        value={isSelected}
+        checked={isSelected}
         onChange={toggleCheckbox}
       />
       <label className="activity-list-item-name"> &nbsp;

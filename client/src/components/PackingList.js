@@ -3,25 +3,45 @@ import PackingListItem from './PackingListItem';
 
 function PackingList({ trip, updateTrip }) {
 
-  // Temporarily hardcoded list
-  const [items, updateItems] = useState([
-    'shirts', 'socks', 'shoes', 'trousers'
-  ]);
+  const [items, updateItems] = useState(['shirts', 'socks', 'shoes', 'trousers']);
 
   const [completedItems, updateCompletedItems] = useState([]);
 
-  // WHen a user deletes
-  // When a user adds an item
+  const complete = (item) => {
+    updateCompletedItems([...completedItems, item]);
+  }
 
-  // const deleteItem = (item) => {
-  //
-  // }
+  const unComplete = (index) => {
+    const newCompletedItems = [...completedItems];
+    newCompletedItems.splice(index, 1);
+    updateCompletedItems(newCompletedItems);
+  }
+
+  const addItem = (item) => {
+    updateItems([...items, item])
+  }
+
+  const deleteItem = (index) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    updateItems(newItems);
+  }
 
   return (
     <div>
       {
-        items.map((item) => {
-          return <PackingListItem name={item} />
+        items.map((item, index) => {
+          return (
+            <PackingListItem
+              key={index}
+              id={index}
+              name={item}
+              complete={complete}
+              unComplete={unComplete}
+              addItem={addItem}
+              deleteItem={deleteItem}
+            />
+          );
         })
       }
     </div>
