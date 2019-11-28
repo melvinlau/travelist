@@ -7,8 +7,10 @@ router.get("/:iid", itemsControllers.getItemById);
 
 router.post("/", itemsControllers.createItem);
 
-router.patch("/:iid", itemsControllers.updateItem);
-
 router.delete("/:iid", itemsControllers.deleteItem);
+
+router.get("/activity/:name", itemsControllers.getItemsByActivity);
+
+router.get("/weather/:tag", itemsControllers.getItemsByWeather);
 
 module.exports = router;
