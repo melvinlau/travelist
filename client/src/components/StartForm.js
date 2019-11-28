@@ -6,10 +6,11 @@ import {
   Link
 } from "react-router-dom";
 
-function StartForm({ setDestination, setDateTo }) {
+function StartForm({ setDestination, setDateTo, setDateFrom }) {
 
   const [userInputDestination, setUserInputDestination] = useState('')
   const [dateTo, setUserEndDate] = useState('')
+  const [dateFrom, setUserStartDate] = useState('')
 
   const handleDestinationChange = e => {
     setUserInputDestination(e.target.value);
@@ -19,11 +20,14 @@ function StartForm({ setDestination, setDateTo }) {
     setUserEndDate(e.target.value)
   }
 
+  const handleStartDateChange = e => {
+    setUserStartDate(e.target.value)
+  }
+
   const submitStartForm = () => {
-    setDestination(userInputDestination);
-    console.log(dateTo);
-    
+    setDestination(userInputDestination);    
     setDateTo(dateTo);
+    setDateFrom(dateFrom);
   }
 
   return (
@@ -39,6 +43,8 @@ function StartForm({ setDestination, setDateTo }) {
         type="date"
         name="date-from"
         placeholder="From"
+        value={dateFrom}
+        onChange={handleStartDateChange}
       /> <br />
       <input
         type="date"

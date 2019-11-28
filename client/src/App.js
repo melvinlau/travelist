@@ -32,13 +32,13 @@ function App() {
             renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/activities">
-                <ActivityList destination={destination} dateTo={dateTo} />
+                <ActivityList destination={destination} dateTo={dateTo} dateFrom={dateFrom}/>
               </Route>
               <Route path="/travelist">
                 <PackingList />
               </Route>
               <Route path="/">
-                <Start setDestination={setDestination} setDateTo={setDateTo} />
+                <Start setDestination={setDestination} setDateTo={setDateTo} setDateFrom={setDateFrom} />
               </Route>
             </Switch>
           </Router>

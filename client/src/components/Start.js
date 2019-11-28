@@ -7,8 +7,8 @@ import {
   Link
 } from "react-router-dom";
 
-function Start({ setDestination, setDateTo }) {
-  return (<StartForm setDestination={setDestination} setDateTo={setDateTo} />);
+function Start({ setDestination, setDateTo, setDateFrom }) {
+  return (<StartForm setDestination={setDestination} setDateTo={setDateTo} setDateFrom={setDateFrom} />);
 }
 
 export default Start;
