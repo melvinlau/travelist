@@ -31,8 +31,8 @@ function ActivityList({ destination, dateTo, dateFrom }) {
         activities.map((activity, index) => {
           return (
             <ActivityListItem
-              id={index}
               key={index}
+              id={index}
               name={activity}
               select={selectActivity}
               deselect={deselectActivity}

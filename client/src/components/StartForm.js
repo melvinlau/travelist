@@ -29,14 +29,14 @@ function StartForm({ trip, updateTrip }) {
     axios.post(
       'http://localhost:3001/api/trips/',
       {
-        "destination": trip.destination,
-        "dateFrom": trip.dateFrom,
-        "dateTo": trip.dateTo
+        "destination": destination,
+        "dateFrom": dateFrom,
+        "dateTo": dateTo
       }
     )
     .then(response => {
       updateTrip(response.data.trip);
-      console.log('Trip', response.data);
+      console.log(response.data);
      })
     .catch(console.log);
   }
