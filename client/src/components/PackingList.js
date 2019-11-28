@@ -44,6 +44,9 @@ function PackingList({ trip, updateTrip }) {
           );
         })
       }
+      <button>
+        Save
+      </button>
     </div>
   );
 }
