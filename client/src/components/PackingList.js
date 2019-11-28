@@ -25,7 +25,7 @@ function PackingList({ trip, updateTrip }) {
   }
 
   const addItem = (item) => {
-    updateItems([...items, item])
+    updateItems([item, ...items])
   }
 
   const deleteItem = (index) => {
@@ -38,6 +38,9 @@ function PackingList({ trip, updateTrip }) {
     <div>
 
       <h3>Trip to {trip.destination} on the {trip.dateFrom}</h3>
+
+      <AddItemForm addItem={addItem} />
+
       {
         items.map((item, index) => {
           return (
@@ -53,7 +56,6 @@ function PackingList({ trip, updateTrip }) {
         })
       }
 
-      <AddItemForm addItem={addItem} />
       <Link to="/signup">
         <button>
           Save

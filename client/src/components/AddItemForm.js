@@ -19,7 +19,7 @@ function AddItemForm({ addItem }) {
         placeholder="Add an item"
         value={value}
         onChange={handleChange}
-      /> <br />
+      />
       <button onClick={handleSubmit}>Add</button>
     </div>
   );
