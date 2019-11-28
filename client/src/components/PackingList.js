@@ -36,6 +36,8 @@ function PackingList({ trip, updateTrip }) {
 
   return (
     <div>
+
+      <h3>Trip to {trip.destination} on the {trip.dateFrom}</h3>
       {
         items.map((item, index) => {
           return (

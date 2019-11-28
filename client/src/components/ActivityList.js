@@ -24,7 +24,7 @@ function ActivityList({ trip, updateTrip }) {
 
   return (
     <div>
-      <h1>Things I'll be doing in {trip.destination}</h1>
+      <h2>Things I'll be doing in {trip.destination}</h2>
       {
         activities.map((activity, index) => {
           return (
