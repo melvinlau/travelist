@@ -7,13 +7,14 @@ import {
 } from "react-router-dom";
 import ActivityListItem from './ActivityListItem';
 
-function ActivityList() {
+function ActivityList({ destination }) {
   return (
     <div>
-    <ActivityListItem />
-    <Link to="/travelist">
-      <button className="get-list-button">Generate a Travelist!</button>
-    </Link>
+      <h1>Trip to {destination}</h1>
+      <ActivityListItem />
+      <Link to="/travelist">
+        <button className="get-list-button">Generate a Travelist!</button>
+      </Link>
     </div>
   );
 }

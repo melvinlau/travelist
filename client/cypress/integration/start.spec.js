@@ -15,4 +15,14 @@ context('Index page', () => {
     });
   });
 
+  it('captures the submitted destination and displays it on the next page', () => {
+    cy.get('.start-form').within(() => {
+      cy.get('input[name="destination"]').type('London');
+      cy.get('input[name="date-from"]').type('2019-12-06');
+      cy.get('input[name="date-to"]').type('2019-12-12');
+      cy.get('.start-button').click();
+    });
+    cy.get('.start-form').should('contain', 'London');
+  });
+
 });

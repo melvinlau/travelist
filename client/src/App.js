@@ -11,6 +11,8 @@ import ActivityList from './components/ActivityList';
 import PackingList from './components/PackingList';
 
 function App() {
+  const [destination, setDestination] = useState('');
+
   return (
     <div className="container">
       <div className="row">
@@ -28,13 +30,13 @@ function App() {
             renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/activities">
-                <ActivityList />
+                <ActivityList destination={destination}/>
               </Route>
               <Route path="/travelist">
                 <PackingList />
               </Route>
               <Route path="/">
-                <Start />
+                <Start setDestination={setDestination} />
               </Route>
             </Switch>
           </Router>
