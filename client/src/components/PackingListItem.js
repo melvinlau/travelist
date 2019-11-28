@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
-function PackingListItem() {
+function PackingListItem({ name }) {
   return (
     <div className="packing-list-item">
       <input type="checkbox" /> &nbsp;
       <label className="packing-list-item-name">
-        Packing list item
-      </label>
+        {name}
+      </label> &nbsp; &nbsp;
+      <button>Delete</button>
     </div>
   );
 }

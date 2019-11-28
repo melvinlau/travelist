@@ -5,56 +5,64 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from 'axios';
 
-function StartForm({ setDestination, setDateTo, setDateFrom }) {
+function StartForm({ trip, updateTrip }) {
 
-  const [userInputDestination, setUserInputDestination] = useState('')
-  const [dateTo, setUserEndDate] = useState('')
-  const [dateFrom, setUserStartDate] = useState('')
+  const [destination, setDestination] = useState('');
+  const [dateFrom, setStartDate] = useState('');
+  const [dateTo, setEndDate] = useState('');
 
   const handleDestinationChange = e => {
-    setUserInputDestination(e.target.value);
-  }
-
-  const handleEndDateChange = e => {
-    setUserEndDate(e.target.value)
+    setDestination(e.target.value);
   }
 
   const handleStartDateChange = e => {
-    setUserStartDate(e.target.value)
+    setStartDate(e.target.value)
   }
 
-  const submitStartForm = () => {
-    setDestination(userInputDestination);    
-    setDateTo(dateTo);
-    setDateFrom(dateFrom);
+  const handleEndDateChange = e => {
+    setEndDate(e.target.value)
+  }
+
+  const handleCreateTrip = () => {
+    axios.post(
+      'http://localhost:3001/api/trips/',
+      {
+        "destination": destination,
+        "dateFrom": dateFrom,
+        "dateTo": dateTo
+      }
+    )
+    .then(response => {
+      updateTrip(response.data.trip);
+      console.log(response.data);
+     })
+    .catch(console.log);
   }
 
   return (
     <div className="start-form">
       <input
         type="text"
-        name="destination"
         placeholder="Destination"
-        value={userInputDestination}
+        value={destination}
         onChange={handleDestinationChange}
       /> <br />
       <input
         type="date"
-        name="date-from"
         placeholder="From"
         value={dateFrom}
         onChange={handleStartDateChange}
       /> <br />
       <input
         type="date"
-        name="date-to"
         placeholder="To"
         value={dateTo}
         onChange={handleEndDateChange}
       /> <br />
       <Link to="/activities">
-        <button className="start-button" onClick={submitStartForm}>
+        <button className="start-button" onClick={handleCreateTrip}>
           Start planning
         </button>
       </Link>

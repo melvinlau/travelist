@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 //database structure
 const TripSchema = new Schema(
   {
@@ -8,7 +9,7 @@ const TripSchema = new Schema(
     dateTo: Date,
     activity: Array,
     items: Array,
-    user: String
+    user: Number
   },
   { timestamps: true }
 );

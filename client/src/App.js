@@ -5,15 +5,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from 'axios';
 
 import Start from './components/Start';
 import ActivityList from './components/ActivityList';
 import PackingList from './components/PackingList';
 
 function App() {
-  const [destination, setDestination] = useState('');
-  const [dateTo, setDateTo] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
+  const [trip, updateTrip] = useState({});
 
   return (
     <div className="container">
@@ -29,13 +28,22 @@ function App() {
             renders the first one that matches the current URL. */}
             <Switch>
               <Route path="/activities">
-                <ActivityList destination={destination} dateTo={dateTo} dateFrom={dateFrom}/>
+                <ActivityList
+                  trip={trip}
+                  updateTrip={updateTrip}
+                />
               </Route>
               <Route path="/travelist">
-                <PackingList />
+                <PackingList
+                  trip={trip}
+                  updateTrip={updateTrip}
+                />
               </Route>
               <Route path="/">
-                <Start setDestination={setDestination} setDateTo={setDateTo} setDateFrom={setDateFrom} />
+                <Start
+                  trip={trip}
+                  updateTrip={updateTrip}
+                />
               </Route>
             </Switch>
           </Router>
