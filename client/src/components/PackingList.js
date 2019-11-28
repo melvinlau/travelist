@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PackingListItem from './PackingListItem';
+import AddItemForm from './AddItemForm';
 
 function PackingList({ trip, updateTrip }) {
 
@@ -38,12 +39,14 @@ function PackingList({ trip, updateTrip }) {
               name={item}
               complete={complete}
               unComplete={unComplete}
-              addItem={addItem}
               deleteItem={deleteItem}
             />
           );
         })
       }
+
+      <AddItemForm addItem={addItem} />
+
       <button>
         Save
       </button>

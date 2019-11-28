@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PackingListItem({ id, name, complete, unComplete, addItem, deleteItem }) {
+function PackingListItem({ id, name, complete, unComplete, deleteItem }) {
 
   const [isComplete, setCompletionStatus] = useState(false);
   const toggleCheckbox = e => {
