@@ -47,7 +47,7 @@ const createItem = async (req, res, next) => {
 };
 
 const updateItem = async (req, res, next) => {
-  const { name, category, activities, item } = req.body;
+  const { name, category, activities, weather } = req.body;
   const itemId = req.params.iid;
 
   let item;
@@ -63,8 +63,8 @@ const updateItem = async (req, res, next) => {
 
   item.name = name;
   item.category = category;
-  item.activities.push(activities);
-  item.weather.push(item);
+  item.activities = activities;
+  item.weather = weather;
 
   try {
     await trip.save();
