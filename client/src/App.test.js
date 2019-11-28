@@ -8,10 +8,6 @@ import {
 import { shallow } from 'enzyme';
 import App from './App';
 
-it('Sample passing test', () => {
-  expect(true).toEqual(true);
-});
-
 describe('<App />', ()=> {
 
   it('renders a single <Router /> component', () => {

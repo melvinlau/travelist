@@ -44,18 +44,21 @@ function StartForm({ trip, updateTrip }) {
   return (
     <div className="start-form">
       <input
+        name="destination"
         type="text"
         placeholder="Destination"
         value={destination}
         onChange={handleDestinationChange}
       /> <br />
       <input
+        name="start-date"
         type="date"
         placeholder="From"
         value={dateFrom}
         onChange={handleStartDateChange}
       /> <br />
       <input
+        name="end-date"
         type="date"
         placeholder="To"
         value={dateTo}
