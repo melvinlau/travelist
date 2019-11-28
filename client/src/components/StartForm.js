@@ -28,7 +28,13 @@ function StartForm({ setDestination, setDateTo, setDateFrom }) {
     setDestination(userInputDestination);    
     setDateTo(dateTo);
     setDateFrom(dateFrom);
+    postStartFormToAPI()
   }
+  //test output 
+  const postStartFormToAPI = () => {
+    console.log(dateTo)
+  }
+
 
   return (
     <div className="start-form">
