@@ -17,28 +17,24 @@ async function getWeather(destination, dateFrom, dateTo) {
     );
     throw error;
   }
-  getWeatherTags(result.data.weather);
+  return getWeatherTags(result.data.weather);
 }
 
 function getWeatherTags(weather) {
-  // get average temperatures and save into array
   const temperature = [];
   const description = [];
   weather.map((day) => {
     temperature.push(parseInt(day.avgtempC, 10));
-    description.push(...getWeatherDesc(day.hourly));
+    description.push(...getWeatherDescription(day.hourly));
   });
-  console.log(temperature);
-  getTemperatureTags(temperature);
-  return data;
-
-  // send array to get temperatureTag
-  // get weather values and save into array
-  // get descriptionTags
-  // merge temperature and weather type arrays and return
+  const tempTags = getTemperatureTags(temperature);
+  console.log(tempTags);
+  const descTags = getDescriptionTags(description);
+  console.log(descTags);
+  return [...tempTags, ...descTags];
 }
 
-const getWeatherDesc = (array) => {
+const getWeatherDescription = (array) => {
   const tags = [];
   array.map((item) => {
     tags.push(item.weatherDesc[0].value);
@@ -51,21 +47,94 @@ const avgTemperature = (temperature) => temperature.reduce((a, b) => a + b, 0) /
 const getTemperatureTags = (temperature) => {
   const avgTemp = avgTemperature(temperature);
   if (avgTemp > 25) {
-    return 'hot';
+    return ['hot'];
   }
   if (avgTemp < 12) {
-    return 'cold';
+    return ['cold'];
   }
 };
 
-function getDescriptionTags(descriptionArray) {
-  // count number of elements that are rainy (drizzle, shower, etc)
-  // count number of elements that are snowy
-  // count number of sunny
-  // push to the tag array
-  // return tag array
-}
+const countUnique = (array) => {
+  const uniqueItems = Array.from(new Set(array));
+  const countedUnique = [];
 
+  uniqueItems.map((unique) => {
+    const result = [];
+    let counter = 0;
+    result.push(unique);
+    for (let i = 0; i < array.length; ++i) {
+      if (array[i] === unique) {
+        counter += 1;
+      }
+    }
+    result.push(counter);
+    countedUnique.push(result);
+  });
+  return countedUnique;
+};
+
+const getTwoMaxItems = (array) => {
+  const topTwo = [];
+  let weatherCount = array;
+  let max;
+
+  for (let i = 0; i < 2; ++i) {
+    if (weatherCount.length === 0) {
+      break;
+    }
+    max = weatherCount[0][1];
+    for (let i = 0; i < weatherCount.length; ++i) {
+      if (weatherCount[i][1] > max) {
+        max = weatherCount[i][1];
+      }
+    }
+    const found = weatherCount.find((element) => element[1] === max);
+    topTwo.push(found[0]);
+    weatherCount = weatherCount.filter((item) => item !== found);
+  }
+
+  return topTwo;
+};
+
+const filterWeather = (array) => {
+  let filteredItems;
+  filteredItems = array;
+  filteredItems.map((item, index) => {
+    const string = item.toLowerCase();
+    // console.log(item);
+    if (
+      string.includes('rain')
+      || string.includes('shower')
+      || string.includes('drizzle')
+    ) {
+      filteredItems[index] = 'rainy';
+    } else if (
+      string.includes('snow')
+      || string.includes('snowy')
+      || string.includes('blizzard')
+    ) {
+      filteredItems[index] = 'snowy';
+    } else if (string.includes('sunny') || string.includes('clear')) {
+      filteredItems[index] = 'sunny';
+    } else {
+      filteredItems[index] = 'other';
+    }
+  });
+
+  return filteredItems.filter((value) => value != 'other');
+};
+const getDescriptionTags = (array) => {
+  const filteredWeather = filterWeather(array);
+  const countedItems = countUnique(filteredWeather);
+  return getTwoMaxItems(countedItems);
+};
+
+exports.getWeatherTags = getWeatherTags;
+exports.filterWeather = filterWeather;
+exports.getTwoMaxItems = getTwoMaxItems;
+exports.countUnique = countUnique;
+exports.getDescriptionTags = getDescriptionTags;
 exports.getTemperatureTags = getTemperatureTags;
 exports.avgTemperature = avgTemperature;
+exports.getWeatherDescription = getWeatherDescription;
 exports.getWeather = getWeather;

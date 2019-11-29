@@ -63,7 +63,7 @@ const getTripWeatherById = async (req, res, next) => {
     );
     return next(error);
   }
-  // console.log(weather);
+  console.log(weather);
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
