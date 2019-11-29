@@ -1,14 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-//database structure
+const {Schema} = mongoose;
+
+// database structure
 const ItemSchema = new Schema(
   {
     name: String,
+    default: Boolean,
     category: String,
     activities: Array,
-    weather: Array
+    weather: Array,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
-module.exports = mongoose.model("Item", ItemSchema);
+module.exports = mongoose.model('Item', ItemSchema);
