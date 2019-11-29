@@ -27,10 +27,8 @@ function getWeatherTags(weather) {
   weather.map((day) => {
     temperature.push(parseInt(day.avgtempC, 10));
     description.push(...getWeatherDesc(day.hourly));
-    // description = [...getWeatherDesc(day.hourly)];
   });
   console.log(temperature);
-  console.log(description);
   getTemperatureTags(temperature);
   return data;
 
@@ -49,12 +47,18 @@ function getWeatherDesc(array) {
   return tags;
 }
 
-function getTemperatureTags(temperatures) {
-  const avgTemperature = (temperatures) => temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
-  console.log(avgTemperature);
+function getTemperatureTags(temperature) {
+  const avgTemperature = temperature =>
+    temperature.reduce((a, b) => a + b, 0) / temperature.length;
+  const avgTemp = avgTemperature(temperature);
   // find an average temparature
   // if avg temp > 25 -> hot
   // if avg temp < 15 -> cold
+  if (avgTemp > 25) {
+    return "hot";
+  } if (avgTemp < 12) {
+    return "cold";
+  }
 }
 
 function getDescriptionTags(descriptionArray) {
