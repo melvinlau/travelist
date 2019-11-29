@@ -45,6 +45,7 @@ function StartForm({ trip, updateTrip }) {
     <div className="start-form">
       <input
         name="destination"
+        data-cy="destination"
         type="text"
         placeholder="Destination"
         value={destination}
@@ -52,6 +53,7 @@ function StartForm({ trip, updateTrip }) {
       /> <br />
       <input
         name="start-date"
+        data-cy="start-date"
         type="date"
         placeholder="From"
         value={dateFrom}
@@ -59,13 +61,14 @@ function StartForm({ trip, updateTrip }) {
       /> <br />
       <input
         name="end-date"
+        data-cy="end-date"
         type="date"
         placeholder="To"
         value={dateTo}
         onChange={handleEndDateChange}
       /> <br />
       <Link to="/activities">
-        <button className="start-button" onClick={handleCreateTrip}>
+        <button className="start-button" data-cy="start-button" onClick={handleCreateTrip}>
           Start planning
         </button>
       </Link>

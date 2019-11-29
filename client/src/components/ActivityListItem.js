@@ -15,12 +15,13 @@ function ActivityListItem({ id, name, select, deselect }) {
   }
 
   return (
-    <div className="activity-list-item">
-      <input type="checkbox"
+    <div className="activity-list-item" data-cy="activity-list-item">
+      <input
+        type="checkbox"
         checked={isSelected}
         onChange={toggleCheckbox}
       />
-      <label className="activity-list-item-name"> &nbsp;
+      <label data-cy="activity-name"> &nbsp;
         {name}
       </label>
     </div>

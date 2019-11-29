@@ -39,7 +39,7 @@ function ActivityList({ trip, updateTrip }) {
         })
       }
       <Link to="/travelist">
-        <button className="get-list-button">
+        <button className="get-list-button" data-cy="generate-list-button">
           Generate a Travelist!
         </button>
       </Link>

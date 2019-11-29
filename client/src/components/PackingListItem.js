@@ -14,15 +14,16 @@ function PackingListItem({ id, name, complete, unComplete, deleteItem }) {
   }
 
   return (
-    <div className="packing-list-item">
-      <input type="checkbox"
+    <div className="packing-list-item" data-cy="packing-list-item">
+      <input
+        type="checkbox"
         checked={isComplete}
         onChange={toggleCheckbox}
       /> &nbsp;
-      <label className="packing-list-item-name">
+      <label data-cy="item-name">
         {name}
       </label> &nbsp; &nbsp;
-      <a className="delete-button" onClick={() => { deleteItem(id) }}>
+      <a data-cy="delete-button" onClick={() => { deleteItem(id) }}>
         <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
       </a>
     </div>

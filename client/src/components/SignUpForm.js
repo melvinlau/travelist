@@ -11,6 +11,7 @@ function SignUpForm() {
     <div>
       <input
         name="email"
+        data-cy="email"
         type="email"
         placeholder="Email"
         required
@@ -18,12 +19,14 @@ function SignUpForm() {
       /> <br />
       <input
         name="password"
+        data-cy="password"
         type="password"
         placeholder="Password"
         required
       /> <br />
       <input
         name="password-confirmation"
+        data-cy="password-confirmation"
         type="password"
         placeholder="Confirm password"
         required
