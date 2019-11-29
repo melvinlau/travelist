@@ -1,5 +1,6 @@
 const HttpError = require('../models/http-error');
 const Trip = require('../models/trip');
+const itemsController = require('../controllers/items');
 const Weather = require('../services/weather-services');
 
 const getTripById = async (req, res, next) => {
@@ -114,8 +115,9 @@ const createTrip = async (req, res, next) => {
 };
 
 const updateTrip = async (req, res, next) => {
-  const { destination, activity, items } = req.body;
+  const { destination, activities, items } = req.body;
   const tripId = req.params.tid;
+  console.log(req.body);
 
   let trip;
   try {
@@ -128,9 +130,22 @@ const updateTrip = async (req, res, next) => {
     return next(error);
   }
 
+  let itemByActivity;
+  try {
+    itemByActivity = await itemsController.getItemsByActivity(activities);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find items for this activity.',
+      500,
+    );
+    return next(error);
+  }
+
   trip.destination = destination;
-  trip.activity = activity;
-  trip.items = items;
+  trip.activities = activities;
+  trip.items = itemByActivity;
+
+  console.log(trip.items);
 
   try {
     await trip.save();

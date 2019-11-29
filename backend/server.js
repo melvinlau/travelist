@@ -7,9 +7,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const tripsRoutes = require('./src/routes/trips');
-const usersRoutes = require('./src/routes/users');
-const itemsRoutes = require('./src/routes/items');
+const tripsRoutes = require('./src/routes/tripsRoutes');
+const usersRoutes = require('./src/routes/usersRoutes');
+const itemsRoutes = require('./src/routes/itemsRoutes');
 const HttpError = require('./src/models/http-error');
 
 dotenv.config();

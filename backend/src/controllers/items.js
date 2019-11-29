@@ -1,5 +1,7 @@
-const HttpError = require("../models/http-error");
-const Item = require("../models/item");
+/* eslint-disable no-unused-vars */
+/* eslint-disable consistent-return */
+const HttpError = require('../models/http-error');
+const Item = require('../models/item');
 
 const getItemById = async (req, res, next) => {
   const itemId = req.params.iid;
@@ -9,16 +11,16 @@ const getItemById = async (req, res, next) => {
     item = await Item.findById(itemId);
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find an item.",
-      500
+      'Something went wrong, could not find an item.',
+      500,
     );
     return next(error);
   }
 
   if (!item) {
     const error = new HttpError(
-      "Could not find an item for the provided id.",
-      404
+      'Could not find an item for the provided id.',
+      404,
     );
     return next(error);
   }
@@ -27,19 +29,21 @@ const getItemById = async (req, res, next) => {
 };
 
 const createItem = async (req, res, next) => {
-  const { name, category, activities, weather } = req.body;
+  const {
+    name, category, activities, weather,
+  } = req.body;
 
   const createdItem = new Item({
     name,
     category,
     activities,
-    weather
+    weather,
   });
 
   try {
     await createdItem.save();
   } catch (err) {
-    const error = new HttpError("Creating item failed, please try again.", 500);
+    const error = new HttpError('Creating item failed, please try again.', 500);
     return next(error);
   }
 
@@ -54,38 +58,37 @@ const deleteItem = async (req, res, next) => {
     item = await Item.findByIdAndRemove(itemId);
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not update item.",
-      500
+      'Something went wrong, could not update item.',
+      500,
     );
     return next(error);
   }
 
-  res.status(200).json({ message: "Deleted item." });
+  res.status(200).json({ message: 'Deleted item.' });
 };
 
-const getItemsByActivity = async (req, res, next) => {
-  const activityName = req.params.name;
+const getItemsByActivity = async (array) => {
   let items;
 
   try {
-    items = await Item.find({ activities: activityName });
+    items = await Item.find({ activities: { $in: array } });
   } catch (err) {
     const error = new HttpError(
-      "Fetching items failed, please try again",
-      500
+      'Fetching items failed, please try again',
+      500,
     );
     return next(error);
   }
 
   if (!items || items.length === 0) {
     const error = new HttpError(
-      "Could not find an item for the provided name.",
-      404
+      'Could not find an item for the provided name.',
+      404,
     );
     return next(error);
   }
 
-  res.json({ items: items.map(item => item.toObject({ getters: true })) });
+  return items.map((item) => item.name);
 };
 
 const getItemsByWeather = async (req, res, next) => {
@@ -96,21 +99,21 @@ const getItemsByWeather = async (req, res, next) => {
     items = await Item.find({ activities: weatherTag });
   } catch (err) {
     const error = new HttpError(
-      "Fetching items failed, please try again",
-      500
+      'Fetching items failed, please try again',
+      500,
     );
     return next(error);
   }
 
   if (!items || items.length === 0) {
     const error = new HttpError(
-      "Could not find an item for the provided name.",
-      404
+      'Could not find an item for the provided name.',
+      404,
     );
     return next(error);
   }
 
-  res.json({ items: items.map(item => item.toObject({ getters: true })) });
+  res.json({ items: items.map((item) => item.toObject({ getters: true })) });
 };
 
 
