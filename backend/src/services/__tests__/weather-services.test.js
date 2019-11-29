@@ -164,6 +164,12 @@ describe('Weather Services', () => {
       expect(weatherServices.getDescriptionTags(input)).toEqual(['rainy']);
     });
   });
+  describe('#getDate', () => {
+    test('Extract month and day from the date and format them', () => {
+      const input = new Date(2019, 0, 23);
+      expect(weatherServices.getDate(input)).toEqual('01-23');
+    });
+  });
   describe('#filterWeather', () => {
     test('Convert rain related tems to rainy', () => {
       const input = [

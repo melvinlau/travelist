@@ -4,10 +4,12 @@ const HttpError = require('../models/http-error');
 
 async function getWeather(destination, dateFrom, dateTo) {
   let result;
+  const from = getDate(dateFrom);
+  const to = getDate(dateTo);
   try {
     const apiKey = process.env.WEATHER_API_KEY;
     const data = await fetch(
-      `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-02-20&enddate=2018-02-21`,
+      `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-${from}&enddate=2018-${to}`,
     );
     result = await data.json();
   } catch (err) {
@@ -28,9 +30,7 @@ function getWeatherTags(weather) {
     description.push(...getWeatherDescription(day.hourly));
   });
   const tempTags = getTemperatureTags(temperature);
-  console.log(tempTags);
   const descTags = getDescriptionTags(description);
-  console.log(descTags);
   return [...tempTags, ...descTags];
 }
 
@@ -129,6 +129,14 @@ const getDescriptionTags = (array) => {
   return getTwoMaxItems(countedItems);
 };
 
+const getDate = (date) => {
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const newDate = `${mm}-${dd}`;
+  return newDate;
+};
+
+exports.getDate = getDate;
 exports.getWeatherTags = getWeatherTags;
 exports.filterWeather = filterWeather;
 exports.getTwoMaxItems = getTwoMaxItems;
