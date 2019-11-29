@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,23 @@ function ActivityList({ trip, updateTrip }) {
     setSelectedActivities(newSelectedActivities);
   }
 
+  const handleCreateList = e => {
+    axios.patch(
+      `http://localhost:3001/api/trips/${trip._id}`,
+      {
+        "destination": trip.destination,
+        "activity": selectedActivities,
+        "items": trip.items
+      }
+    )
+    .then(response => {
+      updateTrip(response.data.trip);
+      console.log(response.data);
+     })
+    .catch(console.log);
+
+  }
+
   return (
     <div>
       <h2>Things I'll be doing in {trip.destination}</h2>
@@ -39,7 +57,7 @@ function ActivityList({ trip, updateTrip }) {
         })
       }
       <Link to="/travelist">
-        <button className="get-list-button" data-cy="generate-list-button">
+        <button data-cy="generate-list-button" onClick={handleCreateList}>
           Generate a Travelist!
         </button>
       </Link>
