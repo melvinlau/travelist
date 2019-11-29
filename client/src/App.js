@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-12 col-sm-4">
+        <div className="col-10 col-sm-4">
           <div className="row">
             <div className="col-12 mt-4">
               <h1 className="logo">Travelist</h1>

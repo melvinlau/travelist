@@ -22,9 +22,9 @@ function PackingListItem({ id, name, complete, unComplete, deleteItem }) {
       <label className="packing-list-item-name">
         {name}
       </label> &nbsp; &nbsp;
-      <button onClick={() => { deleteItem(id) }}>
-        Delete
-      </button>
+      <a className="delete-button" onClick={() => { deleteItem(id) }}>
+        <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
+      </a>
     </div>
   );
 }
