@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Item = require('../../src/models/item');
-const itemsController = require('../../src/controllers/items');
+const Item = require('../../models/item');
+const itemsController = require('../items');
 
 describe('Items tests', () => {
   beforeAll(async () => {
@@ -28,14 +28,14 @@ describe('Items tests', () => {
       name: 'Bikini',
       category: 'clothes',
       activities: ['beach'],
-      weather: ['hot']
+      weather: ['hot'],
     });
     await item3.save();
     const item4 = new Item({
       name: 'Scarf',
       category: 'clothes',
       activities: ['ski'],
-      weather: ['hot']
+      weather: ['hot'],
     });
     await item4.save();
   });

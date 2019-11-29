@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Trip = require('../../src/models/trip');
-const tripsController = require('../../src/controllers/trips');
 const httpMocks = require('node-mocks-http');
+const Trip = require('../../models/trip');
+const tripsController = require('../trips');
 
 const tripController = describe('Trips tests', () => {
   beforeAll(async () => {
@@ -11,7 +11,9 @@ const tripController = describe('Trips tests', () => {
   });
 
   beforeEach(async () => {
-    const trip = new Trip({ id: 1, destination: 'Sydney', dateFrom: '2020-05-01', dateTo: '2020-05-05' });
+    const trip = new Trip({
+      id: 1, destination: 'Sydney', dateFrom: '2020-05-01', dateTo: '2020-05-05',
+    });
     await trip.save();
   });
 
@@ -36,16 +38,26 @@ const tripController = describe('Trips tests', () => {
     });
   });
 
-  //need to stub/mock middleware 
+  describe('creates and saves a trip successfully', () => {
+    it('gets a trip', async () => {
+      const req = httpMocks.createRequest({
+        params: { id: 1 },
+      });
+      const res = httpMocks.createResponse();
+    });
+  });
+
+
+  // need to stub/mock middleware
 
   // describe('sets trip items appropriately based on activities', () => {
   //   it('gets a trip', async () => {
-  //     const foundTrip = await Trip.find({ destination: 'Sydney' });
-  //     const mock = jest.fn();
-  //     mock(foundTrip);
-  //     const updatedTrip = mock.tripsController.updateTrip({ activities: ['walking', 'hiking'] });
-  //     await updatedTrip.save();
-  //     expect(updatedTrip.items).toEqual(['Boots', 'Tshirt']);
+  //     const reqMock = {
+  //       body: { activities: ['beach'] },
+  //       params: { tid: 1 },
+  //     };
+  //     updatedTrip = await tripsController.updateTrip(reqMock);
+  //     expect(updatedTrip).toEqual(['Tshirt']);
   //   });
   // });
 
@@ -69,4 +81,4 @@ const tripController = describe('Trips tests', () => {
   //   return getThings(req, res).then((response) => {
   //     assert.equal(Array.isArray(response.things), 'true');
   //   });
-  // });
+});

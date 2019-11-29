@@ -76,6 +76,7 @@ const createTrip = async (req, res, next) => {
 const updateTrip = async (req, res, next) => {
   const { destination, activities, items } = req.body;
   const tripId = req.params.tid;
+  console.log(req.body);
 
   let trip;
   try {
@@ -102,6 +103,8 @@ const updateTrip = async (req, res, next) => {
   trip.destination = destination;
   trip.activities = activities;
   trip.items = itemByActivity;
+
+  console.log(trip.items);
 
   try {
     await trip.save();
