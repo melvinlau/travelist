@@ -8,6 +8,7 @@ function AddItemForm({ addItem }) {
   }
 
   const handleSubmit = () => {
+    if (value === '') return alert('You cannot add a blank item');
     addItem(value);
     setValue('');
   }

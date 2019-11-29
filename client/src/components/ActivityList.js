@@ -40,9 +40,17 @@ function ActivityList({ trip, updateTrip }) {
 
   }
 
+  const header = () => {
+    if (trip.destination) {
+      return (<h2>Things I'll be doing in {trip.destination}</h2>);
+    }
+  }
+
   return (
     <div>
-      <h2>Things I'll be doing in {trip.destination}</h2>
+
+      { header() }
+
       {
         activities.map((activity, index) => {
           return (

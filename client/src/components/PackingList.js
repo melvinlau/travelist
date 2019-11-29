@@ -34,10 +34,27 @@ function PackingList({ trip, updateTrip }) {
     updateItems(newItems);
   }
 
+  const formattedDate = (dateString) => {
+    const options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    };
+    return new Date(dateString).toLocaleString(undefined, options);
+  }
+
+  const formattedDateFrom = formattedDate(trip.dateFrom);
+
+  const header = () => {
+    if (trip.destination && trip.dateFrom) {
+      return (<h3>Trip to {trip.destination} on {formattedDateFrom}</h3>);
+    }
+  }
+
   return (
     <div>
 
-      <h3>Trip to {trip.destination} on the {trip.dateFrom}</h3>
+      { header() }
 
       <AddItemForm addItem={addItem} />
 
