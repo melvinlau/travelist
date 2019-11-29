@@ -48,10 +48,12 @@ const getTripWeatherById = async (req, res, next) => {
     );
     return next(error);
   }
+
   const city = trip.destination;
   const from = trip.dateFrom;
   const to = trip.dateTo;
   let weather;
+
   try {
     weather = await Weather.getWeather(city, from, to);
   } catch (err) {
@@ -61,6 +63,7 @@ const getTripWeatherById = async (req, res, next) => {
     );
     return next(error);
   }
+  // console.log(weather);
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 

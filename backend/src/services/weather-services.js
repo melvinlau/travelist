@@ -1,48 +1,57 @@
+/* eslint-disable no-useless-catch */
 const fetch = require('node-fetch');
-
-// async function getWeather(destination, dateFrom, dateTo) {
-//   // function getWeather(destination, dateFrom, dateTo) {
-//   const apiKey = process.env.WEATHER_API_KEY;
-//   const apiUrl = `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-02-20&enddate=2018-02-25`;
-// const dateFrom =
-// const dateTo =
-// const result = fetch(
-//   `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-02-20&enddate=2018-02-25`,
-// )
-//   .then((response) => response.json())
-//   .then((data) => data);
-//   const result = fetch(apiUrl)
-//     .then((res) => res.json())
-//     .then((data) => data)
-//     .catch((error) => {
-//       throw error;
-//     });
-//   console.log(result);
-//   return result;
-// }
+const HttpError = require('../models/http-error');
 
 async function getWeather(destination, dateFrom, dateTo) {
+  let result;
   try {
     const apiKey = process.env.WEATHER_API_KEY;
     const data = await fetch(
-      `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-02-20&enddate=2018-02-25`,
+      `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-02-20&enddate=2018-02-21`,
     );
-    const result = await data.json();
-    return result.data.weather;
-  } catch (error) {
+    result = await data.json();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not connect to weather API',
+      500,
+    );
     throw error;
   }
+  getWeatherTags(result.data.weather);
 }
 
 function getWeatherTags(weather) {
   // get average temperatures and save into array
+  const temperature = [];
+  const description = [];
+  weather.map((day) => {
+    temperature.push(parseInt(day.avgtempC, 10));
+    description.push(...getWeatherDesc(day.hourly));
+    // description = [...getWeatherDesc(day.hourly)];
+  });
+  console.log(temperature);
+  console.log(description);
+  getTemperatureTags(temperature);
+  return data;
+
   // send array to get temperatureTag
   // get weather values and save into array
   // get descriptionTags
   // merge temperature and weather type arrays and return
 }
 
-function getTemperatureTags(temperatureArray) {
+function getWeatherDesc(array) {
+  const tags = [];
+  array.map((item) => {
+    tags.push(item.weatherDesc[0].value);
+  });
+  // console.log(tags);
+  return tags;
+}
+
+function getTemperatureTags(temperatures) {
+  const avgTemperature = (temperatures) => temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
+  console.log(avgTemperature);
   // find an average temparature
   // if avg temp > 25 -> hot
   // if avg temp < 15 -> cold
