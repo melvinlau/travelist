@@ -1,5 +1,6 @@
 const HttpError = require('../models/http-error');
 const Trip = require('../models/trip');
+const Weather = require('../services/weather-services');
 
 const getTripById = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -23,6 +24,46 @@ const getTripById = async (req, res, next) => {
     return next(error);
   }
 
+  res.json({ trip: trip.toObject({ getters: true }) });
+};
+
+const getTripWeatherById = async (req, res, next) => {
+  const tripId = req.params.tid;
+  let trip;
+
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not find a place.',
+      500,
+    );
+    return next(error);
+  }
+
+  if (!trip) {
+    const error = new HttpError(
+      'Could not find a trip for the provided id.',
+      404,
+    );
+    return next(error);
+  }
+
+  const city = trip.destination;
+  const from = trip.dateFrom;
+  const to = trip.dateTo;
+  let weather;
+
+  try {
+    weather = await Weather.getWeather(city, from, to);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not get the weather',
+      500,
+    );
+    return next(error);
+  }
+  console.log(weather);
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
@@ -123,6 +164,7 @@ const deleteTrip = async (req, res, next) => {
 
 exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
+exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
 exports.updateTrip = updateTrip;
 exports.deleteTrip = deleteTrip;

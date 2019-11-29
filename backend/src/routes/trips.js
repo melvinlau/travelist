@@ -1,16 +1,18 @@
-const express = require("express");
-const tripsControllers = require("../controllers/trips");
+const express = require('express');
+const tripsControllers = require('../controllers/trips');
 
 const router = express.Router();
 
-router.get("/:tid", tripsControllers.getTripById);
+router.get('/:tid', tripsControllers.getTripById);
 
-router.get("/user/:uid", tripsControllers.getTripsByUserId);
+router.get('/:tid/weather', tripsControllers.getTripWeatherById);
 
-router.post("/", tripsControllers.createTrip);
+router.get('/user/:uid', tripsControllers.getTripsByUserId);
 
-router.patch("/:tid", tripsControllers.updateTrip);
+router.post('/', tripsControllers.createTrip);
 
-router.delete("/:tid", tripsControllers.deleteTrip);
+router.patch('/:tid', tripsControllers.updateTrip);
+
+router.delete('/:tid', tripsControllers.deleteTrip);
 
 module.exports = router;
