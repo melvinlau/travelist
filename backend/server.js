@@ -1,4 +1,7 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
+
+const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -9,7 +12,7 @@ const usersRoutes = require('./src/routes/usersRoutes');
 const itemsRoutes = require('./src/routes/itemsRoutes');
 const HttpError = require('./src/models/http-error');
 
-const API_PORT = 3001;
+dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -38,13 +41,9 @@ app.use((error, req, res, next) => {
 
 // connect to DB and start the server
 mongoose
-  .connect(
-    'mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/development?retryWrites=true&w=majority',
-    { useNewUrlParser: true },
-    () => console.log('connected to database'),
-  )
+  .connect(process.env.MONGODB_DEV, { useNewUrlParser: true }, () => console.log('connected to database'),)
   .then(() => {
-    app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+    app.listen(process.env.API_PORT, () => console.log(`LISTENING ON PORT ${process.env.API_PORT}`),);
   })
   .catch((err) => {
     console.log(err);
