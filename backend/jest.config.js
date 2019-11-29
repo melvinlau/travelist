@@ -5,8 +5,8 @@ module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
-  //adds mongodb jest
-  preset: '@shelf/jest-mongodb',
+  // adds mongodb jest
+  // preset: '@shelf/jest-mongodb',
   // Stop running tests after `n` failures
   // bail: 0,
 
@@ -26,7 +26,7 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -134,7 +134,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

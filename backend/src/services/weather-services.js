@@ -38,28 +38,25 @@ function getWeatherTags(weather) {
   // merge temperature and weather type arrays and return
 }
 
-function getWeatherDesc(array) {
+const getWeatherDesc = (array) => {
   const tags = [];
   array.map((item) => {
     tags.push(item.weatherDesc[0].value);
   });
-  // console.log(tags);
   return tags;
-}
+};
 
-function getTemperatureTags(temperature) {
-  const avgTemperature = temperature =>
-    temperature.reduce((a, b) => a + b, 0) / temperature.length;
+const avgTemperature = (temperature) => temperature.reduce((a, b) => a + b, 0) / temperature.length;
+
+const getTemperatureTags = (temperature) => {
   const avgTemp = avgTemperature(temperature);
-  // find an average temparature
-  // if avg temp > 25 -> hot
-  // if avg temp < 15 -> cold
   if (avgTemp > 25) {
-    return "hot";
-  } if (avgTemp < 12) {
-    return "cold";
+    return 'hot';
   }
-}
+  if (avgTemp < 12) {
+    return 'cold';
+  }
+};
 
 function getDescriptionTags(descriptionArray) {
   // count number of elements that are rainy (drizzle, shower, etc)
@@ -69,4 +66,6 @@ function getDescriptionTags(descriptionArray) {
   // return tag array
 }
 
+exports.getTemperatureTags = getTemperatureTags;
+exports.avgTemperature = avgTemperature;
 exports.getWeather = getWeather;
