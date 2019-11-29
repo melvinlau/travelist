@@ -1,30 +1,18 @@
 const mongoose = require('mongoose');
-// mongoose
-//   .connect(
-//     "mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/test?retryWrites=true&w=majority",
-//     { useNewUrlParser: true },
-//     () => console.log('connected to database')
-//   )
-// const mongoDB = 'mongodb://127.0.0.1:27017/trips';
-// mongoose.connect(mongoDB, { useNewUrlParser: true }))
 const Trip = require('../../src/models/trip');
-// const tripData = { id: 1, destination: 'Sydney', dateFrom: "2020-05-01", dateTo: "2020-05-05", activity: ["museum", "beach"], items: [], user: 1 }
+const tripsController = require('../../src/controllers/trips');
+const httpMocks = require('node-mocks-http');
 
-// const db = mongoose.connection
-
-// db.once('open', _ => {
-//   console.log('Database connected:', mongoDB)
-// })
-
-// db.on('error', err => {
-//   console.error('connection error:', err)
-// })
-
-describe('Trips tests', () => {
+const tripController = describe('Trips tests', () => {
   beforeAll(async () => {
     const mongoDB = 'mongodb+srv://travel_team:Travel4545!@cluster0-0wz6h.mongodb.net/test?retryWrites=true&w=majority';
     mongoose.connect(mongoDB, { useNewUrlParser: true });
     await Trip.remove({});
+  });
+
+  beforeEach(async () => {
+    const trip = new Trip({ id: 1, destination: 'Sydney', dateFrom: '2020-05-01', dateTo: '2020-05-05' });
+    await trip.save();
   });
 
   afterEach(async () => {
@@ -43,61 +31,42 @@ describe('Trips tests', () => {
 
   describe('creates and saves a trip successfully', () => {
     it('gets a trip', async () => {
-      const trip = new Trip({ destination: 'Sydney', dateFrom: '2020-05-01', dateTo: '2020-05-05' });
-      await trip.save();
-
       const foundTrip = await Trip.findOne({ destination: 'Sydney' });
-      const expected = 'Sydney';
-      const actual = foundTrip.destination;
-      expect(actual).toEqual(expected);
+      expect(foundTrip.destination).toEqual('Sydney');
     });
   });
-});
 
+  //need to stub/mock middleware 
 
-// describe('Trip model test', () => {
-//   beforeAll(async () => {
-//     const url = `mongodb://127.0.0.1/trips`
-//     await mongoose.connect(url, { useNewUrlParser: true })
-//     //   { useNewUrlParser: true, useCreateIndex: true }, (err) => {
-//     //     if (err) {
-//     //       console.log(err);
-//     //       process.exit(1);
-//     //     }
-//     //   });
-//     // db = await connection.db(global.__MONGO_DB_NAME__);
-//   });
+  // describe('sets trip items appropriately based on activities', () => {
+  //   it('gets a trip', async () => {
+  //     const foundTrip = await Trip.find({ destination: 'Sydney' });
+  //     const mock = jest.fn();
+  //     mock(foundTrip);
+  //     const updatedTrip = mock.tripsController.updateTrip({ activities: ['walking', 'hiking'] });
+  //     await updatedTrip.save();
+  //     expect(updatedTrip.items).toEqual(['Boots', 'Tshirt']);
+  //   });
+  // });
 
-//   // it('creates and saves a trip successfully', async () => {
-//   //   const validTrip = new TripModel(tripData);
-//   //   const savedTrip = await validTrip.save();
+  // describe('sets trip items appropriately based on activities', () => {
+  //   it('gets a trip', async () => {
+  //     const req = httpMocks.createRequest({
+  //       params: { id: 1 }
+  //     });
+  //     const res = httpMocks.createResponse();
+  //     return getThings(req, res).then((response) => {
+  //       assert.equal(Array.isArray(response.things), 'true');
+  //     });
+  //   });
+  // });
 
-//   //   expect(savedTrip._id).toBeDefined();
-//   //   expect(savedTrip.destination).toBe(tripData.destination);
-//   //   expect(savedTrip.dateFrom).toBe("2020-05-01");
-//   //   expect(savedTrip.dateTo).toBe("2020-05-05");
-//   //   expect(savedTrip.activity).toBe(["museum", "beach"]);
-//   //   expect(savedTrip.items).toBe([]);
-//   //   expect(savedTrip.user).toBe(1);
-//   // });
-
-//   // afterAll(async () => {
-//   //   await connection.close();
-//   // });
-//   it('Should save user to database', async done => {
-//     const res = await request.post('/api/trips')
-//       .send(tripData)
-
-//     const trip = await Trip.findOne({ destination: 'Sydney' })
-//     expect(trip.destination).toBeTruthy()
-//     expect(trip.activity).toBeTruthy()
-
-//     // expect(trip.body.destination).to
-//     done()
-//   })
-
-//   // afterEach(async () => {
-//   //   await Trip.deleteMany()
-//   // })
-
-// });
+  // test('getThings resolves to an array of objects', (assert) => {
+  //   const req = httpMocks.createRequest({
+  //     params: { id: '12345' }
+  //   });
+  //   const res = httpMocks.createResponse();
+  //   return getThings(req, res).then((response) => {
+  //     assert.equal(Array.isArray(response.things), 'true');
+  //   });
+  // });
