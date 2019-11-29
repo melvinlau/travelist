@@ -42,7 +42,7 @@ function ActivityList({ trip, updateTrip }) {
 
   const header = () => {
     if (trip.destination) {
-      return (<h2>Things I'll be doing in {trip.destination}</h2>);
+      return (<h3>Things I'll be doing in {trip.destination}</h3>);
     }
   }
 

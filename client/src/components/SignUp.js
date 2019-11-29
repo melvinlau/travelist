@@ -10,7 +10,7 @@ import SignUpForm from './SignUpForm';
 function SignUp() {
   return (
     <div>
-      <h2>Sign up to save your Travelist!</h2>
+      <h3>Sign up to save your Travelist!</h3>
       <SignUpForm />
     </div>
   );
