@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 // database structure
 const TripSchema = new Schema(
@@ -9,6 +9,7 @@ const TripSchema = new Schema(
     dateFrom: Date,
     dateTo: Date,
     activities: Array,
+    weather: Array,
     items: Array,
     user: Number,
   },

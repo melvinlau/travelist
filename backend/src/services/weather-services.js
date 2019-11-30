@@ -4,13 +4,16 @@ const HttpError = require('../models/http-error');
 
 async function getWeather(destination, dateFrom, dateTo) {
   let result;
-  const from = getDate(dateFrom);
-  const to = getDate(dateTo);
+  // const from = formatDate(dateFrom);
+  // const to = formatDate(dateTo);
+  const from = dateFrom.substring(5, 10);
+  const to = dateTo.substring(5, 10);
+
   try {
     const apiKey = process.env.WEATHER_API_KEY;
-    const data = await fetch(
-      `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-${from}&enddate=2018-${to}`,
-    );
+    const url = `http://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=${apiKey}&q=${destination}&format=json&date=2018-${from}&enddate=2018-${to}`;
+    const data = await fetch(url);
+    // console.log(data);
     result = await data.json();
   } catch (err) {
     const error = new HttpError(
@@ -48,9 +51,10 @@ const getTemperatureTags = (temperature) => {
   const avgTemp = avgTemperature(temperature);
   if (avgTemp > 25) {
     return ['hot'];
-  }
-  if (avgTemp < 12) {
+  } else if (avgTemp < 12) {
     return ['cold'];
+  } else {
+    return ['moderate'];
   }
 };
 
@@ -129,14 +133,18 @@ const getDescriptionTags = (array) => {
   return getTwoMaxItems(countedItems);
 };
 
-const getDate = (date) => {
+const formatDate = (date) => {
+  console.log(typeof date);
+  console.log(date.getDate());
   const dd = String(date.getDate()).padStart(2, '0');
   const mm = String(date.getMonth() + 1).padStart(2, '0');
+  console.log(dd);
+  console.log(mm);
   const newDate = `${mm}-${dd}`;
   return newDate;
 };
 
-exports.getDate = getDate;
+exports.formatDate = formatDate;
 exports.getWeatherTags = getWeatherTags;
 exports.filterWeather = filterWeather;
 exports.getTwoMaxItems = getTwoMaxItems;
