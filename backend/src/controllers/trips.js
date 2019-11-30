@@ -93,12 +93,12 @@ const getTripsByUserId = async (req, res, next) => {
 
 const createTrip = async (req, res, next) => {
   const {
- destination, dateFrom, dateTo, activity, user 
+ destination, dateFrom, dateTo, activities, user 
 } = req.body;
 
   let weather;
   try {
-    weather = await Weather.getWeather(city, from, to);
+    weather = await Weather.getWeather(destination, dateFrom, dateTo);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not get the weather',
@@ -106,21 +106,8 @@ const createTrip = async (req, res, next) => {
     );
     return next(error);
   }
-  // console.log(weather);
 
-  //   –> method to find default items and create a default list
-  let defaultItems;
-  try {
-    weatherItems = await itemsController.getDefaultItems();
-  } catch (err) {
-    const error = new HttpError(
-      'Something went wrong, could not get the default',
-      500,
-    );
-    return next(error);
-  }
-  // –> method to find weather items
-  let weatherItems;
+  let weatherItems = [];
   try {
     weatherItems = await itemsController.getItemsByWeather(weather);
   } catch (err) {
@@ -130,15 +117,28 @@ const createTrip = async (req, res, next) => {
     );
     return next(error);
   }
-  // –> merge default and weather items
+
+  let defaultItems = [];
+  try {
+    defaultItems = await itemsController.getDefaultItems();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not get the default items',
+      500,
+    );
+    return next(error);
+  }
+
   const items = [...defaultItems, ...weatherItems];
+
+  console.log(items);
 
   const createdTrip = new Trip({
     destination,
     dateFrom,
     dateTo,
     weather,
-    activity,
+    activities,
     items,
     user,
   });
@@ -156,7 +156,6 @@ const createTrip = async (req, res, next) => {
 const updateTrip = async (req, res, next) => {
   const { destination, activities, items } = req.body;
   const tripId = req.params.tid;
-  console.log(req.body);
 
   let trip;
   try {
@@ -183,8 +182,6 @@ const updateTrip = async (req, res, next) => {
   trip.destination = destination;
   trip.activities = activities;
   trip.items = [...trip.items, ...itemsByActivity];
-
-  console.log(trip.items);
 
   try {
     await trip.save();
