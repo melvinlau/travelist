@@ -5,6 +5,23 @@ function PackingListItem({ id, name, complete, unComplete, remove }) {
 
   const [isComplete, setCompletionStatus] = useState(false);
 
+  const checkboxId = `checkbox-${id}`;
+
+  const renderCheckbox = () => {
+    const checkbox = (
+      <input
+        type="checkbox"
+        checked={isComplete}
+        onChange={handleChange}
+      />
+    )
+    ReactDOM.render(checkbox, document.getElementById(checkboxId));
+  }
+
+  useEffect(() => {
+    renderCheckbox();
+  });
+
   const markItemComplete = () => {
     complete(name);
   }
@@ -26,17 +43,10 @@ function PackingListItem({ id, name, complete, unComplete, remove }) {
     remove(name);
   }
 
-  useEffect(() => { // similar to componentDidUpdate()
-    console.log(name + ' is now ' + isComplete)
-  }); // For manual testing only
-
   return (
     <div data-cy="packing-list-item">
-      <input
-        type="checkbox"
-        checked={isComplete}
-        onChange={handleChange}
-      /> &nbsp;
+      <span id={checkboxId}></span>
+      &nbsp;
       <label data-cy="item-name">
         {name}
       </label> &nbsp; &nbsp;

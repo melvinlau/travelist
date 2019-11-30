@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +13,20 @@ function PackingList({ trip, updateTrip }) {
 
   const [items, updateItems] = useState(['shirts', 'socks', 'shoes', 'trousers']);
   const [completedItems, updateCompletedItems] = useState([]);
+
+  const renderTravelist = () => {
+    const travelist = items.map((item, index) =>
+      <PackingListItem
+        key={index}
+        id={index}
+        name={item}
+        complete={complete}
+        unComplete={unComplete}
+        remove={remove}
+      />
+    );
+    ReactDOM.render(travelist, document.getElementById('travelist'));
+  }
 
   // COMPLETE & UNCOMPLETE
 
@@ -29,19 +44,20 @@ function PackingList({ trip, updateTrip }) {
   // ADD & REMOVE
 
   const add = item => {
-    updateItems([...items, item]); // this changes state and will trigger re-render
+    updateItems([...items, item]);
   } // OK
 
   const remove = async item => {
     if (items.includes(item) === false) return;
-    await unComplete(item); // removes the item from `completedItems` array
+    await unComplete(item);
     const newItems = [...items];
     newItems.splice(items.indexOf(item), 1);
-    updateItems(newItems); // removes the item from `items` array
+    updateItems(newItems);
   }
 
   useEffect(() => {
     // update the list that will be passed to backend
+    renderTravelist();
     // do the API call here? intuitive option -> no need to click save
     console.log('Items', items);
     console.log('Completed items', completedItems);
@@ -75,22 +91,7 @@ function PackingList({ trip, updateTrip }) {
 
       <AddItemForm add={add} />
 
-      <div id="travelist">
-        {
-          items.map((item, index) => {
-            return (
-              <PackingListItem
-                key={index}
-                id={index}
-                name={item}
-                complete={complete}
-                unComplete={unComplete}
-                remove={remove}
-              />
-            );
-          })
-        }
-      </div>
+      <div id="travelist"></div>
 
       <Link to="/signup">
         <button onClick={reportCompletedItems}>
