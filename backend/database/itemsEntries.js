@@ -42,6 +42,9 @@ const leisureItems = [{ name: 'Plastic bag for used clothes', category: 'Misc', 
   { name: 'Camera', category: 'Clothing', activities: ['leisure'] },
   { name: 'Sun glasses', category: 'Accessories', activities: ['leisure'] }];
 
+const hotItems = [{ name: 'Loose, summer tops', category: 'Clothing', weather: ['hot'] },
+  { name: 'Loose, summer bottoms', category: 'Clothing', activities: ['hot'] }];
+
 // save multiple documents to the collection referenced by Book Model
 Item.collection.insert(defaultItems, (err, docs) => {
   if (err) {
@@ -51,6 +54,13 @@ Item.collection.insert(defaultItems, (err, docs) => {
 });
 
 Item.collection.insert(businessItems, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Business items inserted to Collection');
+});
+
+Item.collection.insert(hotItems, (err, docs) => {
   if (err) {
     return console.error(err);
   }
@@ -165,6 +175,7 @@ Item.collection.insert(businessItems, (err, docs) => {
 
 // loose, cotton tops
 // loose, summer bottoms
+
 // Cold
 // coat
 // winter tops
