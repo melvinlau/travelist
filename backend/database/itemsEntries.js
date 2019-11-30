@@ -14,60 +14,55 @@ mongoose
 
 // documents array
 const defaultItems = [{ name: 'Passport', default: true, category: 'Documents' },
-{ name: '2', default: false, category: 'accessories' },
-{ name: '3', default: false, category: 'clothes' }];
+  { name: 'Boarding pass', default: true, category: 'Documents' },
+  { name: 'Phone and charger', default: true, category: 'Electronics' },
+  { name: 'MP3 player', default: true, category: 'Electronics' },
+  { name: 'Book / E-Reader', default: true, category: 'Misc' },
+  { name: 'Towel', default: true, category: 'Toiletries' },
+  { name: 'Travel adapter', default: true, category: 'Electronics' },
+  { name: 'Money', default: true, category: 'Documents' },
+  { name: 'Credit / debit card', default: true, category: 'Documents' },
+  { name: 'Medication', default: true, category: 'Misc' },
+  { name: 'Toothbrush and toothpaste', default: true, category: 'Toiletries' },
+  { name: 'Shampoo and conditioner', default: true, category: 'Toiletries' },
+  { name: 'Shower gel', default: true, category: 'Toiletries' },
+  { name: 'Deoderant', default: true, category: 'Toiletries' },
+  { name: 'Hairbrush', default: true, category: 'Toiletries' },
+  { name: 'Shaving essentials', default: true, category: 'Toiletries' },
+  { name: 'Sanitary essentials', default: true, category: 'Toiletries' }];
+
+const businessItems = [{ name: 'Businesswear', category: 'Clothing', activities: ['business'] },
+  { name: 'Comfortable travel outfit', category: 'Clothing', activities: ['business'] },
+  { name: 'Pyjamas', category: 'Clothing', activities: ['business'] },
+  { name: 'Laptop', category: 'Electronics', activities: ['business'] },
+  { name: 'Envelope for receipts', category: 'Documents', activities: ['business'] }];
+
+const leisureItems = [{ name: 'Plastic bag for used clothes', category: 'Misc', activities: ['leisure'] },
+  { name: 'Power bank', category: 'Electronics', activities: ['leisure'] },
+  { name: 'Camera', category: 'Clothing', activities: ['leisure'] },
+  { name: 'Sun glasses', category: 'Accessories', activities: ['leisure'] }];
 
 // save multiple documents to the collection referenced by Book Model
-Item.collection.insert(items, (err, docs) => {
+Item.collection.insert(defaultItems, (err, docs) => {
   if (err) {
     return console.error(err);
   }
-  console.log('Multiple documents inserted to Collection');
+  console.log('Default items inserted to Collection');
 });
+
+Item.collection.insert(businessItems, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Business items inserted to Collection');
+});
+
 
 // Clothing
 // Electronics
 // Documents / financial
 // Toiletries
 // Miscellaneous
-
-const defaultArray = ['passport',
-  'boarding pass',
-  'phone / charger',
-  'MP3 player',
-  'book / e-reader',
-  'towel',
-  'travel adapter',
-  'money',
-  'credit / debit card',
-  'medication',
-  'toothbrush / toothpaste',
-  'shampoo / conditioner',
-  'shower gel',
-  'deoderant',
-  'hairbrush',
-  'shaving essentials',
-  'sanitary essentials'];
-
-function generateItemsArray(array) {
-  let array = []
-
-
-
-}
-
-
-// City (Broken into business/leisure)
-// business
-// business wear
-// comfortable outfit for travel
-// laptop
-// envelopes for receipts
-// leisure
-// Plastic bag for dirty clothes
-// Power bank
-// Sun glasses
-
 
 // Beach holiday (general)
 // Swimwear
