@@ -111,7 +111,7 @@ const createTrip = async (req, res, next) => {
   //   –> method to find default items and create a default list
   let defaultItems;
   try {
-    weatherItems = await Items.getDefaultItems();
+    weatherItems = await itemsController.getDefaultItems();
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not get the default',
@@ -122,7 +122,7 @@ const createTrip = async (req, res, next) => {
   // –> method to find weather items
   let weatherItems;
   try {
-    weatherItems = await Items.getWeatherItems(weather);
+    weatherItems = await itemsController.getWeatherItems(weather);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not get the weather items',
@@ -169,9 +169,9 @@ const updateTrip = async (req, res, next) => {
     return next(error);
   }
 
-  let itemByActivity;
+  let itemsByActivity;
   try {
-    itemByActivity = await itemsController.getItemsByActivity(activities);
+    itemsByActivity = await itemsController.getItemsByActivity(activities);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not find items for this activity.',
@@ -182,7 +182,7 @@ const updateTrip = async (req, res, next) => {
 
   trip.destination = destination;
   trip.activities = activities;
-  trip.items = itemByActivity;
+  trip.items = [...trip.items, ...itemsByActivity];
 
   console.log(trip.items);
 
