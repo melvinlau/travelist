@@ -15,14 +15,14 @@ mongoose
 // documents array
 const defaultItems = [{ name: 'Passport', default: true, category: 'documents' },
   { name: 'Boarding pass', default: true, category: 'documents' },
-  { name: 'Phone and charger', default: true, category: 'dlectronics' },
+  { name: 'Phone and charger', default: true, category: 'electronics' },
   { name: 'MP3 player', default: true, category: 'electronics' },
-  { name: 'Book / E-Reader', default: true, category: 'Misc' },
+  { name: 'Book / E-Reader', default: true, category: 'miscellaneous' },
   { name: 'Towel', default: true, category: 'toiletries' },
   { name: 'Travel adapter', default: true, category: 'electronics' },
   { name: 'Money', default: true, category: 'documents' },
   { name: 'Credit / debit card', default: true, category: 'documents' },
-  { name: 'Medication', default: true, category: 'misc' },
+  { name: 'Medication', default: true, category: 'miscellaneous' },
   { name: 'Toothbrush and toothpaste', default: true, category: 'toiletries' },
   { name: 'Shampoo and conditioner', default: true, category: 'toiletries' },
   { name: 'Shower gel', default: true, category: 'toiletries' },
@@ -62,6 +62,13 @@ Item.collection.insert(businessItems, (err, docs) => {
   console.log('Business items inserted to Collection');
 });
 
+Item.collection.insert(leisureItems, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Business items inserted to Collection');
+});
+
 Item.collection.insert(hotItems, (err, docs) => {
   if (err) {
     return console.error(err);
@@ -75,6 +82,7 @@ Item.collection.insert(hotItems, (err, docs) => {
 // Documents / financial
 // Toiletries
 // Miscellaneous
+// Accessories
 
 // Beach holiday (general)
 // Swimwear
