@@ -93,8 +93,8 @@ const getTripsByUserId = async (req, res, next) => {
 
 const createTrip = async (req, res, next) => {
   const {
- destination, dateFrom, dateTo, activities, user 
-} = req.body;
+    destination, dateFrom, dateTo, activities, user,
+  } = req.body;
 
   let weather;
   try {
@@ -154,7 +154,9 @@ const createTrip = async (req, res, next) => {
 };
 
 const updateTrip = async (req, res, next) => {
-  const { destination, activities, items } = req.body;
+  const {
+    destination, activities, name, category, items,
+  } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -179,9 +181,21 @@ const updateTrip = async (req, res, next) => {
     return next(error);
   }
 
+  let customItems;
+  try {
+    customItems = await itemsController.createCustomItem(req.body);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not create this custom item.',
+      500,
+    );
+    return next(error);
+  }
+
   trip.destination = destination;
   trip.activities = activities;
   trip.items = [...trip.items, ...itemsByActivity];
+  trip.items.push(customItems);
 
   try {
     await trip.save();

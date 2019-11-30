@@ -134,8 +134,8 @@ const getDefaultItems = async () => {
   return items;
 };
 
-const createCustomItem = async (req, res, next) => {
-  const { name, category } = req.body;
+const createCustomItem = async (request) => {
+  const { name, category } = request;
 
   const createdItem = new Item({
     name,
