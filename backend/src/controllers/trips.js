@@ -122,7 +122,7 @@ const createTrip = async (req, res, next) => {
   // –> method to find weather items
   let weatherItems;
   try {
-    weatherItems = await itemsController.getWeatherItems(weather);
+    weatherItems = await itemsController.getItemsByWeather(weather);
   } catch (err) {
     const error = new HttpError(
       'Something went wrong, could not get the weather items',
