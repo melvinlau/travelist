@@ -53,8 +53,8 @@ const getTripWeatherById = async (req, res, next) => {
   const city = trip.destination;
   const from = trip.dateFrom;
   const to = trip.dateTo;
-  let weather;
 
+  let weather;
   try {
     weather = await Weather.getWeather(city, from, to);
   } catch (err) {
@@ -64,7 +64,7 @@ const getTripWeatherById = async (req, res, next) => {
     );
     return next(error);
   }
-  console.log(weather);
+  // console.log(weather);
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
@@ -96,11 +96,50 @@ const createTrip = async (req, res, next) => {
  destination, dateFrom, dateTo, activity, user 
 } = req.body;
 
+  let weather;
+  try {
+    weather = await Weather.getWeather(city, from, to);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not get the weather',
+      500,
+    );
+    return next(error);
+  }
+  // console.log(weather);
+
+  //   –> method to find default items and create a default list
+  let defaultItems;
+  try {
+    weatherItems = await Items.getDefaultItems();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not get the default',
+      500,
+    );
+    return next(error);
+  }
+  // –> method to find weather items
+  let weatherItems;
+  try {
+    weatherItems = await Items.getWeatherItems(weather);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not get the weather items',
+      500,
+    );
+    return next(error);
+  }
+  // –> merge default and weather items
+  const items = [...defaultItems, ...weatherItems];
+
   const createdTrip = new Trip({
     destination,
     dateFrom,
     dateTo,
+    weather,
     activity,
+    items,
     user,
   });
 
