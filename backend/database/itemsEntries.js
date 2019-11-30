@@ -13,37 +13,39 @@ mongoose
   });
 
 // documents array
-const defaultItems = [{ name: 'Passport', default: true, category: 'Documents' },
-  { name: 'Boarding pass', default: true, category: 'Documents' },
-  { name: 'Phone and charger', default: true, category: 'Electronics' },
-  { name: 'MP3 player', default: true, category: 'Electronics' },
+const defaultItems = [{ name: 'Passport', default: true, category: 'documents' },
+  { name: 'Boarding pass', default: true, category: 'documents' },
+  { name: 'Phone and charger', default: true, category: 'dlectronics' },
+  { name: 'MP3 player', default: true, category: 'electronics' },
   { name: 'Book / E-Reader', default: true, category: 'Misc' },
-  { name: 'Towel', default: true, category: 'Toiletries' },
-  { name: 'Travel adapter', default: true, category: 'Electronics' },
-  { name: 'Money', default: true, category: 'Documents' },
-  { name: 'Credit / debit card', default: true, category: 'Documents' },
-  { name: 'Medication', default: true, category: 'Misc' },
-  { name: 'Toothbrush and toothpaste', default: true, category: 'Toiletries' },
-  { name: 'Shampoo and conditioner', default: true, category: 'Toiletries' },
-  { name: 'Shower gel', default: true, category: 'Toiletries' },
-  { name: 'Deoderant', default: true, category: 'Toiletries' },
-  { name: 'Hairbrush', default: true, category: 'Toiletries' },
-  { name: 'Shaving essentials', default: true, category: 'Toiletries' },
-  { name: 'Sanitary essentials', default: true, category: 'Toiletries' }];
+  { name: 'Towel', default: true, category: 'toiletries' },
+  { name: 'Travel adapter', default: true, category: 'electronics' },
+  { name: 'Money', default: true, category: 'documents' },
+  { name: 'Credit / debit card', default: true, category: 'documents' },
+  { name: 'Medication', default: true, category: 'misc' },
+  { name: 'Toothbrush and toothpaste', default: true, category: 'toiletries' },
+  { name: 'Shampoo and conditioner', default: true, category: 'toiletries' },
+  { name: 'Shower gel', default: true, category: 'toiletries' },
+  { name: 'Deoderant', default: true, category: 'toiletries' },
+  { name: 'Hairbrush', default: true, category: 'toiletries' },
+  { name: 'Shaving essentials', default: true, category: 'toiletries' },
+  { name: 'Sanitary essentials', default: true, category: 'toiletries' },
+  { name: 'Socks', default: true, category: 'clothing' },
+  { name: 'Underwear', default: true, category: 'clothing' }];
 
-const businessItems = [{ name: 'Businesswear', category: 'Clothing', activities: ['business'] },
-  { name: 'Comfortable travel outfit', category: 'Clothing', activities: ['business'] },
-  { name: 'Pyjamas', category: 'Clothing', activities: ['business'] },
-  { name: 'Laptop', category: 'Electronics', activities: ['business'] },
-  { name: 'Envelope for receipts', category: 'Documents', activities: ['business'] }];
+const businessItems = [{ name: 'Businesswear', category: 'clothing', activities: ['business'] },
+  { name: 'Comfortable travel outfit', category: 'clothing', activities: ['business'] },
+  { name: 'Pyjamas', category: 'clothing', activities: ['business'] },
+  { name: 'Laptop', category: 'electronics', activities: ['business'] },
+  { name: 'Envelope for receipts', category: 'documents', activities: ['business'] }];
 
-const leisureItems = [{ name: 'Plastic bag for used clothes', category: 'Misc', activities: ['leisure'] },
-  { name: 'Power bank', category: 'Electronics', activities: ['leisure'] },
-  { name: 'Camera', category: 'Clothing', activities: ['leisure'] },
-  { name: 'Sun glasses', category: 'Accessories', activities: ['leisure'] }];
+const leisureItems = [{ name: 'Plastic bag for used clothes', category: 'misc', activities: ['leisure'] },
+  { name: 'Power bank', category: 'electronics', activities: ['leisure'] },
+  { name: 'Camera', category: 'clothing', activities: ['leisure'] },
+  { name: 'Sun glasses', category: 'accessories', activities: ['leisure'] }];
 
-const hotItems = [{ name: 'Loose, summer tops', category: 'Clothing', weather: ['hot'] },
-  { name: 'Loose, summer bottoms', category: 'Clothing', activities: ['hot'] }];
+const hotItems = [{ name: 'Loose, summer tops', category: 'clothing', weather: ['hot'] },
+  { name: 'Loose, summer bottoms', category: 'clothing', activities: ['hot'] }];
 
 // save multiple documents to the collection referenced by Book Model
 Item.collection.insert(defaultItems, (err, docs) => {
@@ -123,26 +125,6 @@ Item.collection.insert(hotItems, (err, docs) => {
 // water bottle
 // bugspray
 // snacks
-
-// Default item list
-
-// passport
-// boarding pass
-// phone / charger
-// MP3 player
-// book / e-reader
-// towel
-// travel adapter
-// money
-// credit / debit card
-// medication
-// toothbrush / toothpaste
-// shampoo / conditioner
-// shower gel
-// deoderant
-// hairbrush
-// shaving essentials
-// sanitary essentials
 
 // Length-dependent items
 
