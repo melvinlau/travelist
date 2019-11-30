@@ -30,8 +30,8 @@ const getItemById = async (req, res, next) => {
 
 const createItem = async (req, res, next) => {
   const {
- name, category, activities, weather 
-} = req.body;
+    name, category, activities, weather,
+  } = req.body;
 
   const createdItem = new Item({
     name,
@@ -85,7 +85,7 @@ const getItemsByActivity = async (array) => {
     return next(error);
   }
 
-  return items.map((item) => item.name);
+  return items;
 };
 
 const getItemsByWeather = async (array) => {
