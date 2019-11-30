@@ -50,6 +50,8 @@ const leisureItems = [
 const weatherItems = [
   { name: 'Loose, summer tops', category: 'clothing', weather: ['hot'] },
   { name: 'Loose, summer bottoms', category: 'clothing', activities: ['hot'] },
+  { name: 'Long sleeve tops', category: 'clothing', weather: ['moderate'] },
+  { name: 'Trousers/jeans', category: 'clothing', weather: ['moderate'] },
   { name: 'Raincoat / poncho', category: 'clothing', weather: ['rainy'] },
   { name: 'Umbrella', category: 'misc', weather: ['rainy'] },
   { name: 'Thermal tops', category: 'clothing', weather: ['snowy', 'skiing'] },
@@ -65,7 +67,9 @@ const hikingItems = [
   { name: 'Sun cream', category: 'toiletries', activities: ['hiking', 'beach', 'skiing'] },
   { name: 'Waterproof jacket', category: 'clothing', activities: ['hiking', 'skiing', 'snowy'] },
   { name: 'Torch', category: 'electronics', activities: ['hiking'] },
-  { name: 'Jacket', category: 'clothing', activities: ['hiking'] },
+  {
+    name: 'Jacket', category: 'clothing', activities: ['hiking'], weather: ['moderate'],
+  },
   { name: 'Hat', category: 'accessories', activities: ['hiking', 'skiing'] },
   { name: 'Matches or lighter', category: 'miscellaneous', activities: ['hiking'] },
   { name: 'Water bottle', category: 'miscellaneous', activities: ['hiking', 'skiing'] },
