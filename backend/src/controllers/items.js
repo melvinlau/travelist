@@ -73,10 +73,7 @@ const getItemsByActivity = async (array) => {
   try {
     items = await Item.find({ activities: { $in: array } });
   } catch (err) {
-    const error = new HttpError(
-      'Fetching items failed, please try again',
-      500,
-    );
+    const error = new HttpError('Fetching items failed, please try again', 500);
     return next(error);
   }
 
@@ -88,18 +85,39 @@ const getItemsByActivity = async (array) => {
     return next(error);
   }
 
-  return items.map((item) => item.name);
+  return items;
 };
 
-const getItemsByWeather = async (req, res, next) => {
-  const weatherTag = req.params.name;
+const getItemsByWeather = async (array) => {
+  let items;
+  try {
+    items = await Item.find({ weather: { $in: array } });
+  } catch (err) {
+    const error = new HttpError('Fetching items failed, please try again', 500);
+    return next(error);
+  }
+
+  if (!items || items.length === 0) {
+    const error = new HttpError(
+      'Could not find an item for the provided name.',
+      404,
+    );
+    return next(error);
+  }
+
+  return items;
+};
+
+const getDefaultItems = async () => {
   let items;
 
+  console.log(items);
   try {
-    items = await Item.find({ activities: weatherTag });
+    items = await Item.find({ default: { $eq: true } });
+    console.log(items);
   } catch (err) {
     const error = new HttpError(
-      'Fetching items failed, please try again',
+      'Fetching default items failed, please try again',
       500,
     );
     return next(error);
@@ -113,12 +131,12 @@ const getItemsByWeather = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ items: items.map((item) => item.toObject({ getters: true })) });
+  return items;
 };
-
 
 exports.getItemById = getItemById;
 exports.createItem = createItem;
 exports.deleteItem = deleteItem;
 exports.getItemsByActivity = getItemsByActivity;
 exports.getItemsByWeather = getItemsByWeather;
+exports.getDefaultItems = getDefaultItems;
