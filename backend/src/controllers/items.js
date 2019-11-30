@@ -134,7 +134,7 @@ const getDefaultItems = async () => {
   return items;
 };
 
-const createcustomItem = async (req, res, next) => {
+const createCustomItem = async (req, res, next) => {
   const { name, category } = req.body;
 
   const createdItem = new Item({
@@ -150,7 +150,7 @@ const createcustomItem = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ item: createdItem });
+  return createdItem;
 };
 
 exports.getItemById = getItemById;
@@ -159,4 +159,4 @@ exports.deleteItem = deleteItem;
 exports.getItemsByActivity = getItemsByActivity;
 exports.getItemsByWeather = getItemsByWeather;
 exports.getDefaultItems = getDefaultItems;
-exports.createcustomItem = createcustomItem;
+exports.createCustomItem = createCustomItem;
