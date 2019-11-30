@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddItemForm({ addItem }) {
+function AddItemForm({ add }) {
   const [value, setValue] = useState('');
 
   const handleChange = e => {
@@ -9,7 +9,7 @@ function AddItemForm({ addItem }) {
 
   const handleSubmit = () => {
     if (value === '') return alert('You cannot add a blank item');
-    addItem(value);
+    add(value);
     setValue('');
   }
 

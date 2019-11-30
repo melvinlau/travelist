@@ -50,6 +50,7 @@ function StartForm({ trip, updateTrip }) {
         placeholder="Destination"
         value={destination}
         onChange={handleDestinationChange}
+        autoFocus
       /> <br />
       <input
         name="start-date"
