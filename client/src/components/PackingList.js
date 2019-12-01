@@ -12,18 +12,15 @@ import ProgressBar from './ProgressBar';
 
 function PackingList({ trip, updateTrip }) {
 
-  const [items, updateItems] = useState(['shirts', 'shoes', 'jeans']);
+  const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
-  // const [percentComplete, setPercentComplete] = useState(
-  //   (completedItems.length / items.length) * 100
-  // );
 
   const renderTravelist = () => {
     const travelist = items.map((item, index) => {
       return (
         <PackingListItem
-          key={item}
-          name={item}
+          key={item.name}
+          name={item.name}
           complete={complete}
           unComplete={unComplete}
           remove={remove}
@@ -53,16 +50,32 @@ function PackingList({ trip, updateTrip }) {
     updateCompletedItems(newCompletedItems);
   }
 
+  const createItemObject = (name) => {
+    return ({
+      activities: [],
+      category: '',
+      default: false,
+      custom: true,
+      name: name,
+      weather: [],
+      _id: ''
+    }); // should we make an API call to create an item instead? ID will be autogen
+  }
+
+  const findExistingMatches = itemName => {
+    return items.filter(element => element.name === itemName)
+  }
+
   const add = item => {
-    if (items.includes(item)) return;
-    updateItems([...items, item]);
+    if (findExistingMatches(item).length > 0) return;
+    updateItems([...items, createItemObject(item)]);
   }
 
   const remove = async item => {
-    if (!items.includes(item)) return;
+    if (findExistingMatches(item).length === 0) return;
     await unComplete(item);
     const newItems = [...items];
-    newItems.splice(items.indexOf(item), 1);
+    newItems.splice(items.indexOf(findExistingMatches(item)[0]), 1);
     updateItems(newItems);
   }
 

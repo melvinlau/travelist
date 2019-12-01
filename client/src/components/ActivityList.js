@@ -65,6 +65,7 @@ function ActivityList({ trip, updateTrip }) {
   }
 
   useEffect(() => {
+    console.log('Activities: trip obj', trip);
     renderActivitiesList();
     console.log('Selected activities', selectedActivities);
   });
