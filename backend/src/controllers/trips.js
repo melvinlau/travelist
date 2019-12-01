@@ -182,7 +182,7 @@ const addActivityItems = async (req, res, next) => {
   }
 
   trip.destination = destination;
-  trip.activities = activities;
+  trip.activities = [...trip.activities, ...activities];
   trip.items = [...trip.items, ...itemsByActivity];
 
   try {
