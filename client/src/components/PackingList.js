@@ -20,7 +20,7 @@ function PackingList({ trip, updateTrip }) {
       return (
         <PackingListItem
           key={item.name}
-          name={item.name}
+          item={item}
           complete={complete}
           unComplete={unComplete}
           remove={remove}
@@ -38,15 +38,19 @@ function PackingList({ trip, updateTrip }) {
     ReactDOM.render(progressBar, document.getElementById('progress-bar'));
   }
 
+  const findExistingMatches = (itemName, list) => {
+    return list.filter(element => element.name === itemName)
+  }
+
   const complete = item => {
-    if (completedItems.includes(item)) return;
+    if (findExistingMatches(item.name, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
   }
 
   const unComplete = item => {
-    if (!completedItems.includes(item)) return;
+    if (findExistingMatches(item.name, completedItems).length === 0) return;
     const newCompletedItems = [...completedItems];
-    newCompletedItems.splice(completedItems.indexOf(item), 1);
+    newCompletedItems.splice(completedItems.indexOf(findExistingMatches(item, completedItems)[0]), 1);
     updateCompletedItems(newCompletedItems);
   }
 
@@ -62,20 +66,16 @@ function PackingList({ trip, updateTrip }) {
     }); // should we make an API call to create an item instead? ID will be autogen
   }
 
-  const findExistingMatches = itemName => {
-    return items.filter(element => element.name === itemName)
-  }
-
   const add = item => {
-    if (findExistingMatches(item).length > 0) return;
+    if (findExistingMatches(item, items).length > 0) return;
     updateItems([...items, createItemObject(item)]);
   }
 
   const remove = async item => {
-    if (findExistingMatches(item).length === 0) return;
+    if (findExistingMatches(item, items).length === 0) return;
     await unComplete(item);
     const newItems = [...items];
-    newItems.splice(items.indexOf(findExistingMatches(item)[0]), 1);
+    newItems.splice(items.indexOf(findExistingMatches(item, items)[0]), 1);
     updateItems(newItems);
   }
 

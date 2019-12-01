@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 
-function PackingListItem({ name, complete, unComplete, remove }) {
+function PackingListItem({ item, complete, unComplete, remove }) {
 
   const [isComplete, setCompletionStatus] = useState(false);
 
-  const checkboxId = `checkbox-${name}`;
+  const checkboxId = `checkbox-${item.name}`;
 
   const renderCheckbox = () => {
     const checkbox = (
@@ -23,11 +23,11 @@ function PackingListItem({ name, complete, unComplete, remove }) {
   });
 
   const markItemComplete = () => {
-    complete(name);
+    complete(item);
   }
 
   const markItemIncomplete = () => {
-    unComplete(name);
+    unComplete(item);
   }
 
   const handleChange = async () => {
@@ -40,7 +40,7 @@ function PackingListItem({ name, complete, unComplete, remove }) {
   }
 
   const handleDelete = () => {
-    remove(name);
+    remove(item.name);
   }
 
   return (
@@ -49,7 +49,7 @@ function PackingListItem({ name, complete, unComplete, remove }) {
         <span id={checkboxId}></span>
         &nbsp;
         <label data-cy="item-name">
-          {name}
+          {item.name}
         </label> &nbsp; &nbsp;
         <a className="delete-button float-right" data-cy="delete-button" onClick={handleDelete}>
           <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
