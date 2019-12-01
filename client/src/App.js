@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 
-import Start from './components/Start';
-import ActivityList from './components/ActivityList';
-import PackingList from './components/PackingList';
-import SignUp from './components/SignUp';
-import Trips from './components/Trips';
+import Start from "./components/Start";
+import ActivityList from "./components/ActivityList";
+import PackingList from "./components/PackingList";
+import SignUp from "./user/pages/SignUp";
+import SignIn from "./user/pages/SignIn";
+import Trips from "./components/Trips";
 
 function App() {
   const [trip, updateTrip] = useState({});
@@ -32,28 +28,22 @@ function App() {
                 renders the first one that matches the current URL. */}
                 <Switch>
                   <Route path="/activities">
-                    <ActivityList
-                      trip={trip}
-                      updateTrip={updateTrip}
-                    />
+                    <ActivityList trip={trip} updateTrip={updateTrip} />
                   </Route>
                   <Route path="/travelist">
-                    <PackingList
-                      trip={trip}
-                      updateTrip={updateTrip}
-                    />
+                    <PackingList trip={trip} updateTrip={updateTrip} />
                   </Route>
                   <Route path="/signup">
                     <SignUp />
+                  </Route>
+                  <Route path="/signin">
+                    <SignIn />
                   </Route>
                   <Route path="/trips">
                     <Trips />
                   </Route>
                   <Route path="/">
-                    <Start
-                      trip={trip}
-                      updateTrip={updateTrip}
-                    />
+                    <Start trip={trip} updateTrip={updateTrip} />
                   </Route>
                 </Switch>
               </Router>
