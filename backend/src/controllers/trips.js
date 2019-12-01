@@ -153,9 +153,9 @@ const createTrip = async (req, res, next) => {
   res.status(201).json({ trip: createdTrip });
 };
 
-const updateTrip = async (req, res, next) => {
+const addActivityItems = async (req, res, next) => {
   const {
-    destination, activities, items,
+    destination, activities,
   } = req.body;
   const tripId = req.params.tid;
 
@@ -263,6 +263,6 @@ exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
-exports.updateTrip = updateTrip;
+exports.addActivityItems = addActivityItems;
 exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;

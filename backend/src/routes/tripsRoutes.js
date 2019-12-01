@@ -11,7 +11,7 @@ router.get('/user/:uid', tripsControllers.getTripsByUserId);
 
 router.post('/', tripsControllers.createTrip);
 
-router.patch('/:tid', tripsControllers.updateTrip);
+router.patch('/:tid', tripsControllers.addActivityItems);
 
 router.patch('/:tid/custom', tripsControllers.addCustomItem);
 
