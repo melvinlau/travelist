@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -10,16 +11,22 @@ import ActivityListItem from './ActivityListItem';
 
 function ActivityList({ trip, updateTrip }) {
 
-  const [activities, setActivities] = useState(['skiing', 'hiking', 'surfing']);
+  const [activities, setActivities] = useState(['skiing', 'hiking', 'business']);
   const [selectedActivities, setSelectedActivities] = useState([]);
 
-  const selectActivity = (activity) => {
+  const callUpdateTrip = (trip) => {
+    updateTrip(trip);
+  }
+
+  const select = activity => {
+    if (selectedActivities.includes(activity)) return;
     setSelectedActivities([...selectedActivities, activity]);
   }
 
-  const deselectActivity = (index) => {
+  const deselect = activity => {
+    if (!selectedActivities.includes(activity)) return;
     const newSelectedActivities = [...selectedActivities];
-    newSelectedActivities.splice(index, 1);
+    newSelectedActivities.splice(selectedActivities.indexOf(activity), 1);
     setSelectedActivities(newSelectedActivities);
   }
 
@@ -27,43 +34,48 @@ function ActivityList({ trip, updateTrip }) {
     axios.patch(
       `http://localhost:3001/api/trips/${trip._id}`,
       {
-        "destination": trip.destination,
-        "activity": selectedActivities,
-        "items": trip.items
+        "activities": selectedActivities,
       }
     )
     .then(response => {
-      updateTrip(response.data.trip);
-      console.log(response.data);
-     })
+      callUpdateTrip(response.data.trip);
+      console.log('update trip with activities: response', response.data.trip);
+    })
     .catch(console.log);
-
   }
 
-  const header = () => {
+  const renderHeader = () => {
     if (trip.destination) {
       return (<h3>Things I'll be doing in {trip.destination}</h3>);
     }
   }
 
+  const renderActivitiesList = () => {
+    const activitiesList = activities.map((activity, index) => {
+      return (
+        <ActivityListItem
+          key={index}
+          id={index}
+          name={activity}
+          select={select}
+          deselect={deselect}
+        />
+      );
+    });
+    ReactDOM.render(activitiesList, document.getElementById('activities-list'));
+  }
+
+  useEffect(() => {
+    renderActivitiesList();
+    console.log('Selected activities', selectedActivities);
+  });
+
   return (
     <div>
+      { renderHeader() }
 
-      { header() }
+      <div id="activities-list"></div>
 
-      {
-        activities.map((activity, index) => {
-          return (
-            <ActivityListItem
-              key={index}
-              id={index}
-              name={activity}
-              select={selectActivity}
-              deselect={deselectActivity}
-            />
-          )
-        })
-      }
       <Link to="/travelist">
         <button data-cy="generate-list-button" onClick={handleCreateList}>
           Generate a Travelist!

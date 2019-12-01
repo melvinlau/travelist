@@ -13,6 +13,10 @@ function StartForm({ trip, updateTrip }) {
   const [dateFrom, setStartDate] = useState('');
   const [dateTo, setEndDate] = useState('');
 
+  const callUpdateTrip = trip => {
+    updateTrip(trip);
+  }
+
   const handleDestinationChange = e => {
     setDestination(e.target.value);
   }
@@ -35,8 +39,8 @@ function StartForm({ trip, updateTrip }) {
       }
     )
     .then(response => {
-      updateTrip(response.data.trip);
-      console.log(response.data);
+      callUpdateTrip(response.data.trip);
+      console.log('Create trip: response', response.data.trip);
      })
     .catch(console.log);
   }

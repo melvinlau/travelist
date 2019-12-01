@@ -92,9 +92,7 @@ const getTripsByUserId = async (req, res, next) => {
 };
 
 const createTrip = async (req, res, next) => {
-  const {
- destination, dateFrom, dateTo, activities, user 
-} = req.body;
+  const { destination, dateFrom, dateTo, activities, user } = req.body;
 
   let weather;
   try {

@@ -50,7 +50,7 @@ function PackingListItem({ id, name, complete, unComplete, remove }) {
       <label data-cy="item-name">
         {name}
       </label> &nbsp; &nbsp;
-      <a class="delete-button" data-cy="delete-button" onClick={handleDelete}>
+      <a className="delete-button" data-cy="delete-button" onClick={handleDelete}>
         <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
       </a>
     </div>

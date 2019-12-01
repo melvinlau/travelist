@@ -11,57 +11,49 @@ import AddItemForm from './AddItemForm';
 
 function PackingList({ trip, updateTrip }) {
 
-  const [items, updateItems] = useState(['shirts', 'socks', 'shoes', 'trousers']);
+  const [items, updateItems] = useState(['shirts', 'shoes', 'jeans']);
   const [completedItems, updateCompletedItems] = useState([]);
 
   const renderTravelist = () => {
-    const travelist = items.map((item, index) =>
-      <PackingListItem
-        key={index}
-        id={index}
-        name={item}
-        complete={complete}
-        unComplete={unComplete}
-        remove={remove}
-      />
-    );
+    const travelist = items.map((item, index) => {
+      return (
+        <PackingListItem
+          key={index}
+          id={index}
+          name={item}
+          complete={complete}
+          unComplete={unComplete}
+          remove={remove}
+        />
+      );
+    });
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
 
-  // COMPLETE & UNCOMPLETE
-
   const complete = item => {
+    if (completedItems.includes(item)) return;
     updateCompletedItems([...completedItems, item]);
-  } // OK
+  }
 
   const unComplete = item => {
-    if (completedItems.includes(item) === false) return;
+    if (!completedItems.includes(item)) return;
     const newCompletedItems = [...completedItems];
     newCompletedItems.splice(completedItems.indexOf(item), 1);
     updateCompletedItems(newCompletedItems);
-  } // OK
-
-  // ADD & REMOVE
+  }
 
   const add = item => {
+    if (items.includes(item)) return;
     updateItems([...items, item]);
-  } // OK
+  }
 
   const remove = async item => {
-    if (items.includes(item) === false) return;
+    if (!items.includes(item)) return;
     await unComplete(item);
     const newItems = [...items];
     newItems.splice(items.indexOf(item), 1);
     updateItems(newItems);
   }
-
-  useEffect(() => {
-    // update the list that will be passed to backend
-    renderTravelist();
-    // do the API call here? intuitive option -> no need to click save
-    console.log('Items', items);
-    console.log('Completed items', completedItems);
-  });
 
   const formattedDate = (dateString) => {
     const options = {
@@ -84,6 +76,13 @@ function PackingList({ trip, updateTrip }) {
     }
   }
 
+  useEffect(() => {
+    renderTravelist();
+    // do the API call here to update the backend intuitively?
+    console.log('Items', items);
+    console.log('Completed items', completedItems);
+  });
+
   return (
     <div>
 
@@ -94,10 +93,9 @@ function PackingList({ trip, updateTrip }) {
       <div id="travelist"></div>
 
       <Link to="/signup">
-        <button onClick={reportCompletedItems}>
-          Save
-        </button>
+        <button onClick={reportCompletedItems}>Save</button>
       </Link>
+
     </div>
   );
 }
