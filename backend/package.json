@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,8 +18,8 @@
     "mongoose": "^5.7.12",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1",
-    "node-mocks-http": "^1.8.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "node-mocks-http": "^1.8.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.3",
