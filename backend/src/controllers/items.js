@@ -30,8 +30,8 @@ const getItemById = async (req, res, next) => {
 
 const createItem = async (req, res, next) => {
   const {
-    name, category, activities, weather,
-  } = req.body;
+ name, category, activities, weather 
+} = req.body;
 
   const createdItem = new Item({
     name,
@@ -111,10 +111,8 @@ const getItemsByWeather = async (array) => {
 const getDefaultItems = async () => {
   let items;
 
-  console.log(items);
   try {
     items = await Item.find({ default: { $eq: true } });
-    console.log(items);
   } catch (err) {
     const error = new HttpError(
       'Fetching default items failed, please try again',
