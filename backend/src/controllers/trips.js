@@ -155,7 +155,7 @@ const createTrip = async (req, res, next) => {
 
 const updateTrip = async (req, res, next) => {
   const {
-    destination, activities, name, category, items,
+    destination, activities, items,
   } = req.body;
   const tripId = req.params.tid;
 
@@ -181,6 +181,40 @@ const updateTrip = async (req, res, next) => {
     return next(error);
   }
 
+  trip.destination = destination;
+  trip.activities = activities;
+  trip.items = [...trip.items, ...itemsByActivity];
+
+  try {
+    await trip.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ trip: trip.toObject({ getters: true }) });
+};
+
+const addCustomItem = async (req, res, next) => {
+  const {
+    name, category,
+  } = req.body;
+  const tripId = req.params.tid;
+
+  let trip;
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
   let customItems;
   try {
     customItems = await itemsController.createCustomItem(req.body);
@@ -192,9 +226,6 @@ const updateTrip = async (req, res, next) => {
     return next(error);
   }
 
-  trip.destination = destination;
-  trip.activities = activities;
-  trip.items = [...trip.items, ...itemsByActivity];
   trip.items.push(customItems);
 
   try {
@@ -209,6 +240,7 @@ const updateTrip = async (req, res, next) => {
 
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
+
 
 const deleteTrip = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -232,4 +264,5 @@ exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
 exports.updateTrip = updateTrip;
+exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;

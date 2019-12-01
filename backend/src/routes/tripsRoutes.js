@@ -13,6 +13,8 @@ router.post('/', tripsControllers.createTrip);
 
 router.patch('/:tid', tripsControllers.updateTrip);
 
+router.patch('/:tid/custom', tripsControllers.addCustomItem);
+
 router.delete('/:tid', tripsControllers.deleteTrip);
 
 module.exports = router;
