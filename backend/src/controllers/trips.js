@@ -92,6 +92,7 @@ const getTripsByUserId = async (req, res, next) => {
 };
 
 const createTrip = async (req, res, next) => {
+
   const { destination, dateFrom, dateTo, activities, user } = req.body;
 
   let weather;
@@ -151,8 +152,10 @@ const createTrip = async (req, res, next) => {
   res.status(201).json({ trip: createdTrip });
 };
 
-const updateTrip = async (req, res, next) => {
-  const { destination, activities, items } = req.body;
+const addActivityItems = async (req, res, next) => {
+  const {
+    destination, activities,
+  } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -178,7 +181,7 @@ const updateTrip = async (req, res, next) => {
   }
 
   trip.destination = destination;
-  trip.activities = activities;
+  trip.activities = [...trip.activities, ...activities];
   trip.items = [...trip.items, ...itemsByActivity];
 
   try {
@@ -193,6 +196,50 @@ const updateTrip = async (req, res, next) => {
 
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
+
+const addCustomItem = async (req, res, next) => {
+  const {
+    name, category,
+  } = req.body;
+  const tripId = req.params.tid;
+
+  let trip;
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
+  let customItems;
+  try {
+    customItems = await itemsController.createCustomItem(req.body);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not create this custom item.',
+      500,
+    );
+    return next(error);
+  }
+
+  trip.items.push(customItems);
+
+  try {
+    await trip.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ trip: trip.toObject({ getters: true }) });
+};
+
 
 const deleteTrip = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -215,5 +262,6 @@ exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
-exports.updateTrip = updateTrip;
+exports.addActivityItems = addActivityItems;
+exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;

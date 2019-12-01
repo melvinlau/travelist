@@ -134,9 +134,29 @@ const getDefaultItems = async () => {
   return items;
 };
 
+const createCustomItem = async (request) => {
+  const { name, category } = request;
+
+  const createdItem = new Item({
+    name,
+    category,
+    custom: true,
+  });
+
+  try {
+    await createdItem.save();
+  } catch (err) {
+    const error = new HttpError('Creating item failed, please try again.', 500);
+    return next(error);
+  }
+
+  return createdItem;
+};
+
 exports.getItemById = getItemById;
 exports.createItem = createItem;
 exports.deleteItem = deleteItem;
 exports.getItemsByActivity = getItemsByActivity;
 exports.getItemsByWeather = getItemsByWeather;
 exports.getDefaultItems = getDefaultItems;
+exports.createCustomItem = createCustomItem;
