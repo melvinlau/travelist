@@ -54,8 +54,7 @@ function ActivityList({ trip, updateTrip }) {
     const activitiesList = activities.map((activity, index) => {
       return (
         <ActivityListItem
-          key={index}
-          id={index}
+          key={activity}
           name={activity}
           select={select}
           deselect={deselect}

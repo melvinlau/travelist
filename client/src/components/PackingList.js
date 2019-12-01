@@ -18,8 +18,7 @@ function PackingList({ trip, updateTrip }) {
     const travelist = items.map((item, index) => {
       return (
         <PackingListItem
-          key={index}
-          id={index}
+          key={item}
           name={item}
           complete={complete}
           unComplete={unComplete}

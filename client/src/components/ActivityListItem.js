@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function ActivityListItem({ id, name, select, deselect }) {
+function ActivityListItem({ name, select, deselect }) {
 
   const [isSelected, setSelectedStatus] = useState(false);
 
