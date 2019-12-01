@@ -259,6 +259,38 @@ const deleteTrip = async (req, res, next) => {
   res.status(200).json({ message: 'Deleted trip.' });
 };
 
+const updatePackedItems = async (req, res, next) => {
+  const { items, packedItems } = req.body;
+  const tripId = req.params.tid;
+
+  let trip;
+  try {
+    trip = await Trip.findById(tripId);
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
+  trip.items = items;
+  trip.packedItems = packedItems;
+
+  try {
+    await trip.save();
+  } catch (err) {
+    const error = new HttpError(
+      'Something went wrong, could not update trip.',
+      500,
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ trip: trip.toObject({ getters: true }) });
+};
+
+
 exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
@@ -266,3 +298,4 @@ exports.createTrip = createTrip;
 exports.addActivityItems = addActivityItems;
 exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;
+exports.updatePackedItems = updatePackedItems;

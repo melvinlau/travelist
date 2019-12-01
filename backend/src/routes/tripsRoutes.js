@@ -13,7 +13,9 @@ router.post('/', tripsControllers.createTrip);
 
 router.patch('/:tid', tripsControllers.addActivityItems);
 
-router.patch('/:tid/custom', tripsControllers.addCustomItem);
+router.patch('/:tid/items/custom', tripsControllers.addCustomItem);
+
+router.patch('/:tid/items/packed', tripsControllers.updatePackedItems);
 
 router.delete('/:tid', tripsControllers.deleteTrip);
 
