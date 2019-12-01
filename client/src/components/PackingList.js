@@ -104,6 +104,7 @@ function PackingList({ trip, updateTrip }) {
 
       <AddItemForm add={add} />
 
+      <h5 className="mt-4">General items</h5>
       <div id="travelist"></div>
 
       <Link to="/signup">
