@@ -8,11 +8,15 @@ import {
 } from "react-router-dom";
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
+import ProgressBar from './ProgressBar';
 
 function PackingList({ trip, updateTrip }) {
 
   const [items, updateItems] = useState(['shirts', 'shoes', 'jeans']);
   const [completedItems, updateCompletedItems] = useState([]);
+  // const [percentComplete, setPercentComplete] = useState(
+  //   (completedItems.length / items.length) * 100
+  // );
 
   const renderTravelist = () => {
     const travelist = items.map((item, index) => {
@@ -27,6 +31,14 @@ function PackingList({ trip, updateTrip }) {
       );
     });
     ReactDOM.render(travelist, document.getElementById('travelist'));
+  }
+
+  const renderProgressBar = () => {
+    const percentComplete = Math.round((completedItems.length / items.length) * 100);
+    const progressBar = (
+      <ProgressBar percentComplete={percentComplete.toString()} />
+    );
+    ReactDOM.render(progressBar, document.getElementById('progress-bar'));
   }
 
   const complete = item => {
@@ -77,6 +89,7 @@ function PackingList({ trip, updateTrip }) {
 
   useEffect(() => {
     renderTravelist();
+    renderProgressBar();
     // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
@@ -86,6 +99,8 @@ function PackingList({ trip, updateTrip }) {
     <div>
 
       { renderHeader() }
+
+      <div id="progress-bar"></div>
 
       <AddItemForm add={add} />
 
