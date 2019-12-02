@@ -23,7 +23,9 @@ function PackingList({ trip, updateTrip }) {
 
     const uniqueCategoryList = Array.from(new Set(rawCategoryList));
 
-    const travelist = uniqueCategoryList.map((category, index) => {
+    const finalCategoryList = uniqueCategoryList.filter(e => e !== 'miscellaneous')
+
+    const travelist = finalCategoryList.map((category, index) => {
       return (
         <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
       );
