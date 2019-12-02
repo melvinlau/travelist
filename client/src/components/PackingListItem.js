@@ -1,31 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 
-function PackingListItem({ id, name, complete, unComplete, deleteItem }) {
+function PackingListItem({ item, complete, unComplete, remove }) {
 
   const [isComplete, setCompletionStatus] = useState(false);
-  const toggleCheckbox = e => {
-    if (isComplete) {
-      unComplete(id);
-      setCompletionStatus(false);
-    } else {
-      complete(name);
-      setCompletionStatus(true);
-    }
-  }
 
-  return (
-    <div className="packing-list-item" data-cy="packing-list-item">
+  const checkboxId = `checkbox-${item.name}`;
+
+  const renderCheckbox = () => {
+    const checkbox = (
       <input
         type="checkbox"
         checked={isComplete}
-        onChange={toggleCheckbox}
-      /> &nbsp;
-      <label data-cy="item-name">
-        {name}
-      </label> &nbsp; &nbsp;
-      <a data-cy="delete-button" onClick={() => { deleteItem(id) }}>
-        <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
-      </a>
+        onChange={handleChange}
+      />
+    )
+    ReactDOM.render(checkbox, document.getElementById(checkboxId));
+  }
+
+  useEffect(() => {
+    renderCheckbox();
+  });
+
+  const markItemComplete = () => {
+    complete(item);
+  }
+
+  const markItemIncomplete = () => {
+    unComplete(item);
+  }
+
+  const handleChange = async () => {
+    if (isComplete) {
+      markItemIncomplete();
+    } else {
+      markItemComplete();
+    }
+    setCompletionStatus(!isComplete);
+  }
+
+  const handleDelete = () => {
+    remove(item.name);
+  }
+
+  return (
+    <div className="card" data-cy="packing-list-item">
+      <div className="card-body">
+        <span id={checkboxId}></span>
+        &nbsp;
+        <label data-cy="item-name">
+          {item.name}
+        </label> &nbsp; &nbsp;
+        <a className="delete-button float-right" data-cy="delete-button" onClick={handleDelete}>
+          <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
+        </a>
+      </div>
     </div>
   );
 }

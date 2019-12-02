@@ -9,6 +9,7 @@ const ItemSchema = new Schema(
     activities: Array,
     default: Boolean,
     weather: Array,
+    custom: Boolean,
   },
   { timestamps: true },
 );

@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function ActivityListItem({ id, name, select, deselect }) {
+function ActivityListItem({ name, select, deselect }) {
 
-  const [isSelected, setSelected] = useState(false);
+  const [isSelected, setSelectedStatus] = useState(false);
 
-  const toggleCheckbox = e => {
+  const toggleSelection = () => {
     if (isSelected) {
-      deselect(id);
-      setSelected(false);
+      deselect(name);
     } else {
       select(name);
-      setSelected(true);
     }
+    setSelectedStatus(!isSelected)
   }
+
+  useEffect(() => {
+    console.log(name + ' is ' + isSelected);
+  });
 
   return (
     <div className="activity-list-item" data-cy="activity-list-item">
       <input
         type="checkbox"
         checked={isSelected}
-        onChange={toggleCheckbox}
+        onChange={toggleSelection}
       />
       <label data-cy="activity-name"> &nbsp;
         {name}

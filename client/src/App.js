@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -53,6 +53,11 @@ function App() {
       </Switch>
     );
   }
+
+  useEffect(() => {
+    console.log('App: trip', trip);
+    console.log('App: trip.items', trip.items);
+  });
 
   return (
     <AuthContext.Provider

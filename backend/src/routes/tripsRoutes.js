@@ -14,7 +14,11 @@ router.get('/user/:uid', tripsControllers.getTripsByUserId);
 
 router.post('/', tripsControllers.createTrip);
 
-router.patch('/:tid', tripsControllers.updateTrip);
+router.patch('/:tid', tripsControllers.addActivityItems);
+
+router.patch('/:tid/items/custom', tripsControllers.addCustomItem);
+
+router.patch('/:tid/items/packed', tripsControllers.updatePackedItems);
 
 router.delete('/:tid', tripsControllers.deleteTrip);
 
