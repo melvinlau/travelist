@@ -35,16 +35,16 @@ function App() {
     routes = (
       <Switch>
         <Route path="/user/new-trip" exact>
-          <Start />
+          <Start trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/user/activities" exact>
-          <ActivityList />
+          <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/user/travelist" exact>
-          <PackingList />
+          <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/" exact>
-          <Trips />
+          <Trips trip={trip} updateTrip={updateTrip} />
         </Route>
         <Redirect to="/" />
       </Switch>
@@ -53,16 +53,16 @@ function App() {
     routes = (
       <Switch>
         <Route path="/auth" exact>
-          <Auth />
+          <Auth trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/activities" exact>
-          <ActivityList />
+          <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/travelist" exact>
-          <PackingList />
+          <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/" exact>
-          <Start />
+          <Start trip={trip} updateTrip={updateTrip} />
         </Route>
         <Redirect to="/auth" exact />
       </Switch>
@@ -77,8 +77,6 @@ function App() {
   return (
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
-      trip={trip}
-      updateTrip={updateTrip}
     >
       <NavBar />
       <Router>
