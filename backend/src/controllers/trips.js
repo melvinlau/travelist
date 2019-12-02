@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const HttpError = require("../models/http-error");
-const Trip = require("../models/trip");
+const mongoose = require('mongoose');
+const HttpError = require('../models/http-error');
+const Trip = require('../models/trip');
 const itemsController = require('../controllers/items');
 const Weather = require('../services/weather-services');
 const User = require('../models/user');
@@ -98,6 +98,8 @@ const createTrip = async (req, res, next) => {
  destination, dateFrom, dateTo, activities, user 
 } = req.body;
 
+  console.log(req.body);
+
   let weather;
   try {
     weather = await Weather.getWeather(destination, dateFrom, dateTo);
@@ -143,6 +145,8 @@ const createTrip = async (req, res, next) => {
     user,
   });
 
+  console.log(createdTrip);
+
   let traveller;
   if (user) {
     try {
@@ -167,7 +171,7 @@ const createTrip = async (req, res, next) => {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdTrip.save({ session: sess });
-    user.places.push(createdTrip);
+    traveller.trips.push(createdTrip);
     await traveller.save({ session: sess });
     await sess.commitTransaction();
   } catch (err) {
