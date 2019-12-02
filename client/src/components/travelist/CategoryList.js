@@ -14,7 +14,7 @@ function CategoryList({ category, items, complete, unComplete, remove }) {
     return items.filter(element => element.category === category)
   }
   return (
-    <div>{category.charAt(0).toUpperCase() + category.slice(1)}
+    <div><h1>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
       {filteredItems().map((item) => {
         return (
           <PackingListItem
