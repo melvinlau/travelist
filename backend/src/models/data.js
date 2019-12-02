@@ -1,12 +1,13 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-//database structure
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
 const DataSchema = new Schema(
   {
     id: Number,
     destination: String,
-    activity: String
+    activity: String,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
-module.exports = mongoose.model("Data", DataSchema);
+module.exports = mongoose.model('Data', DataSchema);

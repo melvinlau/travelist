@@ -1,3 +1,6 @@
+/* eslint-disable no-loop-func */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable prefer-const */
 /* eslint-disable no-useless-catch */
 const fetch = require('node-fetch');
 const HttpError = require('../models/http-error');
@@ -23,18 +26,6 @@ async function getWeather(destination, dateFrom, dateTo) {
     throw error;
   }
   return getWeatherTags(result.data.weather);
-}
-
-function getWeatherTags(weather) {
-  const temperature = [];
-  const description = [];
-  weather.map((day) => {
-    temperature.push(parseInt(day.avgtempC, 10));
-    description.push(...getWeatherDescription(day.hourly));
-  });
-  const tempTags = getTemperatureTags(temperature);
-  const descTags = getDescriptionTags(description);
-  return [...tempTags, ...descTags];
 }
 
 const getWeatherDescription = (array) => {
@@ -105,7 +96,6 @@ const filterWeather = (array) => {
   filteredItems = array;
   filteredItems.map((item, index) => {
     const string = item.toLowerCase();
-    // console.log(item);
     if (
       string.includes('rain')
       || string.includes('shower')
@@ -125,21 +115,30 @@ const filterWeather = (array) => {
     }
   });
 
-  return filteredItems.filter((value) => value != 'other');
+  return filteredItems.filter((value) => value !== 'other');
 };
+
 const getDescriptionTags = (array) => {
   const filteredWeather = filterWeather(array);
   const countedItems = countUnique(filteredWeather);
   return getTwoMaxItems(countedItems);
 };
 
+function getWeatherTags(weather) {
+  const temperature = [];
+  const description = [];
+  weather.map((day) => {
+    temperature.push(parseInt(day.avgtempC, 10));
+    description.push(...getWeatherDescription(day.hourly));
+  });
+  const tempTags = getTemperatureTags(temperature);
+  const descTags = getDescriptionTags(description);
+  return [...tempTags, ...descTags];
+}
+
 const formatDate = (date) => {
-  console.log(typeof date);
-  console.log(date.getDate());
   const dd = String(date.getDate()).padStart(2, '0');
   const mm = String(date.getMonth() + 1).padStart(2, '0');
-  console.log(dd);
-  console.log(mm);
   const newDate = `${mm}-${dd}`;
   return newDate;
 };

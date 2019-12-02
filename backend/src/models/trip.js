@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// database structure
 const TripSchema = new Schema(
   {
     destination: String,
