@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 
-import Card           from "../shared/components/UIElements/Card";
-import Input          from "../shared/components/FormElements/Input";
-import Button         from "../shared/components/FormElements/Button";
-import ErrorModal     from "../shared/components/UIElements/ErrorModal";
+import Card from "../shared/components/UIElements/Card";
+import Input from "../shared/components/FormElements/Input";
+import Button from "../shared/components/FormElements/Button";
+import ErrorModal from "../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_EMAIL,
@@ -65,7 +65,6 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
-        console.log('we got to this part')
         const response = await fetch("http://localhost:3001/api/users/login", {
           method: "POST",
           headers: {
@@ -80,6 +79,7 @@ const Auth = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
+        console.log(responseData);
         setIsLoading(false);
         auth.login(
           responseData.userId,
