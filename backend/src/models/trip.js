@@ -11,6 +11,7 @@ const TripSchema = new Schema(
     activities: Array,
     weather: Array,
     items: Array,
+    packedItems: Array,
     user: Number,
   },
   { timestamps: true },
