@@ -15,18 +15,39 @@ function PackingList({ trip, updateTrip }) {
   const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
 
+  // const categoryList = items.map(item, index) => {
+  //   [...item.category]
+  // }
+
   const renderTravelist = () => {
-    const travelist = items.map((item, index) => {
+    const rawCategoryList = items.map((item, index) =>
+      item.category
+    );
+
+    const uniqueCategoryList = Array.from(new Set(rawCategoryList));
+
+    const travelist = uniqueCategoryList.map((category, index) => {
       return (
-        <PackingListItem
-          key={item.name}
-          item={item}
-          complete={complete}
-          unComplete={unComplete}
-          remove={remove}
-        />
+        // <PackingListItem
+        //   key={item.name}
+        //   item={item}
+        //   complete={complete}
+        //   unComplete={unComplete}
+        //   remove={remove}
+        // />
+        <CategoryList category={category} />
       );
     });
+
+    // console.log('categories', newArray)
+    // const uniqueCategoryList = Array.from(new Set(rawCategoryList));
+
+    // const travelist = () => {
+    //   return (
+    //     console.log(uniqueCategoryList)
+    //   );
+    // }
+
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
 
@@ -89,7 +110,7 @@ function PackingList({ trip, updateTrip }) {
   }
 
   const reportCompletedItems = () => {
-    alert( 'Items: ' + items + ' Completed items: ' + completedItems);
+    alert('Items: ' + items + ' Completed items: ' + completedItems);
   }
 
   const formattedDateFrom = formattedDate(trip.dateFrom);
@@ -111,7 +132,7 @@ function PackingList({ trip, updateTrip }) {
   return (
     <div>
 
-      { renderHeader() }
+      {renderHeader()}
 
       <div id="progress-bar"></div>
 
