@@ -1,7 +1,9 @@
-const HttpError = require('../models/http-error');
-const Trip = require('../models/trip');
+const mongoose = require("mongoose");
+const HttpError = require("../models/http-error");
+const Trip = require("../models/trip");
 const itemsController = require('../controllers/items');
 const Weather = require('../services/weather-services');
+const User = require('../models/user');
 
 const getTripById = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -92,8 +94,9 @@ const getTripsByUserId = async (req, res, next) => {
 };
 
 const createTrip = async (req, res, next) => {
-
-  const { destination, dateFrom, dateTo, activities, user } = req.body;
+  const {
+ destination, dateFrom, dateTo, activities, user 
+} = req.body;
 
   let weather;
   try {
@@ -130,8 +133,6 @@ const createTrip = async (req, res, next) => {
 
   const items = [...defaultItems, ...weatherItems];
 
-  console.log(items);
-
   const createdTrip = new Trip({
     destination,
     dateFrom,
@@ -142,10 +143,38 @@ const createTrip = async (req, res, next) => {
     user,
   });
 
+  let traveller;
+  if (user) {
+    try {
+      traveller = await User.findById(user);
+    } catch (err) {
+      const error = new HttpError(
+        'Creating place failed, please try again',
+        500,
+      );
+      return next(error);
+    }
+
+    if (!traveller) {
+      const error = new HttpError('Could not find user for provided id', 404);
+      return next(error);
+    }
+  }
+
+  console.log(traveller);
+
   try {
-    await createdTrip.save();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdTrip.save({ session: sess });
+    user.places.push(createdTrip);
+    await traveller.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
-    const error = new HttpError('Creating trip failed, please try again.', 500);
+    const error = new HttpError(
+      'Creating place failed, please try again.',
+      500,
+    );
     return next(error);
   }
 
@@ -153,9 +182,7 @@ const createTrip = async (req, res, next) => {
 };
 
 const addActivityItems = async (req, res, next) => {
-  const {
-    destination, activities,
-  } = req.body;
+  const { destination, activities } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -198,9 +225,7 @@ const addActivityItems = async (req, res, next) => {
 };
 
 const addCustomItem = async (req, res, next) => {
-  const {
-    name, category,
-  } = req.body;
+  const { name, category } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -239,7 +264,6 @@ const addCustomItem = async (req, res, next) => {
 
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
-
 
 const deleteTrip = async (req, res, next) => {
   const tripId = req.params.tid;
@@ -288,7 +312,6 @@ const updatePackedItems = async (req, res, next) => {
 
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
-
 
 exports.getTripById = getTripById;
 exports.getTripsByUserId = getTripsByUserId;
