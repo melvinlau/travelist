@@ -75,14 +75,18 @@ const Auth = () => {
             password: formState.inputs.password.value
           })
         });
-
         const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         console.log(responseData);
         setIsLoading(false);
-        auth.login(responseData.userId, responseData.token);
+        auth.login(
+          responseData.userId,
+          responseData.name,
+          responseData.token
+        );
+        console.log('Log in reponse data', responseData);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -102,12 +106,16 @@ const Auth = () => {
         });
 
         const responseData = await response.json();
+        console.log('Sign up response data', responseData);
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         setIsLoading(false);
-        console.log(responseData);
-        auth.login(responseData.userId, responseData.token);
+        auth.login(
+          responseData.userId,
+          responseData.name,
+          responseData.token
+        );
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -157,11 +165,11 @@ const Auth = () => {
             onInput={inputHandler}
           />
           <Button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? "LOGIN" : "SIGNUP"}
+            {isLoginMode ? "Log In" : "Sign Up"}
           </Button>
         </form>
         <Button inverse onClick={switchModeHandler}>
-          SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
+          Switch to {isLoginMode ? "Sign Up" : "Log In"}
         </Button>
       </Card>
     </React.Fragment>
