@@ -142,10 +142,7 @@ const createTrip = async (req, res, next) => {
     weather,
     activities,
     items,
-    user,
   });
-
-  console.log(createdTrip);
 
   let traveller;
   if (user) {
@@ -165,14 +162,16 @@ const createTrip = async (req, res, next) => {
     }
   }
 
-  console.log(traveller);
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdTrip.save({ session: sess });
-    traveller.trips.push(createdTrip);
-    await traveller.save({ session: sess });
+    if (traveller) {
+      traveller.trips.push(createdTrip);
+      await traveller.save({ session: sess });
+    }
+    console.log(createdTrip);
+    console.log(traveller);
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
