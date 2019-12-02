@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js",
+    "client": "( cd ./client && nodemon start)",
     "start": "concurrently \"cd backend && nodemon server.js\" \"cd client && nodemon start\""
   },
   "repository": {

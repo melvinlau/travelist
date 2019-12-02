@@ -171,7 +171,7 @@ describe('Weather Services', () => {
     });
   });
   describe('#filterWeather', () => {
-    test('Convert rain related tems to rainy', () => {
+    test.skip('Convert rain related tems to rainy', () => {
       const input = [
         'Light rain shower',
         'Drizzle',
