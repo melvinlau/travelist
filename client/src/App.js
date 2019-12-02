@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 
 import Start from "./components/Start";
 import ActivityList from "./components/ActivityList";
 import PackingList from "./components/PackingList";
-import SignUp from "./user/pages/SignUp";
-import SignIn from "./user/pages/SignIn";
+import SignUp from "./components/SignUp";
+import Auth from "./user/pages/Auth";
 import Trips from "./components/Trips";
 
 function App() {
@@ -36,8 +36,8 @@ function App() {
                   <Route path="/signup">
                     <SignUp />
                   </Route>
-                  <Route path="/signin">
-                    <SignIn />
+                  <Route path="/auth">
+                    <Auth />
                   </Route>
                   <Route path="/trips">
                     <Trips />
