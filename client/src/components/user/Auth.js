@@ -65,6 +65,7 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
+        console.log('we got to this part')
         const response = await fetch("http://localhost:3001/api/users/login", {
           method: "POST",
           headers: {
@@ -75,7 +76,6 @@ const Auth = () => {
             password: formState.inputs.password.value
           })
         });
-
         const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);

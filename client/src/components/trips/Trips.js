@@ -24,6 +24,10 @@ function Trips() {
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
 
+      <Link to="/user/new-trip">
+        Create a new trip
+      </Link>
+
     </div>
   );
 }
