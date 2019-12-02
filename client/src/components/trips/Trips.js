@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,16 +6,24 @@ import {
   Link
 } from "react-router-dom";
 
+import { AuthContext } from "../shared/context/auth-context";
+
+
 function Trips() {
-  const [trips,updateTrips] = useState(['London']);
+
+  const auth = useContext(AuthContext);
+
+  const renderName = () => {
+    if (auth.name) return (
+      <h5>Hey, {auth.name}!</h5>
+    );
+  }
+
   return (
     <div>
-      <h2>My trips</h2>
-        {
-          trips.map((trip, index) => {
-            return trip;
-          })
-        }
+      <h2>{renderName()}</h2>
+      <h3>Trips</h3>
+
     </div>
   );
 }

@@ -19,15 +19,25 @@ import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
 
+  const [userId, setUserId] = useState(false);
+  const [name, setName] = useState(false);
+  const [token, setToken] = useState(false);
+
   const [trip, updateTrip] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = useCallback(() => {
+  const login = useCallback((userId, name, token) => {
     setIsLoggedIn(true);
+    setUserId(userId);
+    setName(name);
+    setToken(token);
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback((userId, name, token) => {
     setIsLoggedIn(false);
+    setUserId(userId);
+    setName(name);
+    setToken(token);
   }, []);
 
   let routes;
@@ -76,7 +86,20 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: isLoggedIn,
+        setIsLoggedIn: setIsLoggedIn,
+        userId: userId,
+        setUserId: setUserId,
+        name: name,
+        setName: setName,
+        token: token,
+        setToken: setToken,
+        trip: trip,
+        updateTrip: updateTrip,
+        login: login,
+        logout: logout
+      }}
     >
       <Router>
         {routes}
