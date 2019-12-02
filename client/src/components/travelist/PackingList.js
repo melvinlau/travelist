@@ -16,10 +16,6 @@ function PackingList({ trip, updateTrip }) {
   const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
 
-  // const categoryList = items.map(item, index) => {
-  //   [...item.category]
-  // }
-
   const renderTravelist = () => {
     const rawCategoryList = items.map((item, index) =>
       item.category
@@ -36,7 +32,7 @@ function PackingList({ trip, updateTrip }) {
         //   unComplete={unComplete}
         //   remove={remove}
         // />
-        <CategoryList category={category} />
+        <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
       );
     });
 
