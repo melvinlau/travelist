@@ -34,14 +34,17 @@ function App() {
   if (isLoggedIn) {
     routes = (
       <Switch>
+        <Route path="/user/new-trip" exact>
+          <Start />
+        </Route>
         <Route path="/user/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+          <ActivityList />
         </Route>
         <Route path="/user/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
+          <PackingList />
         </Route>
-        <Route path="/user/trips" exact>
-          <Trips trip={trip} updateTrip={updateTrip} />
+        <Route path="/" exact>
+          <Trips />
         </Route>
         <Redirect to="/" />
       </Switch>
@@ -53,12 +56,15 @@ function App() {
           <Auth />
         </Route>
         <Route path="/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+          <ActivityList />
         </Route>
         <Route path="/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
+          <PackingList />
         </Route>
-        <Redirect to="/auth" />
+        <Route path="/" exact>
+          <Start />
+        </Route>
+        <Redirect to="/auth" exact/>
       </Switch>
     );
   }
@@ -71,6 +77,8 @@ function App() {
   return (
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      trip={trip}
+      updateTrip={updateTrip}
     >
       <Router>
         {routes}
