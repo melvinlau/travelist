@@ -73,7 +73,7 @@ function App() {
         <Route path="/" exact>
           <Start trip={trip} updateTrip={updateTrip} />
         </Route>
-        <Redirect to="/auth" exact/>
+        <Redirect to="/auth" exact />
       </Switch>
     );
   }
@@ -95,6 +95,7 @@ function App() {
         logout: logout
       }}
     >
+      <NavBar />
       <Router>
         <Navbar />
         {routes}
