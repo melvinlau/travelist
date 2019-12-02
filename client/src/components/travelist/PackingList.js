@@ -9,6 +9,7 @@ import {
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
+import CategoryList from './CategoryList';
 
 function PackingList({ trip, updateTrip }) {
 
