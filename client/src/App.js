@@ -44,34 +44,34 @@ function App() {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+          <Start />
         </Route>
         <Route path="/user/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+          <ActivityList />
         </Route>
         <Route path="/user/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
+          <PackingList />
         </Route>
         <Route path="/" exact>
-          <Trips trip={trip} updateTrip={updateTrip} />
+          <Trips />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
   } else {
-    routes = (
+    routes = ( 
       <Switch>
         <Route path="/auth" exact>
-          <Auth trip={trip} updateTrip={updateTrip} />
+          <Auth />
         </Route>
         <Route path="/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+          <ActivityList />
         </Route>
         <Route path="/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
+          <PackingList />
         </Route>
         <Route path="/" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+          <Start />
         </Route>
         <Redirect to="/auth" exact />
       </Switch>

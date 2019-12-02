@@ -13,9 +13,11 @@ import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
 
-function PackingList({ trip, updateTrip }) {
+function PackingList() {
 
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
 
   const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
@@ -33,7 +35,13 @@ function PackingList({ trip, updateTrip }) {
 
     const travelist = finalCategoryList.map((category, index) => {
       return (
-        <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
+        <CategoryList
+          category={category}
+          items={items}
+          complete={complete}
+          unComplete={unComplete}
+          remove={remove}
+        />
       );
     });
 

@@ -16,6 +16,8 @@ import "./Auth.css";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -59,6 +61,9 @@ const Auth = () => {
   };
 
   const authSubmitHandler = async event => {
+
+    console.log('stored trip object at sign up submit', trip);
+
     event.preventDefault();
 
     setIsLoading(true);

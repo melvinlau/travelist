@@ -5,8 +5,11 @@ import { AuthContext } from "../shared/context/auth-context";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ActivityListItem from "./ActivityListItem";
 
-function ActivityList({ trip, updateTrip }) {
+function ActivityList() {
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
+
   const [activities, setActivities] = useState([
     "skiing",
     "hiking",
