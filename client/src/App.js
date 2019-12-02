@@ -34,19 +34,15 @@ function App() {
   if (isLoggedIn) {
     routes = (
       <Switch>
-
-        <Route path="/activities" exact>
+        <Route path="/user/activities" exact>
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
-
-        <Route path="/travelist" exact>
+        <Route path="/user/travelist" exact>
           <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
-
-        <Route path="/trips" exact>
+        <Route path="/user/trips" exact>
           <Trips trip={trip} updateTrip={updateTrip} />
         </Route>
-
         <Redirect to="/" />
       </Switch>
     );
@@ -55,6 +51,12 @@ function App() {
       <Switch>
         <Route path="/auth" exact>
           <Auth />
+        </Route>
+        <Route path="/activities" exact>
+          <ActivityList trip={trip} updateTrip={updateTrip} />
+        </Route>
+        <Route path="/travelist" exact>
+          <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Redirect to="/auth" />
       </Switch>
@@ -71,30 +73,8 @@ function App() {
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
-        {/* A <Switch> looks through its children <Route>s and
-      renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/activities" exact>
-            <ActivityList trip={trip} updateTrip={updateTrip} />
-          </Route>
-          <Route path="/travelist" exact>
-            <PackingList trip={trip} updateTrip={updateTrip} />
-          </Route>
-          <Route path="/signup" exact>
-            <SignUp />
-          </Route>
-          <Route path="/auth" exact>
-            <Auth />
-          </Route>
-          <Route path="/trips" exact>
-            <Trips />
-          </Route>
-          <Route path="/">
-            <Start trip={trip} updateTrip={updateTrip} />
-          </Route>
-        </Switch>
+        {routes}
       </Router>
-
     </AuthContext.Provider>
   );
 }
