@@ -95,7 +95,6 @@ function App() {
         logout: logout
       }}
     >
-      <NavBar />
       <Router>
         <Navbar />
         {routes}

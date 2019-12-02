@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -6,12 +6,16 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from 'axios';
+import { AuthContext } from "../shared/context/auth-context";
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
 
 function PackingList({ trip, updateTrip }) {
+
+  const auth = useContext(AuthContext);
 
   const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
@@ -94,10 +98,6 @@ function PackingList({ trip, updateTrip }) {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
-  const reportCompletedItems = () => {
-    alert('Items: ' + items + ' Completed items: ' + completedItems);
-  }
-
   const formattedDateFrom = formattedDate(trip.dateFrom);
 
   const renderHeader = () => {
@@ -114,6 +114,33 @@ function PackingList({ trip, updateTrip }) {
     console.log('Completed items', completedItems);
   });
 
+  const callUpdateTrip = trip => {
+    updateTrip(trip);
+  };
+
+  const handleSaveList = e => {
+    axios
+      .patch(
+        `http://localhost:3001/api/trips/${trip._id}/items/packed`,
+        {
+          items: items,
+          packedItems: completedItems
+        },
+        {
+          headers: { Authorization: "bearer " + auth.token }
+        }
+      )
+      .then(response => {
+        callUpdateTrip(response.data.trip);
+        console.log(
+          "update trip with packed list: response",
+          response.data.trip
+        );
+      })
+      .catch(console.log);
+  };
+
+
   return (
     <div>
 
@@ -124,7 +151,7 @@ function PackingList({ trip, updateTrip }) {
       <div id="travelist"></div>
 
       <Link to="/signup">
-        <button onClick={reportCompletedItems}>Save</button>
+        <button onClick={handleSaveList}>Save</button>
       </Link>
 
     </div>
