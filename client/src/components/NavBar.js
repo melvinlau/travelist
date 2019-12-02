@@ -49,7 +49,6 @@ function NavBar() {
       </AppBar>
     </ThemeProvider>
   );
-
 }
 
 export default NavBar;
