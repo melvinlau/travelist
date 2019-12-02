@@ -7,6 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import PackingListItem from './PackingListItem';
+import AddItemForm from './AddItemForm';
 
 function CategoryList({ category, items, complete, unComplete, remove }) {
   const filteredItems = () => {
@@ -25,6 +26,7 @@ function CategoryList({ category, items, complete, unComplete, remove }) {
           />
         )
       })}
+      <AddItemForm category={category} />
     </div>
   );
 }

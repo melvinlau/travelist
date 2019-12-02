@@ -25,25 +25,9 @@ function PackingList({ trip, updateTrip }) {
 
     const travelist = uniqueCategoryList.map((category, index) => {
       return (
-        // <PackingListItem
-        //   key={item.name}
-        //   item={item}
-        //   complete={complete}
-        //   unComplete={unComplete}
-        //   remove={remove}
-        // />
         <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
       );
     });
-
-    // console.log('categories', newArray)
-    // const uniqueCategoryList = Array.from(new Set(rawCategoryList));
-
-    // const travelist = () => {
-    //   return (
-    //     console.log(uniqueCategoryList)
-    //   );
-    // }
 
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
@@ -133,9 +117,6 @@ function PackingList({ trip, updateTrip }) {
 
       <div id="progress-bar"></div>
 
-      <AddItemForm add={add} />
-
-      <h5 className="mt-4">General items</h5>
       <div id="travelist"></div>
 
       <Link to="/signup">
