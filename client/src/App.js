@@ -8,36 +8,42 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 
-import Start from "./components/Start";
-import ActivityList from "./components/ActivityList";
-import PackingList from "./components/PackingList";
-import SignUp from "./components/SignUp";
-import Auth from "./user/pages/Auth";
-import Trips from "./components/Trips";
-import { AuthContext } from "./shared/context/auth-context";
+import Start from "./components/start/Start";
+import ActivityList from "./components/activities/ActivityList";
+import PackingList from "./components/travelist/PackingList";
+import SignUp from "./components/user/SignUp";
+import Trips from "./components/trips/Trips";
+import Navbar from "./components/shared/components/Navigation/Navbar";
+import Auth from "./components/user/Auth";
+import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
   const [trip, updateTrip] = useState({});
+  const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid, token) => {
+    setToken(token);
+    setUserId(uid);
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
+    setUserId(null);
   }, []);
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
-        <Route path="/activities">
+        <Route path="/" exact>
+          <Start trip={trip} updateTrip={updateTrip} />
+        </Route>
+        <Route path="/activities" exact>
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
-        <Route path="/travelist">
+        <Route path="/travelist" exact>
           <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Redirect to="/" />
@@ -46,7 +52,7 @@ function App() {
   } else {
     routes = (
       <Switch>
-        <Route path="/auth">
+        <Route path="/auth" exact>
           <Auth />
         </Route>
         <Redirect to="/auth" />
@@ -54,54 +60,20 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    console.log('App: trip', trip);
-    console.log('App: trip.items', trip.items);
-  });
-
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout
+      }}
     >
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-10 col-sm-4">
-            <div className="row">
-              <div className="col-12 mt-4">
-                <h1 className="logo">Travelist</h1>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <Router>
-                  {/* A <Switch> looks through its children <Route>s and
-                renders the first one that matches the current URL. */}
-                  <Switch>
-                    <Route path="/activities">
-                      <ActivityList trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                    <Route path="/travelist">
-                      <PackingList trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                    <Route path="/signup">
-                      <SignUp />
-                    </Route>
-                    <Route path="/auth">
-                      <Auth />
-                    </Route>
-                    <Route path="/trips">
-                      <Trips />
-                    </Route>
-                    <Route path="/">
-                      <Start trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                  </Switch>
-                </Router>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Router>
+        <Navbar />
+        <main>{routes}</main>
+      </Router>
     </AuthContext.Provider>
   );
 }
