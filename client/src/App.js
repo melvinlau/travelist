@@ -37,10 +37,10 @@ function App() {
   if (token) {
     routes = (
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           <Start trip={trip} updateTrip={updateTrip} />
         </Route>
-        <Route path="/activities">
+        <Route path="/activities" exact>
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Route path="/travelist" exact>
