@@ -18,9 +18,9 @@ import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(false);
   const [trip, updateTrip] = useState({});
 
@@ -39,7 +39,7 @@ function App() {
   }, []);
 
   let routes;
-  
+
   if (token) {
     routes = (
       <Switch>
@@ -73,7 +73,7 @@ function App() {
         <Route path="/" exact>
           <Start trip={trip} updateTrip={updateTrip} />
         </Route>
-        <Redirect to="/auth" exact/>
+        <Redirect to="/auth" exact />
       </Switch>
     );
   }
