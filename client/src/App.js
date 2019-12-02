@@ -31,16 +31,22 @@ function App() {
   }, []);
 
   let routes;
-
   if (isLoggedIn) {
     routes = (
       <Switch>
+
         <Route path="/activities" exact>
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
+
         <Route path="/travelist" exact>
           <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
+
+        <Route path="/trips" exact>
+          <Trips trip={trip} updateTrip={updateTrip} />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -61,52 +67,35 @@ function App() {
   });
 
   return (
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+    >
+      <Router>
+        {/* A <Switch> looks through its children <Route>s and
+      renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/activities" exact>
+            <ActivityList trip={trip} updateTrip={updateTrip} />
+          </Route>
+          <Route path="/travelist" exact>
+            <PackingList trip={trip} updateTrip={updateTrip} />
+          </Route>
+          <Route path="/signup" exact>
+            <SignUp />
+          </Route>
+          <Route path="/auth" exact>
+            <Auth />
+          </Route>
+          <Route path="/trips" exact>
+            <Trips />
+          </Route>
+          <Route path="/">
+            <Start trip={trip} updateTrip={updateTrip} />
+          </Route>
+        </Switch>
+      </Router>
 
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-10 col-sm-4">
-            <div className="row">
-              <div className="col-12 mt-4">
-                <h1 className="logo">Travelist</h1>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <AuthContext.Provider
-                  value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
-                >
-                  <Router>
-                    {/* A <Switch> looks through its children <Route>s and
-                  renders the first one that matches the current URL. */}
-                    <Switch>
-                      <Route path="/activities" exact>
-                        <ActivityList trip={trip} updateTrip={updateTrip} />
-                      </Route>
-                      <Route path="/travelist" exact>
-                        <PackingList trip={trip} updateTrip={updateTrip} />
-                      </Route>
-                      <Route path="/signup" exact>
-                        <SignUp />
-                      </Route>
-                      <Route path="/auth" exact>
-                        <Auth />
-                      </Route>
-                      <Route path="/trips" exact>
-                        <Trips />
-                      </Route>
-                      <Route path="/">
-                        <Start trip={trip} updateTrip={updateTrip} />
-                      </Route>
-                    </Switch>
-                  </Router>
-
-                </AuthContext.Provider>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    </AuthContext.Provider>
   );
 }
 
