@@ -45,3 +45,11 @@ button {
   color: #000;
   cursor: pointer;
 }
+
+.card {
+  margin: 0 0 5px 0;
+}
+
+.card-body {
+  padding: 3px 5px;
+}

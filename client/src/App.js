@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +15,11 @@ import Trips from './components/Trips';
 
 function App() {
   const [trip, updateTrip] = useState({});
+
+  useEffect(() => {
+    console.log('App: trip', trip);
+    console.log('App: trip.items', trip.items);
+  });
 
   return (
     <div className="container">

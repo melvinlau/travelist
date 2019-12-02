@@ -15,7 +15,7 @@ function SignUpForm() {
         type="email"
         placeholder="Email"
         required
-        autofocus
+        autoFocus
       /> <br />
       <input
         name="password"
