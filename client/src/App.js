@@ -12,6 +12,7 @@ import ActivityList from './components/ActivityList';
 import PackingList from './components/PackingList';
 import SignUp from './components/SignUp';
 import Trips from './components/Trips';
+import NavBar from './components/NavBar';
 
 function App() {
   const [trip, updateTrip] = useState({});
@@ -24,6 +25,7 @@ function App() {
   return (
     <div className="container">
       <div className="row justify-content-center">
+        <NavBar />
         <div className="col-10 col-sm-4">
           <div className="row">
             <div className="col-12 mt-4">
