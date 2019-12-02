@@ -8,17 +8,17 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 
-import Start from "./components/Start";
-import ActivityList from "./components/ActivityList";
-import PackingList from "./components/PackingList";
-import SignUp from "./components/SignUp";
-import Auth from "./user/pages/Auth";
-import Trips from "./components/Trips";
-import { AuthContext } from "./shared/context/auth-context";
+import Start from "./components/start/Start";
+import ActivityList from "./components/activities/ActivityList";
+import PackingList from "./components/travelist/PackingList";
+import SignUp from "./components/user/SignUp";
+import Trips from "./components/trips/Trips";
+import Navbar from "./components/shared/components/Navigation/Navbar";
+import Auth from "./components/user/Auth";
+import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
   const [trip, updateTrip] = useState({});
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = useCallback(() => {
@@ -40,7 +40,7 @@ function App() {
         <Route path="/activities">
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
-        <Route path="/travelist">
+        <Route path="/travelist" exact>
           <PackingList trip={trip} updateTrip={updateTrip} />
         </Route>
         <Redirect to="/" />
@@ -49,7 +49,7 @@ function App() {
   } else {
     routes = (
       <Switch>
-        <Route path="/auth">
+        <Route path="/auth" exact>
           <Auth />
         </Route>
         <Redirect to="/auth" />
@@ -62,7 +62,7 @@ function App() {
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
-        <MainNavigation />
+        <Navbar />
         <main>{routes}</main>
       </Router>
     </AuthContext.Provider>

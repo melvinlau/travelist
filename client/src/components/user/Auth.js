@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 
-import Card from "../../shared/components/UIElements/Card";
-import Input from "../../shared/components/FormElements/Input";
-import Button from "../../shared/components/FormElements/Button";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import Card           from "../shared/components/UIElements/Card";
+import Input          from "../shared/components/FormElements/Input";
+import Button         from "../shared/components/FormElements/Button";
+import ErrorModal     from "../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE
-} from "../../shared/util/validators";
-import { useForm } from "../../shared/hooks/form-hook";
-import { AuthContext } from "../../shared/context/auth-context";
+} from "../shared/util/validators";
+import { useForm } from "../shared/hooks/form-hook";
+import { AuthContext } from "../shared/context/auth-context";
 import "./Auth.css";
 
 const Auth = () => {
