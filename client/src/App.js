@@ -34,6 +34,9 @@ function App() {
   if (isLoggedIn) {
     routes = (
       <Switch>
+        <Route path="/">
+          <Start trip={trip} updateTrip={updateTrip} />
+        </Route>
         <Route path="/activities">
           <ActivityList trip={trip} updateTrip={updateTrip} />
         </Route>
@@ -54,54 +57,14 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    console.log('App: trip', trip);
-    console.log('App: trip.items', trip.items);
-  });
-
   return (
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-10 col-sm-4">
-            <div className="row">
-              <div className="col-12 mt-4">
-                <h1 className="logo">Travelist</h1>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <Router>
-                  {/* A <Switch> looks through its children <Route>s and
-                renders the first one that matches the current URL. */}
-                  <Switch>
-                    <Route path="/activities">
-                      <ActivityList trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                    <Route path="/travelist">
-                      <PackingList trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                    <Route path="/signup">
-                      <SignUp />
-                    </Route>
-                    <Route path="/auth">
-                      <Auth />
-                    </Route>
-                    <Route path="/trips">
-                      <Trips />
-                    </Route>
-                    <Route path="/">
-                      <Start trip={trip} updateTrip={updateTrip} />
-                    </Route>
-                  </Switch>
-                </Router>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
     </AuthContext.Provider>
   );
 }
