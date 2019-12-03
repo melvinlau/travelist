@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 
 import Start from "./components/start/Start";
+import TripsList from "./components/test/TripsList";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
@@ -17,7 +18,6 @@ import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
   const [token, setToken] = useState(false);
@@ -33,7 +33,7 @@ function App() {
       JSON.stringify({
         userId: userId,
         name: name,
-        token: token,
+        token: token
       })
     );
   }, []);
@@ -100,13 +100,16 @@ function App() {
       }}
     >
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Switch>
           <Route path="/activities" exact>
             <ActivityList />
           </Route>
           <Route path="/packinglist" exact>
             <PackingList />
+          </Route>
+          <Route path="/tripslist" exact>
+            <TripsList />
           </Route>
           {routes}
         </Switch>
