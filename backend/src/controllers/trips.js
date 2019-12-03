@@ -70,33 +70,10 @@ const getTripWeatherById = async (req, res, next) => {
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
-const getTripsByUserId = async (req, res, next) => {
-  const userId = req.params.uid;
-
-  let trips;
-  try {
-    trips = await Trip.find({ user: userId });
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching places failed, please try again later',
-      500,
-    );
-    return next(error);
-  }
-
-  if (!trips || trips.length === 0) {
-    return next(
-      new HttpError('Could not find trips for the provided user id.', 404),
-    );
-  }
-
-  res.json({ trips: trips.map((trip) => trip.toObject({ getters: true })) });
-};
-
 const createTrip = async (req, res, next) => {
   const {
- destination, dateFrom, dateTo, activities, user 
-} = req.body;
+    destination, dateFrom, dateTo, activities, user
+  } = req.body;
 
   let weather;
   try {
