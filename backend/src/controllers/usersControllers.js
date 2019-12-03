@@ -88,6 +88,7 @@ const signup = async (req, res, next) => {
       userId: createdUser.id,
       name: createdUser.name,
       email: createdUser.email,
+      trips: createdUser.trips,
       token: token
     });
 };

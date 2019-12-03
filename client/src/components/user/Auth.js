@@ -106,7 +106,8 @@ const Auth = () => {
           body: JSON.stringify({
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
-            password: formState.inputs.password.value
+            password: formState.inputs.password.value,
+            trips: [trip],
           })
         });
 
@@ -119,7 +120,8 @@ const Auth = () => {
         auth.login(
           responseData.userId,
           responseData.name,
-          responseData.token
+          responseData.token,
+          responseData.trips,
         );
       } catch (err) {
         setIsLoading(false);

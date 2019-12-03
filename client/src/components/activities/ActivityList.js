@@ -38,6 +38,7 @@ function ActivityList() {
       .patch(
         `http://localhost:3001/api/trips/${trip._id}`,
         {
+          destination: trip.destination,
           activities: selectedActivities
         },
         {

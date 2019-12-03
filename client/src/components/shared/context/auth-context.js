@@ -11,6 +11,8 @@ export const AuthContext = createContext({
   setToken: () => { },
   trip: undefined,
   updateTrip: () => { },
+  tripList: undefined,
+  updateTripList: () => { },
   login: () => { },
   logout: () => { },
 });

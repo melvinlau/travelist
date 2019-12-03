@@ -23,12 +23,14 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(false);
   const [trip, updateTrip] = useState({});
+  const [tripList, updateTripList] = useState([]);
 
-  const login = useCallback((userId, name, token) => {
+  const login = useCallback((userId, name, token, trips) => {
     setIsLoggedIn(true);
     setUserId(userId);
     setName(name);
     setToken(token);
+    updateTripList(trips);
   }, []);
 
   const logout = useCallback(() => {
@@ -36,6 +38,8 @@ function App() {
     setUserId(null);
     setName(null);
     setToken(null);
+    updateTrip(null);
+    updateTripList(null);
   }, []);
 
   let routes;
@@ -43,7 +47,7 @@ function App() {
   if (token) {
     routes = (
       <Switch>
-        <Route path="/" exact>
+        <Route path="/user/newtrip" exact>
           <Start />
         </Route>
         <Route path="/user/activities" exact>
@@ -52,14 +56,14 @@ function App() {
         <Route path="/user/travelist" exact>
           <PackingList />
         </Route>
-        <Route path="/" exact>
+        <Route path="/user" exact>
           <Trips />
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/user" />
       </Switch>
     );
   } else {
-    routes = ( 
+    routes = (
       <Switch>
         <Route path="/auth" exact>
           <Auth />
