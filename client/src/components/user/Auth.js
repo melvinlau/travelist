@@ -81,12 +81,8 @@ const Auth = () => {
         }
         console.log(responseData);
         setIsLoading(false);
-        auth.login(
-          responseData.userId,
-          responseData.name,
-          responseData.token
-        );
-        console.log('Log in reponse data', responseData);
+        auth.login(responseData.userId, responseData.name, responseData.token);
+        console.log("Log in reponse data", responseData);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -106,16 +102,12 @@ const Auth = () => {
         });
 
         const responseData = await response.json();
-        console.log('Sign up response data', responseData);
+        console.log("Sign up response data", responseData);
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         setIsLoading(false);
-        auth.login(
-          responseData.userId,
-          responseData.name,
-          responseData.token
-        );
+        auth.login(responseData.userId, responseData.name, responseData.token);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");

@@ -25,7 +25,7 @@ function StartForm({ trip, updateTrip }) {
   const handleEndDateChange = e => {
     setEndDate(e.target.value);
   };
-
+  console.log(auth.userId);
   const handleCreateTrip = () => {
     axios
       .post(
@@ -33,7 +33,8 @@ function StartForm({ trip, updateTrip }) {
         {
           destination: destination,
           dateFrom: dateFrom,
-          dateTo: dateTo
+          dateTo: dateTo,
+          user: auth.userId
         },
         {
           headers: { Authorization: "bearer " + auth.token }

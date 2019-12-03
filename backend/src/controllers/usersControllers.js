@@ -5,23 +5,9 @@ const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 
-const getUsers = async (req, res, next) => {
-  let users;
-  try {
-    users = await User.find({}, '-password');
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching users failed, please try again later.',
-      500,
-    );
-    return next(error);
-  }
-  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
-};
-
 const signup = async (req, res, next) => {
   // eslint-disable-next-line object-curly-newline
-  const { name, email, password, trips } = req.body;
+  const { name, email, password } = req.body;
 
   let existingUser;
   try {
@@ -57,7 +43,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password: hashedPassword,
-    trips,
+    trips: [],
   });
 
   try {
@@ -82,14 +68,12 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res
-    .status(201)
-    .json({
-      userId: createdUser.id,
-      name: createdUser.name,
-      email: createdUser.email,
-      token: token
-    });
+  res.status(201).json({
+    userId: createdUser.id,
+    name: createdUser.name,
+    email: createdUser.email,
+    token: token,
+  });
 };
 
 const login = async (req, res, next) => {
@@ -151,12 +135,11 @@ const login = async (req, res, next) => {
 
   res.json({
     userId: existingUser.id,
-    name: createdUser.name,
+    name: existingUser.name,
     email: existingUser.email,
     token: token,
   });
 };
 
-exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
