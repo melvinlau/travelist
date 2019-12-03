@@ -9,6 +9,7 @@ import {
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
+import CategoryList from './CategoryList';
 
 function PackingList({ trip, updateTrip }) {
 
@@ -16,17 +17,22 @@ function PackingList({ trip, updateTrip }) {
   const [completedItems, updateCompletedItems] = useState([]);
 
   const renderTravelist = () => {
-    const travelist = items.map((item, index) => {
+    const rawCategoryList = items.map((item, index) =>
+      item.category
+    );
+
+    const uniqueCategoryList = Array.from(new Set(rawCategoryList));
+
+    let finalCategoryList = uniqueCategoryList.filter(e => e !== 'miscellaneous')
+
+    finalCategoryList = [...finalCategoryList, 'miscellaneous']
+
+    const travelist = finalCategoryList.map((category, index) => {
       return (
-        <PackingListItem
-          key={item.name}
-          item={item}
-          complete={complete}
-          unComplete={unComplete}
-          remove={remove}
-        />
+        <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
       );
     });
+
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
 
@@ -89,7 +95,7 @@ function PackingList({ trip, updateTrip }) {
   }
 
   const reportCompletedItems = () => {
-    alert( 'Items: ' + items + ' Completed items: ' + completedItems);
+    alert('Items: ' + items + ' Completed items: ' + completedItems);
   }
 
   const formattedDateFrom = formattedDate(trip.dateFrom);
@@ -111,13 +117,10 @@ function PackingList({ trip, updateTrip }) {
   return (
     <div>
 
-      { renderHeader() }
+      {renderHeader()}
 
       <div id="progress-bar"></div>
 
-      <AddItemForm add={add} />
-
-      <h5 className="mt-4">General items</h5>
       <div id="travelist"></div>
 
       <Link to="/signup">
