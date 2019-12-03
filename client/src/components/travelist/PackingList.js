@@ -76,6 +76,10 @@ function PackingList() {
     updateCompletedItems(newCompletedItems);
   }
 
+  const callUpdateItems = trip => {
+    updateItems(trip);
+  };
+
   const createItemObject = (name, category) => {
     axios
       .post(
@@ -90,19 +94,17 @@ function PackingList() {
       )
       .then(response => {
         console.log('Create custom item: response', response.data.item);
-        return response.data.item;
+        callUpdateItems([...items, response.data.item]);
       })
       .catch(console.log);
   }
 
   const add = async (name, category) => {
     if (findExistingMatches(name, items).length > 0) return;
-    const item = await createItemObject(name, category);
-    await updateItems([...items, item]);
+    createItemObject(name, category);
   }
 
   const remove = async item => {
-
     const foundExistingItems = findExistingMatches(item.name, items);
     if (foundExistingItems.length === 0) return;
     await unComplete(item);
