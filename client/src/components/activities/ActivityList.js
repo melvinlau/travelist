@@ -87,7 +87,7 @@ function ActivityList() {
 
       <div id="activities-list"></div>
 
-      <Link to="/travelist">
+      <Link to="/packinglist">
         <button data-cy="generate-list-button" onClick={handleCreateList}>
           Generate a Travelist!
         </button>

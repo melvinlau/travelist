@@ -20,10 +20,7 @@ function App() {
 
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(false);
-  const [name, setName] = useState(false);
-  const [userId, setUserId] = useState(false);
   const [trip, updateTrip] = useState({});
   const [tripList, updateTripList] = useState([]);
 
@@ -62,39 +59,27 @@ function App() {
 
   if (token) {
     routes = (
-      <Switch>
-        <Route path="/user/newtrip" exact>
+      <React.Fragment>
+        <Route path="/start" exact>
           <Start />
         </Route>
-        <Route path="/user/activities" exact>
-          <ActivityList />
-        </Route>
-        <Route path="/user/travelist" exact>
-          <PackingList />
-        </Route>
-        <Route path="/user" exact>
+        <Route path="/trips" exact>
           <Trips />
         </Route>
-        <Redirect to="/user" />
-      </Switch>
+        <Redirect to="/trips" />
+      </React.Fragment>
     );
   } else {
     routes = (
-      <Switch>
-        <Route path="/auth" exact>
-          <Auth />
-        </Route>
-        <Route path="/activities" exact>
-          <ActivityList />
-        </Route>
-        <Route path="/travelist" exact>
-          <PackingList />
-        </Route>
+      <React.Fragment>
         <Route path="/" exact>
           <Start />
         </Route>
-        <Redirect to="/auth" exact />
-      </Switch>
+        <Route path="/auth" exact>
+          <Auth />
+        </Route>
+        <Redirect to="/" />
+      </React.Fragment>
     );
   }
 
@@ -116,7 +101,15 @@ function App() {
     >
       <Router>
         <Navbar />
-        {routes}
+        <Switch>
+          <Route path="/activities" exact>
+            <ActivityList />
+          </Route>
+          <Route path="/packinglist" exact>
+            <PackingList />
+          </Route>
+          {routes}
+        </Switch>
       </Router>
     </AuthContext.Provider>
   );

@@ -13,7 +13,6 @@ function Trips() {
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
-  const tripList = auth.tripList;
 
   const renderName = () => {
     if (auth.name) return (
@@ -26,9 +25,8 @@ function Trips() {
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
 
-      { auth.tripList.map(trip => trip.destination) }
 
-      <Link to="/user/new-trip">
+      <Link to="/start">
         Create a new trip
       </Link>
 
