@@ -9,7 +9,7 @@ import {
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 
-function CategoryList({ category, items, complete, unComplete, remove }) {
+function CategoryList({ category, items, add, remove, complete, unComplete }) {
   const filteredItems = () => {
     return items.filter(element => element.category === category)
   }
@@ -26,7 +26,7 @@ function CategoryList({ category, items, complete, unComplete, remove }) {
           />
         )
       })}
-      <AddItemForm category={category} />
+      <AddItemForm category={category} add={add} />
     </div>
   );
 }

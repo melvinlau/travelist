@@ -16,6 +16,7 @@ import "./Auth.css";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
+
   const trip = auth.trip;
 
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -70,10 +71,12 @@ const Auth = () => {
 
     if (isLoginMode) {
       try {
+        const token = auth.token;
         const response = await fetch("http://localhost:3001/api/users/login", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "bearer " + auth.token,
           },
           body: JSON.stringify({
             email: formState.inputs.email.value,

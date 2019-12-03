@@ -40,7 +40,7 @@ function PackingListItem({ item, complete, unComplete, remove }) {
   }
 
   const handleDelete = () => {
-    remove(item.name);
+    remove(item);
   }
 
   return (
