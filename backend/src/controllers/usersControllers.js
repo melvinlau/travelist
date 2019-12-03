@@ -147,5 +147,29 @@ const login = async (req, res, next) => {
   });
 };
 
+const getUserTrips = async (req, res, next) => {
+  const userId = req.params.uid;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching places failed, please try again later',
+      500,
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    return next(
+      new HttpError('Could not find user for the provided user id.', 404),
+    );
+  }
+
+  res.json({ trips: user.trips.toObject({ getters: true }) });
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.getUserTrips = getUserTrips;
