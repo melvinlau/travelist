@@ -290,11 +290,34 @@ const updatePackedItems = async (req, res, next) => {
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
 
+const getTripsById = async (tripsIds) => {
+  let trips;
+
+  try {
+    trips = await Trip.find({ _id: { $in: tripsIds } });
+    console.log('trips query', trips)
+  } catch (err) {
+    const error = new HttpError('Fetching items failed, please try again', 500);
+    return next(error);
+  }
+
+  if (!trips || trips.length === 0) {
+    const error = new HttpError(
+      'Could not find a trip for the provided name.',
+      404,
+    );
+    return next(error);
+  }
+
+  console.log("Trips by Id", trips)
+  return trips
+}
+
 exports.getTripById = getTripById;
-exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
 exports.addActivityItems = addActivityItems;
 exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;
 exports.updatePackedItems = updatePackedItems;
+exports.getTripsById = getTripsById;

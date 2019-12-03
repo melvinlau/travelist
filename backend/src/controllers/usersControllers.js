@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const tripsController = require('../controllers/trips');
 
 const signup = async (req, res, next) => {
   // eslint-disable-next-line object-curly-newline
@@ -167,7 +168,9 @@ const getUserTrips = async (req, res, next) => {
     );
   }
 
-  res.json({ trips: user.trips.toObject({ getters: true }) });
+  const trips = await tripsController.getTripsById(user.trips)
+  console.log("user trips", trips)
+  res.json({ trips: trips });
 };
 
 exports.signup = signup;
