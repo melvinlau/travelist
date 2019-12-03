@@ -1,7 +1,6 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,36 +11,27 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ToolbarComponent from "./Toolbar";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
   },
-  // layout: {
-  //   width: "auto",
-  //   marginLeft: theme.spacing(2),
-  //   marginRight: theme.spacing(2),
-  //   [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-  //     width: 600,
-  //     marginLeft: "auto",
-  //     marginRight: "auto"
-  //   }
-  // },
+  toolbarTitle: {},
+  toolbarLink: {
+    padding: theme.spacing(1)
+  },
   paper: {
-    // marginTop: theme.spacing(3),
-    // marginBottom: theme.spacing(3),
-    // padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(4),
       padding: theme.spacing(1)
     }
   },
-  // heroContent: {
-  //   backgroundColor: theme.palette.background.paper,
-  //   padding: theme.spacing(8, 0, 6)
-  // },
   heroButtons: {
     marginTop: theme.spacing(2)
   },
@@ -59,17 +49,9 @@ const useStyles = makeStyles(theme => ({
   cardMedia: {
     paddingTop: "56.25%" // 16:9
   },
-  // cardContent: {
-  //   flexGrow: 1
-  // },
   main: {
     backgroundColor: theme.palette.background.paper
-    // padding: theme.spacing(6)
   }
-  // footer: {
-  //   backgroundColor: theme.palette.background.paper,
-  //   padding: theme.spacing(6)
-  // }
 }));
 
 const cards = [1, 2, 3, 4];
@@ -80,53 +62,32 @@ function TripsList() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative" color="white">
-        <Container maxWidth="sm">
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              <strong>Travelist </strong>
-            </Typography>
-            <nav>
-              <Link
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
+      <div className={classes.grow}>
+        <AppBar position="static" color="white">
+          <Toolbar className={classes.toolbar}>
+            <Container display="flex" flexDirection="row">
+              <Button size="small">Subscribe</Button>
+              <Typography
+                component="h2"
+                variant="h5"
+                color="inherit"
+                noWrap
+                className={classes.toolbarTitle}
               >
-                Features
-              </Link>
-              <Link
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Enterprise
-              </Link>
-              <Link
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Support
-              </Link>
-            </nav>
-            <Button
-              href="#"
-              color="primary"
-              variant="outlined"
-              className={classes.link}
-            >
-              Login
-            </Button>
+                Travelist
+              </Typography>
+
+              <Button variant="outlined" size="small">
+                Sign up
+              </Button>
+            </Container>
           </Toolbar>
-        </Container>
-      </AppBar>
+        </AppBar>
+      </div>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm" align="center">
+          <Container maxWidth="sm" align="center" flexDirection="column">
             <img src="./images/char.png" style={{ width: "150px" }} />
             <Typography
               component="h1"
@@ -164,7 +125,7 @@ function TripsList() {
 
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h4">
-                    Destination
+                    <strong>Destination</strong>
                   </Typography>
                   <Typography>from: 08/12/2019 to: 15/12/2019</Typography>
                 </CardContent>

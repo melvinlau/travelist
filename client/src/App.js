@@ -10,6 +10,7 @@ import axios from "axios";
 
 import Start from "./components/start/Start";
 import TripsList from "./components/test/TripsList";
+import TripsListNew from "./components/test/TripsListNew";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
@@ -110,6 +111,9 @@ function App() {
           </Route>
           <Route path="/tripslist" exact>
             <TripsList />
+          </Route>
+          <Route path="/trips-list" exact>
+            <TripsListNew />
           </Route>
           {routes}
         </Switch>
