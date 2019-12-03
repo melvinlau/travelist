@@ -10,6 +10,7 @@ import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
+import { getImage } from '../trips/tripImage';
 
 function PackingList({ trip, updateTrip }) {
 
@@ -109,6 +110,7 @@ function PackingList({ trip, updateTrip }) {
   useEffect(() => {
     renderTravelist();
     renderProgressBar();
+    getImage();
     // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
@@ -118,6 +120,8 @@ function PackingList({ trip, updateTrip }) {
     <div>
 
       {renderHeader()}
+
+      <div id="image"></div>
 
       <div id="progress-bar"></div>
 
