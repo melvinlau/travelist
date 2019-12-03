@@ -11,32 +11,40 @@ import axios from "axios";
 import Start from "./components/start/Start";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
-import SignUp from "./components/user/SignUp";
 import Trips from "./components/trips/Trips";
 import Navbar from "./components/shared/components/Navigation/Navbar";
 import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-  const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(false);
+  const [userId, setUserId] = useState(false);
   const [trip, updateTrip] = useState({});
 
   const login = useCallback((userId, name, token) => {
-    setIsLoggedIn(true);
-    setUserId(userId);
     setName(name);
     setToken(token);
+    setUserId(userId);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userId: userId, name: name, token: token })
+    );
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
     setUserId(null);
     setName(null);
     setToken(null);
+    localStorage.removeItem("userData");
   }, []);
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData && storedData.token) {
+      login(storedData.userId, storedData.name, storedData.token);
+    }
+  }, [login]);
 
   let routes;
 
@@ -82,7 +90,6 @@ function App() {
     <AuthContext.Provider
       value={{
         isLoggedIn: !!token,
-        setIsLoggedIn: setIsLoggedIn,
         userId: userId,
         setUserId: setUserId,
         name: name,

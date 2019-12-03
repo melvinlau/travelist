@@ -9,15 +9,15 @@ export const AuthContext = createContext({
   // setName: () => { },
   // token: undefined,
   // setToken: () => { },
-  // trip: undefined,
   // updateTrip: () => { },
   // login: () => { },
   // logout: () => { },
 
-  isLoggedIn: false,
-  userId: null,
   name: null,
   token: null,
+  userId: null,
+  trip: null,
+  updateTrip: () => {},
   login: () => {},
   logout: () => {}
 });
