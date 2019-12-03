@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 
 import { AuthContext } from "../shared/context/auth-context";
 
-function TripsListNew() {
+function StartNew() {
   const auth = useContext(AuthContext);
 
   return (
@@ -16,7 +16,7 @@ function TripsListNew() {
           <div className="col-12 d-flex justify-content-center flex-column align-items-center pb-4">
             <img src="./images/char.png" style={{ width: "100px" }} />
             <h2>
-              <strong>Where should we go next?</strong>
+              <strong>Where are you going next?</strong>
             </h2>
             <button className="btn btn-primary btn-lg">NEW TRIP</button>
           </div>
@@ -59,4 +59,4 @@ function TripsListNew() {
   );
 }
 
-export default TripsListNew;
+export default StartNew;
