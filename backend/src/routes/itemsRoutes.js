@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/:iid', itemsControllers.getItemById);
 
+router.post('/custom', itemsControllers.createCustomItem);
+
 router.post('/', itemsControllers.createItem);
 
 router.delete('/:iid', itemsControllers.deleteItem);

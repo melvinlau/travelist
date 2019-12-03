@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-function AddItemForm({ add }) {
+function AddItemForm({ category, add }) {
   const [value, setValue] = useState('');
 
   const handleChange = e => {
     setValue(e.target.value);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (value === '') return alert('You cannot add a blank item');
-    add(value);
+    await add(value, category);
     setValue('');
   }
 

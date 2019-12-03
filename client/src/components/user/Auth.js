@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 
-import Card           from "../shared/components/UIElements/Card";
-import Input          from "../shared/components/FormElements/Input";
-import Button         from "../shared/components/FormElements/Button";
-import ErrorModal     from "../shared/components/UIElements/ErrorModal";
+import Card from "../shared/components/UIElements/Card";
+import Input from "../shared/components/FormElements/Input";
+import Button from "../shared/components/FormElements/Button";
+import ErrorModal from "../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_EMAIL,
@@ -16,6 +16,9 @@ import "./Auth.css";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
+
+  const trip = auth.trip;
+
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -59,29 +62,35 @@ const Auth = () => {
   };
 
   const authSubmitHandler = async event => {
+
+    console.log('stored trip object at sign up submit', trip);
+
     event.preventDefault();
 
     setIsLoading(true);
 
     if (isLoginMode) {
       try {
+        const token = auth.token;
         const response = await fetch("http://localhost:3001/api/users/login", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "bearer " + auth.token,
           },
           body: JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value
           })
         });
-
         const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);
         }
+        console.log(responseData);
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.userId, responseData.name, responseData.token);
+        console.log("Log in reponse data", responseData);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -96,16 +105,18 @@ const Auth = () => {
           body: JSON.stringify({
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
-            password: formState.inputs.password.value
+            password: formState.inputs.password.value,
+            trips: [trip],
           })
         });
 
         const responseData = await response.json();
+        console.log("Sign up response data", responseData);
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         setIsLoading(false);
-        auth.login();
+        auth.login(responseData.userId, responseData.name, responseData.token);
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");

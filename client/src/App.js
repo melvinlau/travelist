@@ -11,76 +11,105 @@ import axios from "axios";
 import Start from "./components/start/Start";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
-import SignUp from "./components/user/SignUp";
 import Trips from "./components/trips/Trips";
-import NavBar from './components/NavBar';
+import Navbar from "./components/shared/components/Navigation/Navbar";
 import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
 
+  const [userId, setUserId] = useState(false);
+  const [name, setName] = useState(false);
+  const [token, setToken] = useState(false);
   const [trip, updateTrip] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [tripList, updateTripList] = useState([]);
 
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
+  const login = useCallback((userId, name, token) => {
+    setToken(token);
+    setName(name);
+    setUserId(userId);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        userId: userId,
+        name: name,
+        token: token,
+      })
+    );
   }, []);
 
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
+    setUserId(null);
+    setName(null);
+    setToken(null);
+    updateTrip(null);
+    updateTripList(null);
+    localStorage.removeItem("userData");
   }, []);
 
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (storedData && storedData.token) {
+      login(storedData.userId, storedData.name, storedData.token);
+    }
+  }, [login]);
+
   let routes;
-  if (isLoggedIn) {
+
+  if (token) {
     routes = (
-      <Switch>
-        <Route path="/user/new-trip" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+      <React.Fragment>
+        <Route path="/start" exact>
+          <Start />
         </Route>
-        <Route path="/user/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+        <Route path="/trips" exact>
+          <Trips />
         </Route>
-        <Route path="/user/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/" exact>
-          <Trips trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+        <Redirect to="/trips" />
+      </React.Fragment>
     );
   } else {
     routes = (
-      <Switch>
-        <Route path="/auth" exact>
-          <Auth trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
-        </Route>
+      <React.Fragment>
         <Route path="/" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+          <Start />
         </Route>
-        <Redirect to="/auth" exact />
-      </Switch>
+        <Route path="/auth" exact>
+          <Auth />
+        </Route>
+        <Redirect to="/" />
+      </React.Fragment>
     );
   }
 
-  useEffect(() => {
-    console.log('App: trip', trip);
-    console.log('App: trip.items', trip.items);
-  });
-
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!token,
+        userId: userId,
+        setUserId: setUserId,
+        name: name,
+        setName: setName,
+        token: token,
+        setToken: setToken,
+        trip: trip,
+        updateTrip: updateTrip,
+        login: login,
+        logout: logout
+      }}
     >
-      <NavBar />
       <Router>
-        {routes}
+        <Navbar />
+        <Switch>
+          <Route path="/activities" exact>
+            <ActivityList />
+          </Route>
+          <Route path="/packinglist" exact>
+            <PackingList />
+          </Route>
+          {routes}
+        </Switch>
       </Router>
     </AuthContext.Provider>
   );
