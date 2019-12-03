@@ -17,48 +17,36 @@ import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-  const [name, setName] = useState(false);
   const [token, setToken] = useState(false);
+  const [name, setName] = useState(false);
   const [userId, setUserId] = useState(false);
   const [trip, updateTrip] = useState({});
 
-  const login = useCallback((userId, name, token, expirationDate) => {
-    setName(name);
+  const login = useCallback((userId, name, token) => {
     setToken(token);
+    setName(name);
     setUserId(userId);
-    const tokenExpirationDate =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     localStorage.setItem(
       "userData",
       JSON.stringify({
         userId: userId,
         name: name,
-        token: token,
-        expiration: tokenExpirationDate.toISOString()
+        token: token
       })
     );
   }, []);
 
   const logout = useCallback(() => {
+    setToken(null);
     setUserId(null);
     setName(null);
-    setToken(null);
     localStorage.removeItem("userData");
   }, []);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-    ) {
-      login(
-        storedData.userId,
-        storedData.name,
-        storedData.token,
-        new Date(storedData.expiration)
-      );
+    if (storedData && storedData.token) {
+      login(storedData.userId, storedData.name, storedData.token);
     }
   }, [login]);
 
