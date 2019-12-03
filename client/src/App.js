@@ -20,11 +20,9 @@ function App() {
 
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(false);
-  const [name, setName] = useState(false);
-  const [userId, setUserId] = useState(false);
   const [trip, updateTrip] = useState({});
+  const [tripList, updateTripList] = useState([]);
 
   const login = useCallback((userId, name, token) => {
     setToken(token);
@@ -35,7 +33,7 @@ function App() {
       JSON.stringify({
         userId: userId,
         name: name,
-        token: token
+        token: token,
       })
     );
   }, []);
@@ -44,6 +42,9 @@ function App() {
     setToken(null);
     setUserId(null);
     setName(null);
+    setToken(null);
+    updateTrip(null);
+    updateTripList(null);
     localStorage.removeItem("userData");
   }, []);
 
@@ -58,39 +59,27 @@ function App() {
 
   if (token) {
     routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+      <React.Fragment>
+        <Route path="/start" exact>
+          <Start />
         </Route>
-        <Route path="/user/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
+        <Route path="/trips" exact>
+          <Trips />
         </Route>
-        <Route path="/user/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/" exact>
-          <Trips trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+        <Redirect to="/trips" />
+      </React.Fragment>
     );
   } else {
     routes = (
-      <Switch>
-        <Route path="/auth" exact>
-          <Auth trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/activities" exact>
-          <ActivityList trip={trip} updateTrip={updateTrip} />
-        </Route>
-        <Route path="/travelist" exact>
-          <PackingList trip={trip} updateTrip={updateTrip} />
-        </Route>
+      <React.Fragment>
         <Route path="/" exact>
-          <Start trip={trip} updateTrip={updateTrip} />
+          <Start />
         </Route>
-        <Redirect to="/auth" exact />
-      </Switch>
+        <Route path="/auth" exact>
+          <Auth />
+        </Route>
+        <Redirect to="/" />
+      </React.Fragment>
     );
   }
 
@@ -110,10 +99,17 @@ function App() {
         logout: logout
       }}
     >
-      <NavBar />
       <Router>
         <Navbar />
-        {routes}
+        <Switch>
+          <Route path="/activities" exact>
+            <ActivityList />
+          </Route>
+          <Route path="/packinglist" exact>
+            <PackingList />
+          </Route>
+          {routes}
+        </Switch>
       </Router>
     </AuthContext.Provider>
   );

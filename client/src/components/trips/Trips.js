@@ -8,10 +8,11 @@ import {
 
 import { AuthContext } from "../shared/context/auth-context";
 
-
 function Trips() {
 
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
 
   const renderName = () => {
     if (auth.name) return (
@@ -24,7 +25,8 @@ function Trips() {
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
 
-      <Link to="/user/new-trip">
+
+      <Link to="/start">
         Create a new trip
       </Link>
 

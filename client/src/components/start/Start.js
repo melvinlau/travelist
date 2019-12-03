@@ -9,8 +9,10 @@ import {
 
 import { AuthContext } from "../shared/context/auth-context";
 
-function Start({ trip, updateTrip }) {
+function Start() {
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
 
   const renderName = () => {
     if (auth.name) return (

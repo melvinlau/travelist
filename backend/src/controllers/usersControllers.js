@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 const signup = async (req, res, next) => {
   // eslint-disable-next-line object-curly-newline
-  const { name, email, password } = req.body;
+  const { name, email, password, trips } = req.body;
 
   let existingUser;
   try {
@@ -39,11 +39,13 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
+  console.log('user controller: signup request: trips', trips);
+
   const createdUser = new User({
     name,
     email,
     password: hashedPassword,
-    trips: [],
+    trips: trips,
   });
 
   try {
@@ -68,12 +70,16 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({
-    userId: createdUser.id,
-    name: createdUser.name,
-    email: createdUser.email,
-    token: token,
-  });
+  res
+    .status(201)
+    .json({
+      userId: createdUser.id,
+      name: createdUser.name,
+      email: createdUser.email,
+      trips: createdUser.trips,
+      token: token
+    });
+
 };
 
 const login = async (req, res, next) => {

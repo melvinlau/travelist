@@ -30,7 +30,7 @@ const getItemById = async (req, res, next) => {
 
 const createItem = async (req, res, next) => {
   const {
- name, category, activities, weather 
+ name, category, activities, weather
 } = req.body;
 
   const createdItem = new Item({
@@ -148,7 +148,7 @@ const createCustomItem = async (request) => {
     return next(error);
   }
 
-  return createdItem;
+  res.status(201).json({ item: createdItem });
 };
 
 exports.getItemById = getItemById;

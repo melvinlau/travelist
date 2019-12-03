@@ -16,6 +16,9 @@ import "./Auth.css";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
+
+  const trip = auth.trip;
+
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -59,16 +62,21 @@ const Auth = () => {
   };
 
   const authSubmitHandler = async event => {
+
+    console.log('stored trip object at sign up submit', trip);
+
     event.preventDefault();
 
     setIsLoading(true);
 
     if (isLoginMode) {
       try {
+        const token = auth.token;
         const response = await fetch("http://localhost:3001/api/users/login", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "bearer " + auth.token,
           },
           body: JSON.stringify({
             email: formState.inputs.email.value,
@@ -97,7 +105,8 @@ const Auth = () => {
           body: JSON.stringify({
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
-            password: formState.inputs.password.value
+            password: formState.inputs.password.value,
+            trips: [trip],
           })
         });
 

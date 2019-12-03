@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -6,32 +6,44 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import axios from 'axios';
+import { AuthContext } from "../shared/context/auth-context";
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
 
-function PackingList({ trip, updateTrip }) {
+function PackingList() {
+
+  const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
 
   const [items, updateItems] = useState([...trip.items]);
   const [completedItems, updateCompletedItems] = useState([]);
 
-  const renderTravelist = () => {
-    const rawCategoryList = items.map((item, index) =>
-      item.category
+  const renderTravelist = async () => {
+    console.log('items', items)
+
+    const rawCategoryList = await items.map(item => item.category);
+    const uniqueCategoryList = await Array.from(new Set(rawCategoryList));
+    let finalCategoryList = await uniqueCategoryList.filter(category => category !== 'miscellaneous');
+    finalCategoryList = await [...finalCategoryList, 'miscellaneous'];
+
+    console.log('finalCategoryList', finalCategoryList);
+
+    const travelist = finalCategoryList.map(category =>
+       (
+        <CategoryList
+          category={category}
+          items={items}
+          add={add}
+          remove={remove}
+          complete={complete}
+          unComplete={unComplete}
+        />
+      )
     );
-
-    const uniqueCategoryList = Array.from(new Set(rawCategoryList));
-
-    let finalCategoryList = uniqueCategoryList.filter(e => e !== 'miscellaneous')
-
-    finalCategoryList = [...finalCategoryList, 'miscellaneous']
-
-    const travelist = finalCategoryList.map((category, index) => {
-      return (
-        <CategoryList category={category} items={items} complete={complete} unComplete={unComplete} remove={remove} />
-      );
-    });
 
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
@@ -44,37 +56,46 @@ function PackingList({ trip, updateTrip }) {
     ReactDOM.render(progressBar, document.getElementById('progress-bar'));
   }
 
-  const findExistingMatches = (itemName, list) => {
-    return list.filter(element => element.name === itemName)
+  const findExistingMatches = (item, list) => {
+    return list.filter(element => element.name === item.name)
   }
 
   const complete = item => {
-    if (findExistingMatches(item.name, completedItems).length > 0) return;
+    if (findExistingMatches(item, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
   }
 
   const unComplete = item => {
-    if (findExistingMatches(item.name, completedItems).length === 0) return;
+    if (findExistingMatches(item, completedItems).length === 0) return;
     const newCompletedItems = [...completedItems];
     newCompletedItems.splice(completedItems.indexOf(findExistingMatches(item, completedItems)[0]), 1);
     updateCompletedItems(newCompletedItems);
   }
 
-  const createItemObject = (name) => {
-    return ({
-      activities: [],
-      category: '',
-      default: false,
-      custom: true,
-      name: name,
-      weather: [],
-      _id: ''
-    }); // should we make an API call to create an item instead? ID will be autogen
+  const createItemObject = (name, category) => {
+    axios
+      .post(
+        `http://localhost:3001/api/items/custom`,
+        {
+          name: name,
+          category: category,
+          custom: true,
+        },
+        {
+          headers: { Authorization: "bearer " + auth.token }
+        }
+      )
+      .then(response => {
+        console.log('Create custom item: response', response.data.item);
+        return response.data.item;
+      })
+      .catch(console.log);
   }
 
-  const add = item => {
+  const add = async (name, category) => {
+    const item = await createItemObject(name, category);
     if (findExistingMatches(item, items).length > 0) return;
-    updateItems([...items, createItemObject(item)]);
+    updateItems([...items, item]);
   }
 
   const remove = async item => {
@@ -94,10 +115,6 @@ function PackingList({ trip, updateTrip }) {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
-  const reportCompletedItems = () => {
-    alert('Items: ' + items + ' Completed items: ' + completedItems);
-  }
-
   const formattedDateFrom = formattedDate(trip.dateFrom);
 
   const renderHeader = () => {
@@ -114,6 +131,33 @@ function PackingList({ trip, updateTrip }) {
     console.log('Completed items', completedItems);
   });
 
+  const callUpdateTrip = trip => {
+    updateTrip(trip);
+  };
+
+  const handleSaveList = e => {
+    axios
+      .patch(
+        `http://localhost:3001/api/trips/${trip._id}/items/packed`,
+        {
+          items: items,
+          packedItems: completedItems
+        },
+        {
+          headers: { Authorization: "bearer " + auth.token }
+        }
+      )
+      .then(response => {
+        callUpdateTrip(response.data.trip);
+        console.log(
+          "update trip with packed list: response",
+          response.data.trip
+        );
+      })
+      .catch(console.log);
+  };
+
+
   return (
     <div>
 
@@ -124,7 +168,7 @@ function PackingList({ trip, updateTrip }) {
       <div id="travelist"></div>
 
       <Link to="/signup">
-        <button onClick={reportCompletedItems}>Save</button>
+        <button onClick={handleSaveList}>Save</button>
       </Link>
 
     </div>

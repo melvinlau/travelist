@@ -5,8 +5,11 @@ import { AuthContext } from "../shared/context/auth-context";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ActivityListItem from "./ActivityListItem";
 
-function ActivityList({ trip, updateTrip }) {
+function ActivityList() {
   const auth = useContext(AuthContext);
+  const trip = auth.trip;
+  const updateTrip = auth.updateTrip;
+
   const [activities, setActivities] = useState([
     "skiing",
     "hiking",
@@ -35,6 +38,7 @@ function ActivityList({ trip, updateTrip }) {
       .patch(
         `http://localhost:3001/api/trips/${trip._id}`,
         {
+          destination: trip.destination,
           activities: selectedActivities
         },
         {
@@ -83,7 +87,7 @@ function ActivityList({ trip, updateTrip }) {
 
       <div id="activities-list"></div>
 
-      <Link to="/travelist">
+      <Link to="/packinglist">
         <button data-cy="generate-list-button" onClick={handleCreateList}>
           Generate a Travelist!
         </button>
