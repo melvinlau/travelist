@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 
-function PackingListItem({ item, complete, unComplete, remove }) {
+function PackingListItem({ item, complete, unComplete, remove, completedItems }) {
 
-  const [isComplete, setCompletionStatus] = useState(false);
+  const wasCompleted = completedItems.includes(item);
+
+  const [isComplete, setCompletionStatus] = useState(wasCompleted);
 
   const checkboxId = `checkbox-${item.name}`;
 

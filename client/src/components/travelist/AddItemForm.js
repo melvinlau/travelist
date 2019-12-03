@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function AddItemForm({ category, add }) {
+  
   const [value, setValue] = useState('');
 
   const handleChange = e => {

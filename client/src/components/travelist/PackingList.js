@@ -35,12 +35,14 @@ function PackingList() {
     const travelist = finalCategoryList.map(category =>
        (
         <CategoryList
+          key={category}
           category={category}
           items={items}
           add={add}
           remove={remove}
           complete={complete}
           unComplete={unComplete}
+          completedItems={completedItems}
         />
       )
     );
@@ -56,19 +58,21 @@ function PackingList() {
     ReactDOM.render(progressBar, document.getElementById('progress-bar'));
   }
 
-  const findExistingMatches = (item, list) => {
-    return list.filter(element => element.name === item.name)
+  const findExistingMatches = (itemName, list) => {
+    // Finds an item name (passed in as a string) within a list containing item objects.
+    return list.filter(element => element.name === itemName)
   }
 
   const complete = item => {
-    if (findExistingMatches(item, completedItems).length > 0) return;
+    if (findExistingMatches(item.name, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
   }
 
   const unComplete = item => {
-    if (findExistingMatches(item, completedItems).length === 0) return;
+    const foundExistingItems = findExistingMatches(item.name, completedItems)
+    if (foundExistingItems.length === 0) return;
     const newCompletedItems = [...completedItems];
-    newCompletedItems.splice(completedItems.indexOf(findExistingMatches(item, completedItems)[0]), 1);
+    newCompletedItems.splice(completedItems.indexOf(foundExistingItems[0]), 1);
     updateCompletedItems(newCompletedItems);
   }
 
@@ -93,17 +97,19 @@ function PackingList() {
   }
 
   const add = async (name, category) => {
+    if (findExistingMatches(name, items).length > 0) return;
     const item = await createItemObject(name, category);
-    if (findExistingMatches(item, items).length > 0) return;
-    updateItems([...items, item]);
+    await updateItems([...items, item]);
   }
 
   const remove = async item => {
-    if (findExistingMatches(item, items).length === 0) return;
+
+    const foundExistingItems = findExistingMatches(item.name, items);
+    if (foundExistingItems.length === 0) return;
     await unComplete(item);
     const newItems = [...items];
-    newItems.splice(items.indexOf(findExistingMatches(item, items)[0]), 1);
-    updateItems(newItems);
+    newItems.splice(items.indexOf(foundExistingItems[0]), 1);
+    await updateItems(newItems);
   }
 
   const formattedDate = (dateString) => {
