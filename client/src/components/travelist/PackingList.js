@@ -79,11 +79,10 @@ function PackingList() {
   const createItemObject = (name, category) => {
     axios
       .post(
-        `http://localhost:3001/api/items/custom`,
+        'http://localhost:3001/api/items/custom',
         {
           name: name,
-          category: category,
-          custom: true,
+          category: category
         },
         {
           headers: { Authorization: "bearer " + auth.token }
