@@ -110,7 +110,7 @@ function PackingList({ trip, updateTrip }) {
   useEffect(() => {
     renderTravelist();
     renderProgressBar();
-    getImage();
+    getImage(trip.destination);
     // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
