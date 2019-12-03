@@ -66,7 +66,7 @@ const getTripWeatherById = async (req, res, next) => {
     );
     return next(error);
   }
-  // console.log(weather);
+
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
@@ -97,8 +97,6 @@ const createTrip = async (req, res, next) => {
   const {
  destination, dateFrom, dateTo, activities, user 
 } = req.body;
-
-  console.log(req.body);
 
   let weather;
   try {
@@ -170,8 +168,7 @@ const createTrip = async (req, res, next) => {
       traveller.trips.push(createdTrip);
       await traveller.save({ session: sess });
     }
-    console.log(createdTrip);
-    console.log(traveller);
+
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
