@@ -11,7 +11,7 @@ const TripSchema = new Schema(
     weather: Array,
     items: Array,
     packedItems: Array,
-    user: Number,
+    user: { type: mongoose.Types.ObjectId, ref: 'User' },
   },
   { timestamps: true },
 );
