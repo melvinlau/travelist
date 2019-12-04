@@ -1,11 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from 'react-dom';
+import { AuthContext } from "../shared/context/auth-context";
 
 function PackingListItem({ item, complete, unComplete, remove, completedItems }) {
 
-  const wasCompleted = completedItems.includes(item);
+  const auth = useContext(AuthContext);
 
-  const [isComplete, setCompletionStatus] = useState(wasCompleted);
+  const findExistingMatches = (itemName, list) => {
+    // Finds an item name (passed in as a string) within a list containing item objects.
+    return list.filter(element => element.name === itemName)
+  }
+
+  const checkCompletionStatus = () => {
+    if (findExistingMatches(item.name, completedItems).length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const [isComplete, setCompletionStatus] = useState(checkCompletionStatus());
 
   const checkboxId = `checkbox-${item.name}`;
 
