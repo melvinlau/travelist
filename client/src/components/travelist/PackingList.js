@@ -32,7 +32,7 @@ function PackingList() {
     finalCategoryList = await [...finalCategoryList, 'miscellaneous'];
 
     const travelist = finalCategoryList.map(category =>
-       (
+      (
         <CategoryList
           key={category}
           category={category}
@@ -125,7 +125,7 @@ function PackingList() {
         <div className="card">
           <div className="card-body">
             <span className="text-muted small">YOUR TRIP IS IN:</span>
-            <h2>8 day</h2>      
+            <h2>8 day</h2>
             {renderProgressBar()}
           </div>
         </div>
