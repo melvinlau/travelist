@@ -20,9 +20,9 @@ function PackingList() {
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
-
+  
   const [items, updateItems] = useState([...trip.items]);
-  const [completedItems, updateCompletedItems] = useState([]);
+  const [completedItems, updateCompletedItems] = useState([...trip.packedItems]);
 
   const renderTravelist = async () => {
 
@@ -137,9 +137,8 @@ function PackingList() {
   useEffect(() => {
     renderHeader();
     renderProgressBar();
-    getImage(trip.destination);
+    getImage(trip.destination); // needs to change, now image is part of the trip
     renderTravelist();
-    // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
   });

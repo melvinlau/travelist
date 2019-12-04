@@ -1,12 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import StartFormNew from "./StartFormNew";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory
+} from "react-router-dom";
+import axios from 'axios';
 import { AuthContext } from "../shared/context/auth-context";
 import { getImage } from "./tripImage";
 
 function TripCard({ destination, dateFrom, dateTo, id, link }) {
+  
   const auth = useContext(AuthContext);
+  let history = useHistory();
 
   const formatDate = (dateString) => {
     const options = {
@@ -17,6 +24,14 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
+  const loadListIntoSession = () => {
+    axios.get(`https://localhost:3001/api/trips/${id}`)
+    .then(response => {
+      auth.loadTrip(response.trip);
+      history.push('/trips');
+    })
+    .catch(console.log);
+  }
 
   return (
     <div className="card" style={{ width: "32rem" }}>
@@ -39,7 +54,7 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
           &nbsp;&nbsp;&nbsp;
           <span className="text-muted small">TO: </span>{formatDate(dateTo)}
         </p>
-        <a href="#" className="btn btn-warning">
+        <a onClick={loadListIntoSession} className="btn btn-warning">
           VIEW TRIP
         </a>
       </div>

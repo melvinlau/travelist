@@ -51,6 +51,10 @@ function App() {
     localStorage.removeItem("userData");
   }, []);
 
+  const loadTrip = useCallback(trip => {
+    updateTrip(trip);
+  }, []);
+
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (storedData && storedData.token) {
