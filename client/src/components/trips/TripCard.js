@@ -5,14 +5,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { AuthContext } from "../shared/context/auth-context";
 import { getImage } from "./tripImage";
 
-function TripCard({ destination, dateFrom, dateTo, id }) {
+function TripCard({ destination, dateFrom, dateTo, id, link }) {
   const auth = useContext(AuthContext);
-  const [link, setLink] = useState('')
-  console.log(auth)
-
-  useEffect(() => {
-    getImage(destination).then(data => setLink(data));
-  })
 
   return (
     <div className="card" style={{ width: "32rem" }}>

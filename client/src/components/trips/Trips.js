@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +19,7 @@ function Trips() {
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
+
   const [userTrips, setUserTrips] = useState([])
 
   const renderName = () => {
@@ -26,45 +28,23 @@ function Trips() {
     );
   }
 
-  const renderTrips = () => {
-    const response = handleGetTrips()
-    return response.map(trip => (
-      < TripCard
-        key={trip.id}
-        destination={trip.destination}
-        dateFrom={trip.dateFrom}
-        dateTo={trip.dateTo}
-        id={trip.id} />
-    ))
-    // trips.map(trip => trip.destination)
-  }
-
-  // const callSetUserTrips = trips => {
-  //   setUserTrips(trips)
-  // }
-
-  // useEffect(() => {
-  //   renderTrips()
-  // }, []);
-
-  // const callUpdateTrips = (tripsarray) => {
-  //   updateTrips(tripsarray)
-  // }
-
-  const handleGetTrips = () => {
-
-    let tripsArray = axios
-      .get(
+  const handleGetTrips = async () => {
+    let tripsArray = await axios.get(
         `http://localhost:3001/api/users/${auth.userId}/trips`,
         {
           headers: { Authorization: "bearer " + auth.token }
         }
       )
-      .then(response => { return response.data.trips })
+      .then(response => {
+        return response.data.trips;
+      })
       .catch(console.log);
-    console.log('trips array', tripsArray)
-    return tripsArray
+    return tripsArray;
   };
+
+  useEffect( () => {
+    handleGetTrips().then(data => setUserTrips(data));
+  }, []);
 
   return (
     <div className="justify-content-center d-flex flex-column align-items-center">
@@ -72,8 +52,22 @@ function Trips() {
 
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
-      {renderTrips()}
-
+      <div>
+        {
+          userTrips.map(trip => {
+              return (
+              < TripCard
+                key={trip._id}
+                destination={trip.destination}
+                dateFrom={trip.dateFrom}
+                dateTo={trip.dateTo}
+                id={trip._id}
+                link={trip.image}
+              />
+            )
+          })
+        }
+      </div>
     </div>
   );
 }
