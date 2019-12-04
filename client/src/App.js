@@ -10,7 +10,6 @@ import axios from "axios";
 
 import Start from "./components/start/Start";
 import StartNew from "./components/new/StartNew";
-import TripsList from "./components/new/TripsList";
 import TripsListNew from "./components/new/TripsListNew";
 import PackingNew from "./components/new/PackingNew";
 import ActivityList from "./components/activities/ActivityList";
@@ -110,9 +109,6 @@ function App() {
           </Route>
           <Route path="/packinglist" exact>
             <PackingList />
-          </Route>
-          <Route path="/tripslist" exact>
-            <TripsList />
           </Route>
           <Route path="/trips-list" exact>
             <TripsListNew />
