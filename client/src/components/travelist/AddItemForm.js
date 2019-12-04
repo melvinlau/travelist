@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function AddItemForm({ category, add }) {
-  
+
   const [value, setValue] = useState('');
 
   const handleChange = e => {
@@ -16,13 +16,19 @@ function AddItemForm({ category, add }) {
 
   return (
     <div>
+      <button
+        className="add-item-button float-right"
+        onClick={handleSubmit}
+      >
+        Add
+      </button>
       <input
         type="text"
         placeholder="Add an item"
+        className="add-item-textinput"
         value={value}
         onChange={handleChange}
       />
-      <button onClick={handleSubmit}>Add</button>
     </div>
   );
 }
