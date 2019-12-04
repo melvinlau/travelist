@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+  Link,
+  useHistory
+} from "react-router-dom";
 import Card from "../shared/components/UIElements/Card";
 import Input from "../shared/components/FormElements/Input";
 import Button from "../shared/components/FormElements/Button";
@@ -165,13 +172,17 @@ function Auth() {
             errorText="Please enter a valid password, at least 5 characters."
             onInput={inputHandler}
           />
+
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "Log In" : "Sign Up"}
           </Button>
+
         </form>
+
         <Button inverse onClick={switchModeHandler}>
           Switch to {isLoginMode ? "Sign Up" : "Log In"}
         </Button>
+
       </Card>
     </React.Fragment>
   );
