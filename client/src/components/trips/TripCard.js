@@ -5,13 +5,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { AuthContext } from "../shared/context/auth-context";
 import { getImage } from "./tripImage";
 
-function TripCard() {
+function TripCard({ destination, dateFrom, dateTo, id }) {
   const auth = useContext(AuthContext);
   const [link, setLink] = useState('')
-  console.log(link)
+  console.log(auth)
 
   useEffect(() => {
-    getImage('Sydney').then(data => setLink(data));
+    getImage(destination).then(data => setLink(data));
   })
 
   return (
@@ -28,7 +28,7 @@ function TripCard() {
 
       <div className="card-body pt-4">
         <h3 className="card-title">
-          <strong>Rio de Janeiro</strong>
+          <strong>{destination}</strong>
         </h3>
         <p className="card-text">
           <span className="text-muted small">FROM:</span>{" "}
