@@ -8,6 +8,16 @@ import { getImage } from "./tripImage";
 function TripCard({ destination, dateFrom, dateTo, id, link }) {
   const auth = useContext(AuthContext);
 
+  const formatDate = (dateString) => {
+    const options = {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    };
+    return new Date(dateString).toLocaleString(undefined, options);
+  }
+
+
   return (
     <div className="card" style={{ width: "32rem" }}>
       <div
@@ -25,9 +35,9 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
           <strong>{destination}</strong>
         </h3>
         <p className="card-text">
-          <span className="text-muted small">FROM:</span>{" "}
-          16/12/2019&nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO:</span> 23/01/2020
+          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
+          &nbsp;&nbsp;&nbsp;
+          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
         </p>
         <a href="#" className="btn btn-warning">
           VIEW TRIP
