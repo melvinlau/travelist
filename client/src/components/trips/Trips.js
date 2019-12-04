@@ -19,6 +19,7 @@ function Trips() {
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
+  console.log('trip loaded into tripcard', auth.trip);
 
   const [userTrips, setUserTrips] = useState([])
 
@@ -50,21 +51,12 @@ function Trips() {
     <div className="justify-content-center d-flex flex-column align-items-center">
       <TripsListHeader />
 
-      <h2>{renderName()}</h2>
+      {renderName()}
       <h3>Trips</h3>
       <div>
         {
           userTrips.map(trip => {
-              return (
-              < TripCard
-                key={trip._id}
-                destination={trip.destination}
-                dateFrom={trip.dateFrom}
-                dateTo={trip.dateTo}
-                id={trip._id}
-                link={trip.image}
-              />
-            )
+              return (< TripCard key={trip._id} trip={trip} />)
           })
         }
       </div>

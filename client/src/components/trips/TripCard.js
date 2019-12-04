@@ -10,8 +10,8 @@ import axios from 'axios';
 import { AuthContext } from "../shared/context/auth-context";
 import { getImage } from "./tripImage";
 
-function TripCard({ destination, dateFrom, dateTo, id, link }) {
-  
+function TripCard({ trip }) {
+
   const auth = useContext(AuthContext);
   let history = useHistory();
 
@@ -24,13 +24,9 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
-  const loadListIntoSession = () => {
-    axios.get(`https://localhost:3001/api/trips/${id}`)
-    .then(response => {
-      auth.loadTrip(response.trip);
-      history.push('/trips');
-    })
-    .catch(console.log);
+  const loadListIntoSession = async () => {
+    await auth.updateTrip(trip);
+    history.push('/packinglist');
   }
 
   return (
@@ -39,7 +35,7 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
         className="card-img-top"
         style={{
           background:
-            `url(${link}) no-repeat center center`,
+            `url(${trip.image}) no-repeat center center`,
           backgroundSize: "100%",
           height: "16rem"
         }}
@@ -47,16 +43,18 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
 
       <div className="card-body pt-4">
         <h3 className="card-title">
-          <strong>{destination}</strong>
+          <strong>{trip.destination}</strong>
         </h3>
         <p className="card-text">
-          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
+          <span className="text-muted small">FROM: </span>{formatDate(trip.dateFrom)}
           &nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
+          <span className="text-muted small">TO: </span>{formatDate(trip.dateTo)}
         </p>
-        <a onClick={loadListIntoSession} className="btn btn-warning">
-          VIEW TRIP
-        </a>
+        <Link to="/packinglist">
+          <button onClick={loadListIntoSession} className="btn btn-warning">
+            VIEW TRIP
+          </button>
+        </Link>
       </div>
     </div>
   );

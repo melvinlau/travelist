@@ -5,7 +5,8 @@ import {
   Switch,
   Redirect,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 import axios from "axios";
 
@@ -22,6 +23,7 @@ import Footer from "./components/shared/components/Footer";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
+
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
   const [token, setToken] = useState(false);
@@ -40,6 +42,7 @@ function App() {
         token: token
       })
     );
+    // redirect to /trips
   }, []);
 
   const logout = useCallback(() => {
@@ -49,10 +52,7 @@ function App() {
     updateTrip(null);
     updateTripList(null);
     localStorage.removeItem("userData");
-  }, []);
-
-  const loadTrip = useCallback(trip => {
-    updateTrip(trip);
+    // redirect to /
   }, []);
 
   useEffect(() => {
