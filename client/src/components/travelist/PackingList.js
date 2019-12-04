@@ -13,6 +13,7 @@ import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
 import TripHeader from './TripHeader';
+import Countdown from './Countdown';
 import { getImage } from '../trips/tripImage';
 
 function PackingList() {
@@ -119,13 +120,21 @@ function PackingList() {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
+  const getDays = (dateFrom) => {
+    const now = new Date()
+    const date = new Date(dateFrom)
+    const result = (date - now)
+    const days = Math.floor(result / (1000 * 60 * 60 * 24))
+    return days
+  }
+
   const renderHeader = () => {
     if (trip) {
       const header = (
         <div className="card">
           <div className="card-body">
             <span className="text-muted small">YOUR TRIP IS IN:</span>
-            <h2>8 day</h2>
+            <Countdown dateFrom={trip.dateFrom} />
             {renderProgressBar()}
           </div>
         </div>
