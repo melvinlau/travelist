@@ -87,7 +87,7 @@ function App() {
       <Router>
         <Navbar />
 
-        <div className="container-fluid">
+        <div className="container-fluid" id="content-wrap">
           <div className="row justify-content-center">
             <div className="col-12 col-sm-6">
               <Switch>

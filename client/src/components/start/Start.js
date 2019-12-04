@@ -1,11 +1,6 @@
 import React, { useState, useContext } from "react";
-import StartForm from './StartForm';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import StartForm from "./StartForm";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { AuthContext } from "../shared/context/auth-context";
 
@@ -15,13 +10,11 @@ function Start() {
   const updateTrip = auth.updateTrip;
 
   const renderName = () => {
-    if (auth.name) return (
-      <h5>Hey, {auth.name}!</h5>
-    );
-  }
+    if (auth.name) return <h4 className="text-center">Hey, {auth.name}!</h4>;
+  };
 
   return (
-    <div>
+    <div className="mt-3">
       {renderName()}
       <StartForm trip={trip} updateTrip={updateTrip} />
     </div>

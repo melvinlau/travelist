@@ -12,7 +12,7 @@ function Navbar() {
   const auth = useContext(AuthContext);
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white static-top mb-4 shadow">
+      <nav className="navbar navbar-expand navbar-light bg-white static-top mb-4 shadow">
         <div className="container">
           <NavLink to="/" exact>
             <h2 className="navbar-brand">
@@ -29,7 +29,7 @@ function Navbar() {
               </li>
 
               {auth.isLoggedIn && (
-                <li className="nav-item">
+                <li className="nav-item active">
                   <NavLink to="/trips" exact className="nav-link">
                     <i class="fas fa-suitcase-rolling nav-icon"> </i> My Trips
                   </NavLink>

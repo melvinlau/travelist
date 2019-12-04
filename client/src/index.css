@@ -116,3 +116,17 @@ input[type="checkbox"] {
 .nav-button:focus {
   outline: none;
 }
+
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 1rem;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+}
