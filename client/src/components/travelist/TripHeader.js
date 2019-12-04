@@ -14,6 +14,18 @@ function TripHeader({ trip, formatDate }) {
     height: "16rem"
   }
 
+  const renderWeatherEmoji = weather => {
+    const emoji = {
+      "sunny": "☀️",
+      "rainy": "☔️",
+      "snowy": "☃",
+      "hot": "🥵",
+      "cold": "🥶"
+    }
+    const weatherEmojiList = weather.map(text => emoji[text]);
+    return weatherEmojiList;
+  }
+
   return (
     <div className="card mb-4">
       <div className="card-img-top" style={imageStyle}></div>
@@ -31,7 +43,7 @@ function TripHeader({ trip, formatDate }) {
           </div>
           <div className="col-4">
             <div className="text-muted small">WEATHER FORECAST</div>
-            🥵hot, 🥶cold, ☃snowy, ☔️rainy, ☀️sunny (harcoded)
+            { renderWeatherEmoji(trip.weather) }
           </div>
         </div>
 
