@@ -47,7 +47,21 @@ const tripController = describe('Trips tests', () => {
     });
   });
 
-
+  describe('Gets trips by id', () => {
+    it('retrieves trips by id', async () => {
+      // const input = await itemsController.createCustomItem({ body: { name: 'Mirror', category: 'miscellaneous' } });
+      const trip1 = new Trip({ destination: 'Sydney', dateFrom: '2020-03-01', dateTo: '2020-06-05' });
+      const trip2 = new Trip({ destination: 'London', dateFrom: '2020-01-01', dateTo: '2020-05-05' });
+      const trip3 = new Trip({ destination: 'Bangkok', dateFrom: '2020-02-01', dateTo: '2020-03-05' });
+      const tripIds = [trip1.id, trip2.id, trip3.id]
+      const foundTrips = await tripsController.getTripsById(tripIds)
+      console.log(trip1)
+      console.log(tripIds)
+      console.log(foundTrips)
+      expect(foundTrips.length).toEqual(3);
+      expect(foundTrips[0].destination).toEqual('Blah')
+    });
+  });
   // need to stub/mock middleware
 
   // describe('sets trip items appropriately based on activities', () => {
