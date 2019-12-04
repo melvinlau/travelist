@@ -14,7 +14,7 @@ import { useForm } from "../shared/hooks/form-hook";
 import { AuthContext } from "../shared/context/auth-context";
 import "./Auth.css";
 
-const Auth = () => {
+function Auth() {
   const auth = useContext(AuthContext);
 
   const trip = auth.trip;

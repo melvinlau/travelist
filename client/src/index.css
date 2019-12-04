@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:700|Nunito+Sans:400,700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600&display=swap");
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans Pro", "Nunito Sans", "Helvetica Neue", sans-serif;
   background-color: #f5f5f5;
-  /* font-size: 20px; */
+  font-size: 16px;
 }
 
 code {
@@ -19,21 +20,32 @@ code {
   letter-spacing: -0.5px;
 }
 
+
 input {
-  margin: 5px;
-  padding: 5px;
+  padding: 10px 14px;
   border: solid 1px #ccc;
   border-radius: 5px;
-} */
+}
+*/
 
-/* button {
+button {
+  margin: 0 0 0 10px;
+  padding: 10px 14px;
+  background-color: #DDD;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 3px;
+  border-bottom: solid 3px #CCC;
+}
+
+button .style1 {
   margin: 5px;
   padding: 5px 8px;
   border: solid 1px #ccc;
   border-radius: 5px;
   background-color: #56505e;
   color: #fff;
-} */
+} 
 
 .delete-button {
   border: 0;
@@ -42,10 +54,43 @@ input {
   cursor: pointer;
 }
 
-.card {
-  margin: 0 0 5px 0;
+.category-header {
+  font-weight: 700;
 }
 
-.card-body {
-  padding: 3px 5px;
+.card {
+  margin: 0 0 10px 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+input[type="checkbox"] {
+  margin: 0 10px 0 0;
+}
+
+.progress {
+  height: 20px;
+  margin: 10px 0 0 0;
+}
+
+.add-item-textinput {
+  width: 80%;
+}
+.add-item-button {
+  width: 15%;
+}
+
+.packinglistitem-enter {
+  opacity: 0.1;
+}
+.packinglistitem-enter-active {
+  opacity: 1;
+  transition: opacity 400ms ease-in;
+}
+.packinglistitem-exit {
+  opacity: 1;
+}
+.packinglistitem-exit-active {
+  opacity: 0;
+  transition: opacity 400ms ease-out;
 }

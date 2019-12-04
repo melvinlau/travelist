@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 
-function PackingListItem({ item, complete, unComplete, remove }) {
+function PackingListItem({ item, complete, unComplete, remove, completedItems }) {
 
-  const [isComplete, setCompletionStatus] = useState(false);
+  const wasCompleted = completedItems.includes(item);
+
+  const [isComplete, setCompletionStatus] = useState(wasCompleted);
 
   const checkboxId = `checkbox-${item.name}`;
 
@@ -44,17 +46,15 @@ function PackingListItem({ item, complete, unComplete, remove }) {
   }
 
   return (
-    <div className="card" data-cy="packing-list-item">
-      <div className="card-body">
-        <span id={checkboxId}></span>
-        &nbsp;
-        <label data-cy="item-name">
-          {item.name}
-        </label> &nbsp; &nbsp;
-        <a className="delete-button float-right" data-cy="delete-button" onClick={handleDelete}>
-          <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
-        </a>
-      </div>
+    <div data-cy="packing-list-item">
+      <span id={checkboxId}></span>
+      &nbsp;
+      <span data-cy="item-name">
+        {item.name}
+      </span> &nbsp; &nbsp;
+      <a className="delete-button float-right" data-cy="delete-button" onClick={handleDelete}>
+        <img src="remove_icon.svg" alt="Remove item" title="Remove item" />
+      </a>
     </div>
   );
 }

@@ -39,6 +39,7 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "cypress": "^3.6.1",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jest": "^24.9.0",

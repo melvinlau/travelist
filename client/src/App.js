@@ -15,7 +15,6 @@ import PackingNew from "./components/new/PackingNew";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
-import Navbar from "./components/shared/components/Navigation/Navbar";
 import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
@@ -44,7 +43,6 @@ function App() {
     setToken(null);
     setUserId(null);
     setName(null);
-    setToken(null);
     updateTrip(null);
     updateTripList(null);
     localStorage.removeItem("userData");
@@ -62,25 +60,9 @@ function App() {
   if (token) {
     routes = (
       <React.Fragment>
-        <Route path="/start" exact>
-          <Start />
-        </Route>
-        <Route path="/trips" exact>
-          <Trips />
-        </Route>
+        <Route exact path="/start" component={Start} />
+        <Route exact path="/trips" component={Trips} />
         <Redirect to="/trips" />
-      </React.Fragment>
-    );
-  } else {
-    routes = (
-      <React.Fragment>
-        <Route path="/" exact>
-          <Start />
-        </Route>
-        <Route path="/auth" exact>
-          <Auth />
-        </Route>
-        <Redirect to="/" />
       </React.Fragment>
     );
   }
@@ -102,14 +84,12 @@ function App() {
       }}
     >
       <Router>
-        {/* <Navbar /> */}
         <Switch>
-          <Route path="/activities" exact>
-            <ActivityList />
-          </Route>
-          <Route path="/packinglist" exact>
-            <PackingList />
-          </Route>
+          <Route exact path="/" component={Start} />
+          <Route exact path="/activities" component={ActivityList} />
+          <Route exact path="/packinglist" component={PackingList} />
+          <Route exact path="/auth" component={Auth} />
+          
           <Route path="/trips-list" exact>
             <TripsListNew />
           </Route>
@@ -118,7 +98,7 @@ function App() {
           </Route>
           <Route path="/packing-new" exact>
             <PackingNew />
-          </Route>
+          <Redirect to="/" />
           {routes}
         </Switch>
       </Router>
