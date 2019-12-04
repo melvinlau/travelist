@@ -24,19 +24,18 @@ code {
 }
 
 input {
-  padding: 3px 5px;
+  padding: 10px 14px;
   border: solid 1px #ccc;
   border-radius: 5px;
 }
 
 button {
   margin: 0 0 0 10px;
-  padding: 5px;
+  padding: 10px 14px;
   background-color: #DDD;
   font-weight: 700;
   font-size: 0.9rem;
   border-radius: 3px;
-
   border-bottom: solid 3px #CCC;
 }
 
@@ -71,4 +70,19 @@ input[type="checkbox"] {
 }
 .add-item-button {
   width: 15%;
+}
+
+.packinglistitem-enter {
+  opacity: 0.1;
+}
+.packinglistitem-enter-active {
+  opacity: 1;
+  transition: opacity 400ms ease-in;
+}
+.packinglistitem-exit {
+  opacity: 1;
+}
+.packinglistitem-exit-active {
+  opacity: 0;
+  transition: opacity 400ms ease-out;
 }

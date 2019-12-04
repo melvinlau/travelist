@@ -6,6 +6,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 
@@ -25,22 +29,32 @@ function CategoryList({ category, items, add, remove, complete, unComplete, comp
         {capitalize(category)}
       </div>
       <ul className="list-group list-group-flush">
+
+        <TransitionGroup className="packinglistgroup">
         {
           filteredItems().map((item) => {
             return (
-              <li className="list-group-item">
-                <PackingListItem
-                  key={item.name}
-                  item={item}
-                  complete={complete}
-                  unComplete={unComplete}
-                  remove={remove}
-                  completedItems={completedItems}
-                />
-              </li>
+              <CSSTransition
+              key={item.name}
+              timeout={500}
+              classNames="packinglistitem"
+              >
+                <li className="list-group-item">
+                  <PackingListItem
+                    key={item.name}
+                    item={item}
+                    complete={complete}
+                    unComplete={unComplete}
+                    remove={remove}
+                    completedItems={completedItems}
+                  />
+                </li>
+              </CSSTransition>
             );
           })
         }
+        </TransitionGroup>
+
         <li className="list-group-item">
           <AddItemForm category={category} add={add} />
         </li>

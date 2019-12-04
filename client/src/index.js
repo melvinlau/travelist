@@ -4,6 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import { Transition } from 'react-transition-group';
 import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));

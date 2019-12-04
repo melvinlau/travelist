@@ -75,7 +75,7 @@ function StartForm({ trip, updateTrip }) {
         </div>
 
         <div className="row mb-3">
-          <div className="col-6">
+          <div className="col-12 col-lg-6 mb-3 mb-lg-0">
             <div className="category-header">From</div>
             <input
               name="start-date"
@@ -87,7 +87,7 @@ function StartForm({ trip, updateTrip }) {
               onChange={handleStartDateChange}
             />
           </div>
-          <div className="col-6">
+          <div className="col-12 col-lg-6">
             <div className="category-header">To</div>
             <input
               name="end-date"
