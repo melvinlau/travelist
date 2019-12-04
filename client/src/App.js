@@ -9,6 +9,9 @@ import {
 import axios from "axios";
 
 import Start from "./components/start/Start";
+import StartNew from "./components/new/StartNew";
+import TripsListNew from "./components/new/TripsListNew";
+import PackingNew from "./components/new/PackingNew";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
@@ -16,7 +19,6 @@ import Auth from "./components/user/Auth";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
   const [token, setToken] = useState(false);
@@ -32,7 +34,7 @@ function App() {
       JSON.stringify({
         userId: userId,
         name: name,
-        token: token,
+        token: token
       })
     );
   }, []);
@@ -59,6 +61,10 @@ function App() {
     routes = (
       <React.Fragment>
         <Route exact path="/trips" component={Trips} />
+<<<<<<< HEAD
+=======
+        <Redirect to="/trips" />
+>>>>>>> ac0d0e4ed62f943edababd78be714f1b2f5f26ea
       </React.Fragment>
     );
   }
@@ -84,7 +90,16 @@ function App() {
           <Route exact path="/" component={Start} />
           <Route exact path="/activities" component={ActivityList} />
           <Route exact path="/packinglist" component={PackingList} />
-          <Route exact path="/auth" component={Auth} />
+          <Route exact path="/auth" component={Auth} />          
+          <Route path="/trips-list" exact>
+            <TripsListNew />
+          </Route>
+          <Route path="/start-new" exact>
+            <StartNew />
+          </Route>
+          <Route path="/packing-new" exact>
+            <PackingNew />
+          </Route>
           <Redirect to="/" />
           {routes}
         </Switch>
