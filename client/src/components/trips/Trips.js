@@ -24,7 +24,7 @@ function Trips() {
 
   const renderTrips = () => {
     const trips = handleGetTrips()
-    trips.map(trip => trip.destination)
+    // trips.map(trip => trip.destination)
   }
 
   useEffect(() => {

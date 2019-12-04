@@ -14,7 +14,7 @@ export async function getImage(destination) {
     )
   const link = response.data.photos[0].src.medium
   const image = renderImage(link)
-  ReactDOM.render(image, document.getElementById('image'));
+  // ReactDOM.render(image, document.getElementById('image'));
 }
 
 const renderImage = (link) => {
