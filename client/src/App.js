@@ -60,9 +60,7 @@ function App() {
   if (token) {
     routes = (
       <React.Fragment>
-        <Route exact path="/start" component={Start} />
         <Route exact path="/trips" component={Trips} />
-        <Redirect to="/trips" />
       </React.Fragment>
     );
   }
@@ -89,7 +87,6 @@ function App() {
           <Route exact path="/activities" component={ActivityList} />
           <Route exact path="/packinglist" component={PackingList} />
           <Route exact path="/auth" component={Auth} />
-          
           <Route path="/trips-list" exact>
             <TripsListNew />
           </Route>
@@ -98,6 +95,7 @@ function App() {
           </Route>
           <Route path="/packing-new" exact>
             <PackingNew />
+          </Route>
           <Redirect to="/" />
           {routes}
         </Switch>
