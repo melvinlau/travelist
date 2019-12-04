@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../shared/context/auth-context";
 import Auth from "../user/Auth";
@@ -9,6 +14,8 @@ function StartForm({ trip, updateTrip }) {
   const [destination, setDestination] = useState("");
   const [dateFrom, setStartDate] = useState("");
   const [dateTo, setEndDate] = useState("");
+
+  let history = useHistory();
 
   const callUpdateTrip = trip => {
     updateTrip(trip);
@@ -25,7 +32,7 @@ function StartForm({ trip, updateTrip }) {
   const handleEndDateChange = e => {
     setEndDate(e.target.value);
   };
-  console.log(auth.userId);
+
   const handleCreateTrip = () => {
     axios
       .post(
@@ -43,49 +50,66 @@ function StartForm({ trip, updateTrip }) {
       .then(response => {
         callUpdateTrip(response.data.trip);
         console.log("Create trip: response", response.data.trip);
+        history.push('/activities');
       })
       .catch(console.log);
   };
 
   return (
-    <div className="start-form">
-      <input
-        name="destination"
-        data-cy="destination"
-        type="text"
-        placeholder="Destination"
-        value={destination}
-        onChange={handleDestinationChange}
-        autoFocus
-      />{" "}
-      <br />
-      <input
-        name="start-date"
-        data-cy="start-date"
-        type="date"
-        placeholder="From"
-        value={dateFrom}
-        onChange={handleStartDateChange}
-      />{" "}
-      <br />
-      <input
-        name="end-date"
-        data-cy="end-date"
-        type="date"
-        placeholder="To"
-        value={dateTo}
-        onChange={handleEndDateChange}
-      />{" "}
-      <br />
-      <Link to="/activities">
+    <div className="card">
+      <div className="card-body">
+
+        <div className="row mb-3">
+          <div className="col-12">
+            <input
+              name="destination"
+              data-cy="destination"
+              type="text"
+              placeholder="Destination"
+              className="form-control form-control-lg"
+              value={destination}
+              onChange={handleDestinationChange}
+              autoFocus
+            />
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <div className="col-12 col-lg-6 mb-3 mb-lg-0">
+            <div className="category-header">From</div>
+            <input
+              name="start-date"
+              data-cy="start-date"
+              type="date"
+              placeholder="From"
+              className="form-control form-control-lg"
+              value={dateFrom}
+              onChange={handleStartDateChange}
+            />
+          </div>
+          <div className="col-12 col-lg-6">
+            <div className="category-header">To</div>
+            <input
+              name="end-date"
+              data-cy="end-date"
+              type="date"
+              placeholder="To"
+              className="form-control form-control-lg"
+              value={dateTo}
+              onChange={handleEndDateChange}
+            />
+          </div>
+        </div>
+
         <button
-          className="start-button"
+          className="start-button float-right"
           data-cy="start-button"
           onClick={handleCreateTrip}
         >
-          Start planning
+          Start planning!
         </button>
-      </Link>
+
+      </div>
     </div>
   );
 }

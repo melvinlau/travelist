@@ -57,6 +57,7 @@ function Trips() {
 
   return (
     <div>
+      <button onClick={auth.logout}>Logout</button>
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
       {renderTrips()}

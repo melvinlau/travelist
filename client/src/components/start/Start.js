@@ -25,7 +25,6 @@ function Start() {
       {renderName()}
       <StartForm trip={trip} updateTrip={updateTrip} />
     </div>
-
   );
 }
 

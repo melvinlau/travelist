@@ -2,13 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import { AuthContext } from "../shared/context/auth-context";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
 import ActivityListItem from "./ActivityListItem";
 
 function ActivityList() {
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
+
+  let history = useHistory();
 
   const [activities, setActivities] = useState([
     "skiing",
@@ -51,6 +58,7 @@ function ActivityList() {
           "update trip with activities: response",
           response.data.trip
         );
+        history.push('/packinglist');
       })
       .catch(console.log);
   };
@@ -87,11 +95,10 @@ function ActivityList() {
 
       <div id="activities-list"></div>
 
-      <Link to="/packinglist">
-        <button data-cy="generate-list-button" onClick={handleCreateList}>
-          Generate a Travelist!
-        </button>
-      </Link>
+      <button data-cy="generate-list-button" onClick={handleCreateList}>
+        Generate a Travelist!
+      </button>
+      
     </div>
   );
 }
