@@ -61,10 +61,6 @@ function App() {
     routes = (
       <React.Fragment>
         <Route exact path="/trips" component={Trips} />
-<<<<<<< HEAD
-=======
-        <Redirect to="/trips" />
->>>>>>> ac0d0e4ed62f943edababd78be714f1b2f5f26ea
       </React.Fragment>
     );
   }
@@ -90,7 +86,7 @@ function App() {
           <Route exact path="/" component={Start} />
           <Route exact path="/activities" component={ActivityList} />
           <Route exact path="/packinglist" component={PackingList} />
-          <Route exact path="/auth" component={Auth} />          
+          <Route exact path="/auth" component={Auth} />
           <Route path="/trips-list" exact>
             <TripsListNew />
           </Route>
