@@ -17,10 +17,10 @@ function TripHeader({ trip, formatDate }) {
   const renderWeatherEmoji = weather => {
     const emoji = {
       "sunny": "☀️",
-      "rainy": "☔️",
-      "snowy": "☃",
-      "hot": "🥵",
-      "cold": "🥶"
+      "rainy": "🌧",
+      "snowy": " 🌨",
+      "hot": "🔥",
+      "cold": "❄️"
     }
     const weatherEmojiList = weather.map(text => emoji[text]);
     return weatherEmojiList;
