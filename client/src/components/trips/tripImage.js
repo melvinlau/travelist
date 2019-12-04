@@ -20,7 +20,7 @@ export async function getImage(destination) {
 const renderImage = (link) => {
   const renderStyle = {
     background: `url(${link}) no-repeat center center`,
-    backgroundSize: "100%",
+    backgroundSize: "cover",
     height: "16rem"
   }
   return (

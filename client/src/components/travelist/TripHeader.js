@@ -10,7 +10,7 @@ function TripHeader({ trip, formatDate }) {
 
   const imageStyle = {
     background: `url(${trip.image}) no-repeat center center`,
-    backgroundSize: "100%",
+    backgroundSize: "cover",
     height: "16rem"
   }
 
