@@ -7,7 +7,7 @@ import PackingListItem from "./PackingListItem";
 import AddItemForm from "./AddItemForm";
 import ProgressBar from "./ProgressBar";
 import TripHeader from "./TripHeader";
-import TripHeader from "./TripStatus";
+import TripStatus from "./TripStatus";
 import CategoryList from "./CategoryList";
 import Navbar from "./Navbar";
 import Navbar from "./Footer";
