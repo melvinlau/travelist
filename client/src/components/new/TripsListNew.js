@@ -43,7 +43,7 @@ function TripsListNew() {
                   <span className="text-muted small">TO:</span> 23/01/2020
                 </p>
                 <a href="#" className="btn btn-warning">
-                  Go somewhere
+                  VIEW TRIP
                 </a>
               </div>
             </div>

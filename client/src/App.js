@@ -9,9 +9,10 @@ import {
 import axios from "axios";
 
 import Start from "./components/start/Start";
-import StartNew from "./components/test/StartNew";
-import TripsList from "./components/test/TripsList";
-import TripsListNew from "./components/test/TripsListNew";
+import StartNew from "./components/new/StartNew";
+import TripsList from "./components/new/TripsList";
+import TripsListNew from "./components/new/TripsListNew";
+import PackingNew from "./components/new/PackingNew";
 import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
@@ -118,6 +119,9 @@ function App() {
           </Route>
           <Route path="/start-new" exact>
             <StartNew />
+          </Route>
+          <Route path="/packing-new" exact>
+            <PackingNew />
           </Route>
           {routes}
         </Switch>

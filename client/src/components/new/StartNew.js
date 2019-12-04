@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./Navbar";
-import StartFromNew from "./StartFromNew";
+import StartFormNew from "./StartFormNew";
 
 import { AuthContext } from "../shared/context/auth-context";
 
@@ -25,7 +25,7 @@ function StartNew() {
           <div className="col-12 d-flex justify-content-center">
             <div className="card" style={{ width: "24rem" }}>
               <div className="card-body">
-                <StartFromNew />
+                <StartFormNew />
               </div>
             </div>
           </div>
