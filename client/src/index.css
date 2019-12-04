@@ -29,7 +29,7 @@ input {
 */
 
 button {
-  margin: 0 0 0 10px;
+  margin: 0;
   padding: 10px 14px;
   background-color: #DDD;
   font-weight: 700;
@@ -45,7 +45,7 @@ button .style1 {
   border-radius: 5px;
   background-color: #56505e;
   color: #fff;
-} 
+}
 
 .delete-button {
   border: 0;
@@ -61,7 +61,7 @@ button .style1 {
 .card {
   margin: 0 0 10px 0;
   padding: 0;
-  box-shadow: none;
+
 }
 
 input[type="checkbox"] {

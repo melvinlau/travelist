@@ -9,6 +9,9 @@ import {
 import { AuthContext } from "../shared/context/auth-context";
 import axios from 'axios';
 
+import TripCard from "./TripCard";
+import TripsListHeader from "./TripsListHeader";
+
 function Trips() {
 
   const auth = useContext(AuthContext);
@@ -56,17 +59,15 @@ function Trips() {
   };
 
   return (
-    <div>
-      <button onClick={auth.logout}>Logout</button>
+    <div className="justify-content-center d-flex flex-column align-items-center">
+      <TripsListHeader />
+      
       <h2>{renderName()}</h2>
       <h3>Trips</h3>
-      {renderTrips()}
 
-
-      <Link to="/start">
-        Create a new trip
-      </Link>
-
+      start loop
+      <TripCard />
+      end loop
     </div>
   );
 }

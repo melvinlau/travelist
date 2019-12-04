@@ -102,7 +102,7 @@ function StartForm({ trip, updateTrip }) {
         </div>
 
         <button
-          className="start-button float-right"
+          className="start-button form-control form-control-lg"
           data-cy="start-button"
           onClick={handleCreateTrip}
         >
