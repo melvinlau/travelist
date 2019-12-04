@@ -8,6 +8,11 @@ function ProgressBar({ percentComplete }) {
     );
   }
 
+  const displayPercentComplete = () => {
+    if (percentComplete === "NaN") return 'No items in your list!';
+    return `${percentComplete}% ready`;
+  }
+
   return (
     <div className="progress">
       <div className="progress-bar"
@@ -17,7 +22,7 @@ function ProgressBar({ percentComplete }) {
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        {percentComplete}% ready
+        {displayPercentComplete()}
       </div>
     </div>
   );

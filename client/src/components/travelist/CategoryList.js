@@ -6,27 +6,59 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 
-function CategoryList({ category, items, add, remove, complete, unComplete }) {
+function CategoryList({ category, items, add, remove, complete, unComplete, completedItems }) {
+
   const filteredItems = () => {
     return items.filter(element => element.category === category)
   }
+
+  const capitalize = word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
   return (
-    <div><h1>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
-      {filteredItems().map((item) => {
-        return (
-          <PackingListItem
-            key={item.name}
-            item={item}
-            complete={complete}
-            unComplete={unComplete}
-            remove={remove}
-          />
-        )
-      })}
-      <AddItemForm category={category} add={add} />
+    <div className="card">
+      <div className="card-header category-header">
+        {capitalize(category)}
+      </div>
+      <ul className="list-group list-group-flush">
+
+        <TransitionGroup className="packinglistgroup">
+        {
+          filteredItems().map((item) => {
+            return (
+              <CSSTransition
+              key={item.name}
+              timeout={500}
+              classNames="packinglistitem"
+              >
+                <li className="list-group-item">
+                  <PackingListItem
+                    key={item.name}
+                    item={item}
+                    complete={complete}
+                    unComplete={unComplete}
+                    remove={remove}
+                    completedItems={completedItems}
+                  />
+                </li>
+              </CSSTransition>
+            );
+          })
+        }
+        </TransitionGroup>
+
+        <li className="list-group-item">
+          <AddItemForm category={category} add={add} />
+        </li>
+      </ul>
     </div>
   );
 }

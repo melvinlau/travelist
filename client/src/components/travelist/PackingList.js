@@ -23,63 +23,65 @@ function PackingList() {
   const [completedItems, updateCompletedItems] = useState([]);
 
   const renderTravelist = async () => {
-    console.log('items', items)
 
     const rawCategoryList = await items.map(item => item.category);
     const uniqueCategoryList = await Array.from(new Set(rawCategoryList));
     let finalCategoryList = await uniqueCategoryList.filter(category => category !== 'miscellaneous');
     finalCategoryList = await [...finalCategoryList, 'miscellaneous'];
 
-    console.log('finalCategoryList', finalCategoryList);
-
     const travelist = finalCategoryList.map(category =>
        (
         <CategoryList
+          key={category}
           category={category}
           items={items}
           add={add}
           remove={remove}
           complete={complete}
           unComplete={unComplete}
+          completedItems={completedItems}
         />
       )
     );
-
     ReactDOM.render(travelist, document.getElementById('travelist'));
   }
 
   const renderProgressBar = () => {
     const percentComplete = Math.round((completedItems.length / items.length) * 100);
-    const progressBar = (
+    return (
       <ProgressBar percentComplete={percentComplete.toString()} />
     );
-    ReactDOM.render(progressBar, document.getElementById('progress-bar'));
   }
 
-  const findExistingMatches = (item, list) => {
-    return list.filter(element => element.name === item.name)
+  const findExistingMatches = (itemName, list) => {
+    // Finds an item name (passed in as a string) within a list containing item objects.
+    return list.filter(element => element.name === itemName)
   }
 
   const complete = item => {
-    if (findExistingMatches(item, completedItems).length > 0) return;
+    if (findExistingMatches(item.name, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
   }
 
   const unComplete = item => {
-    if (findExistingMatches(item, completedItems).length === 0) return;
+    const foundExistingItems = findExistingMatches(item.name, completedItems)
+    if (foundExistingItems.length === 0) return;
     const newCompletedItems = [...completedItems];
-    newCompletedItems.splice(completedItems.indexOf(findExistingMatches(item, completedItems)[0]), 1);
+    newCompletedItems.splice(completedItems.indexOf(foundExistingItems[0]), 1);
     updateCompletedItems(newCompletedItems);
   }
+
+  const callUpdateItems = trip => {
+    updateItems(trip);
+  };
 
   const createItemObject = (name, category) => {
     axios
       .post(
-        `http://localhost:3001/api/items/custom`,
+        'http://localhost:3001/api/items/custom',
         {
           name: name,
-          category: category,
-          custom: true,
+          category: category
         },
         {
           headers: { Authorization: "bearer " + auth.token }
@@ -87,45 +89,53 @@ function PackingList() {
       )
       .then(response => {
         console.log('Create custom item: response', response.data.item);
-        return response.data.item;
+        callUpdateItems([...items, response.data.item]);
       })
       .catch(console.log);
   }
 
   const add = async (name, category) => {
-    const item = await createItemObject(name, category);
-    if (findExistingMatches(item, items).length > 0) return;
-    updateItems([...items, item]);
+    if (findExistingMatches(name, items).length > 0) return;
+    createItemObject(name, category);
   }
 
   const remove = async item => {
-    if (findExistingMatches(item, items).length === 0) return;
+    const foundExistingItems = findExistingMatches(item.name, items);
+    if (foundExistingItems.length === 0) return;
     await unComplete(item);
     const newItems = [...items];
-    newItems.splice(items.indexOf(findExistingMatches(item, items)[0]), 1);
-    updateItems(newItems);
+    newItems.splice(items.indexOf(foundExistingItems[0]), 1);
+    await updateItems(newItems);
   }
 
-  const formattedDate = (dateString) => {
+  const formatDate = (dateString) => {
     const options = {
       day: 'numeric',
-      month: 'long',
+      month: 'short',
       year: 'numeric'
     };
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
-  const formattedDateFrom = formattedDate(trip.dateFrom);
-
   const renderHeader = () => {
-    if (trip.destination && trip.dateFrom) {
-      return (<h3>Trip to {trip.destination} on {formattedDateFrom}</h3>);
+    if (trip) {
+      const header = (
+        <div className="card">
+          <div className="card-body">
+            <h3>{trip.destination}</h3>
+            {formatDate(trip.dateFrom)} - {formatDate(trip.dateTo)}
+            {renderProgressBar()}
+          </div>
+        </div>
+      );
+      ReactDOM.render(header, document.getElementById('header'));
     }
   }
 
   useEffect(() => {
-    renderTravelist();
+    renderHeader();
     renderProgressBar();
+    renderTravelist();
     // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
@@ -160,17 +170,11 @@ function PackingList() {
 
   return (
     <div>
-
-      {renderHeader()}
-
-      <div id="progress-bar"></div>
-
+      <div id="header"></div>
       <div id="travelist"></div>
-
-      <Link to="/signup">
-        <button onClick={handleSaveList}>Save</button>
+      <Link to="/auth">
+        <button onClick={handleSaveList}>Save list</button>
       </Link>
-
     </div>
   );
 }
