@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Switch,
@@ -84,14 +84,15 @@ function App() {
         logout: logout
       }}
     >
-      <Navbar />
+      <Router>
+        <Navbar />
 
-      <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-12 col-sm-6">
-            <Router>
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-12 col-sm-6">
               <Switch>
                 <Route exact path="/" component={Start} />
+                <Route exact path="/start" component={Start} />
                 <Route exact path="/activities" component={ActivityList} />
                 <Route exact path="/packinglist" component={PackingList} />
                 <Route exact path="/auth" component={Auth} />
@@ -107,14 +108,12 @@ function App() {
 
                 {routes}
               </Switch>
-            </Router>
-
+            </div>
           </div>
         </div>
-      </div>
 
-      <Footer />
-
+        <Footer />
+      </Router>
     </AuthContext.Provider>
   );
 }

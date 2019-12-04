@@ -1,5 +1,11 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 
 function Navbar() {
@@ -8,11 +14,11 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white static-top mb-4 shadow">
         <div className="container">
-          <a className="navbar-brand" href="#">
-            <h4>
+          <NavLink to="/" exact>
+            <h3 className="navbar-brand">
               <strong>Travelist</strong>
-            </h4>
-          </a>
+            </h3>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -28,20 +34,36 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">
+                <NavLink to="/start" exact className="nav-link">
                   New Trip
-                </a>
+                </NavLink>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  My Trip
-                </a>
-              </li>
+
+              {auth.isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink to="/trips" exact className="nav-link">
+                    My Trips
+                  </NavLink>
+                </li>
+              )}
+
+              {!auth.isLoggedIn && (
+                <li>
+                  <NavLink to="/auth">
+                    <button>LOGIN</button>
+                  </NavLink>
+                </li>
+              )}
+              {auth.isLoggedIn && (
+                <li>
+                  <button onClick={auth.logout}>LOGOUT</button>
+                </li>
+              )}
             </ul>
-            <button className="btn btn-outline-secondary my-2 my-sm-0">
+            {/* <button className="btn btn-outline-secondary my-2 my-sm-0">
               Login
-            </button>
-            <button onClick={auth.logout}>Logout</button>
+            </button> */}
+            {/* <button onClick={auth.logout}>Logout</button> */}
           </div>
         </div>
       </nav>
