@@ -187,6 +187,7 @@ function PackingList() {
         dateFrom={trip.dateFrom}
         dateTo={trip.dateTo}
         id={trip._id}
+        weather={trip.weather}
         link={trip.image} />
       <div id="header"></div>
       <div id="travelist"></div>

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { AuthContext } from "../shared/context/auth-context";
 
-function TripHeader({ destination, dateFrom, dateTo, id, link }) {
+function TripHeader({ destination, dateFrom, dateTo, id, link, weather }) {
   const auth = useContext(AuthContext);
 
   const formatDate = (dateString) => {
@@ -14,6 +14,14 @@ function TripHeader({ destination, dateFrom, dateTo, id, link }) {
       year: 'numeric'
     };
     return new Date(dateString).toLocaleString(undefined, options);
+  }
+
+  const displayWeather = (weatherArray) => {
+    const weather = weatherArray.map(tag => {
+      return (
+        tag
+      )
+    })
   }
 
   return (
@@ -39,6 +47,7 @@ function TripHeader({ destination, dateFrom, dateTo, id, link }) {
             <div className="dropdown-divider"></div>
             <span className="text-muted small">WEATHER:</span>
             <br />
+            {displayWeather(weather)}
             🥵hot, 🥶cold, ☃snowy, ☔️rainy, ☀️sunny
           </div>
         </p>

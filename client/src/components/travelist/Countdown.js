@@ -8,7 +8,11 @@ function Countdown({ dateFrom }) {
     const date = new Date(dateFrom)
     const result = (date - now)
     const days = Math.floor(result / (1000 * 60 * 60 * 24))
-    return (days.toString() + " days")
+    if (days === 1) {
+      return (days.toString() + " day")
+    } else {
+      return (days.toString() + " days")
+    }
   }
 
   return (
