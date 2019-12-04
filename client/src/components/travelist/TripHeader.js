@@ -17,11 +17,15 @@ function TripHeader({ destination, dateFrom, dateTo, id, link, weather }) {
   }
 
   const displayWeather = (weatherArray) => {
+    const emojiHash = { "hot": "🥵", "cold": "🥶", "snowy": "☃", "rainy": "☔️", "sunny": "☀️", "moderate": "⛅" }
+    console.log('weatherArray', weatherArray)
     const weather = weatherArray.map(tag => {
+      console.log('tag', tag)
       return (
-        tag
+        emojiHash[tag] + tag + "  "
       )
     })
+    return weather
   }
 
   return (
@@ -47,8 +51,7 @@ function TripHeader({ destination, dateFrom, dateTo, id, link, weather }) {
             <div className="dropdown-divider"></div>
             <span className="text-muted small">WEATHER:</span>
             <br />
-            {displayWeather(weather)}
-            🥵hot, 🥶cold, ☃snowy, ☔️rainy, ☀️sunny
+            <div>{displayWeather(weather)}</div>
           </div>
         </p>
       </div>
