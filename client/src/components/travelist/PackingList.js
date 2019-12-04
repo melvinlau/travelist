@@ -12,6 +12,7 @@ import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
+import TripHeader from './TripHeader';
 import { getImage } from '../trips/tripImage';
 
 function PackingList() {
@@ -123,8 +124,8 @@ function PackingList() {
       const header = (
         <div className="card">
           <div className="card-body">
-            <h3>{trip.destination}</h3>
-            {formatDate(trip.dateFrom)} - {formatDate(trip.dateTo)}
+            <span className="text-muted small">YOUR TRIP IS IN:</span>
+            <h2>8 day</h2>      
             {renderProgressBar()}
           </div>
         </div>
@@ -171,7 +172,8 @@ function PackingList() {
 
 
   return (
-    <div>  
+    <div>
+      <TripHeader />
       <div id="header"></div>
       <div id="travelist"></div>
       <Link to="/auth">

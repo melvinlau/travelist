@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +17,8 @@ import ActivityList from "./components/activities/ActivityList";
 import PackingList from "./components/travelist/PackingList";
 import Trips from "./components/trips/Trips";
 import Auth from "./components/user/Auth";
+import Navbar from "./components/shared/components/Navbar";
+import Footer from "./components/shared/components/Footer";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
@@ -81,25 +84,37 @@ function App() {
         logout: logout
       }}
     >
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Start} />
-          <Route exact path="/activities" component={ActivityList} />
-          <Route exact path="/packinglist" component={PackingList} />
-          <Route exact path="/auth" component={Auth} />
-          <Route path="/trips-list" exact>
-            <TripsListNew />
-          </Route>
-          <Route path="/start-new" exact>
-            <StartNew />
-          </Route>
-          <Route path="/packing-new" exact>
-            <PackingNew />
-          </Route>
-          <Redirect to="/" />
-          {routes}
-        </Switch>
-      </Router>
+      <Navbar />
+
+      <div className="container-fluid">
+        <div className="row justify-content-center">
+          <div className="col-12 col-sm-6">
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Start} />
+                <Route exact path="/activities" component={ActivityList} />
+                <Route exact path="/packinglist" component={PackingList} />
+                <Route exact path="/auth" component={Auth} />
+                <Route path="/trips-list" exact>
+                  <TripsListNew />
+                </Route>
+                <Route path="/start-new" exact>
+                  <StartNew />
+                </Route>
+                <Route path="/packing-new" exact>
+                  <PackingNew />
+                </Route>
+
+                {routes}
+              </Switch>
+            </Router>
+
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+
     </AuthContext.Provider>
   );
 }

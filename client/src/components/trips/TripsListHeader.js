@@ -11,7 +11,7 @@ function TripsListHeader() {
           <strong>Where should we go next?</strong>
         </h2>
 
-        <Link to="/start">
+        <Link to="/">
           <button className="btn btn-primary btn-lg">NEW TRIP</button>
         </Link>
 
