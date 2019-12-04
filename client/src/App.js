@@ -58,17 +58,7 @@ function App() {
   if (token) {
     routes = (
       <React.Fragment>
-        <Route exact path="/start" component={Start} />
         <Route exact path="/trips" component={Trips} />
-        <Redirect to="/trips" />
-      </React.Fragment>
-    );
-  } else {
-    routes = (
-      <React.Fragment>
-        <Route exact path="/auth" component={Auth} />
-        <Route exact path="/" component={Start} />
-        <Redirect to="/" />
       </React.Fragment>
     );
   }
@@ -91,8 +81,11 @@ function App() {
     >
       <Router>
         <Switch>
+          <Route exact path="/" component={Start} />
           <Route exact path="/activities" component={ActivityList} />
           <Route exact path="/packinglist" component={PackingList} />
+          <Route exact path="/auth" component={Auth} />
+          <Redirect to="/" />
           {routes}
         </Switch>
       </Router>
