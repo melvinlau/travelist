@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 export async function getImage(destination) {
-  // const [destination, updateDestination] = useState(trip.destination)
   const formattedDestination = formatDestination(destination)
   const apiKey = process.env.REACT_APP_IMAGE_API_KEY;
   const url = `https://api.pexels.com/v1/search?query=${formattedDestination}&per_page=1&page=1`
