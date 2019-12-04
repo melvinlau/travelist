@@ -16,13 +16,14 @@ function Start() {
 
   const renderName = () => {
     if (auth.name) return (
-      <h5>Hey, {auth.name}!</h5>
+      <h5>Hey, <strong>{auth.name}</strong>!</h5>
     );
   }
 
   return (
     <div>
       {renderName()}
+      <h2>Create a new Travelist</h2>
       <StartForm trip={trip} updateTrip={updateTrip} />
     </div>
   );
