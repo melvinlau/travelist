@@ -31,11 +31,11 @@ input {
 button {
   margin: 0;
   padding: 10px 14px;
-  background-color: #DDD;
+  background-color: #ddd;
   font-weight: 700;
   font-size: 0.9rem;
   border-radius: 3px;
-  border-bottom: solid 3px #CCC;
+  border-bottom: solid 3px #ccc;
 }
 
 button .style1 {
@@ -61,7 +61,6 @@ button .style1 {
 .card {
   margin: 0 0 10px 0;
   padding: 0;
-
 }
 
 input[type="checkbox"] {
@@ -93,4 +92,27 @@ input[type="checkbox"] {
 .packinglistitem-exit-active {
   opacity: 0;
   transition: opacity 400ms ease-out;
+}
+
+.nav-icon {
+  color: #cccccc;
+  margin-right: 5px;
+}
+
+.nav-link {
+  margin-right: 15px;
+}
+
+.nav-button {
+  /* height: 20px; */
+  font-size: 14px;
+  /* margin: 5px; */
+  padding: 8px 18px;
+  /* border: solid 1px #ccc; */
+  /* background-color: red; */
+  border-bottom: solid 2px #ccc;
+}
+
+.nav-button:focus {
+  outline: none;
 }
