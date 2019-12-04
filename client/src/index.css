@@ -3,7 +3,7 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   background-color: #f5f5f5;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 code {
@@ -11,7 +11,7 @@ code {
     monospace;
 }
 
-.logo {
+/* .logo {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 700;
   font-size: 48px;
@@ -24,16 +24,16 @@ input {
   padding: 5px;
   border: solid 1px #ccc;
   border-radius: 5px;
-}
+} */
 
-button {
+/* button {
   margin: 5px;
   padding: 5px 8px;
   border: solid 1px #ccc;
   border-radius: 5px;
   background-color: #56505e;
   color: #fff;
-}
+} */
 
 .delete-button {
   border: 0;

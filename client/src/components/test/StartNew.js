@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import StartFromNew from "./StartFromNew";
 
 import { AuthContext } from "../shared/context/auth-context";
 
@@ -13,38 +14,18 @@ function StartNew() {
 
       <div className="container">
         <div className="row">
-          <div className="col-12 d-flex justify-content-center flex-column align-items-center pb-4">
+          <div className="col-12 d-flex justify-content-center flex-column align-items-center pb-3">
             <img src="./images/char.png" style={{ width: "100px" }} />
             <h2>
-              <strong>Where are you going next?</strong>
+              <strong>Where are you travelling next?</strong>
             </h2>
-            <button className="btn btn-primary btn-lg">NEW TRIP</button>
           </div>
         </div>
         <div className="row">
           <div className="col-12 d-flex justify-content-center">
-            <div className="card" style={{ width: "32rem" }}>
-              <div
-                className="card-img-top"
-                style={{
-                  background:
-                    "url(https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80) no-repeat center center",
-                  backgroundSize: "100%",
-                  height: "16rem"
-                }}
-              ></div>
-              <div className="card-body pt-4">
-                <h3 className="card-title">
-                  <strong>Rio de Janeiro</strong>
-                </h3>
-                <p className="card-text">
-                  <span className="text-muted small">FROM:</span>{" "}
-                  16/12/2019&nbsp;&nbsp;&nbsp;
-                  <span className="text-muted small">TO:</span> 23/01/2020
-                </p>
-                <a href="#" className="btn btn-warning">
-                  Go somewhere
-                </a>
+            <div className="card" style={{ width: "24rem" }}>
+              <div className="card-body">
+                <StartFromNew />
               </div>
             </div>
           </div>
