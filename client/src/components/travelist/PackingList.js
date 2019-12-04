@@ -12,6 +12,7 @@ import PackingListItem from './PackingListItem';
 import AddItemForm from './AddItemForm';
 import ProgressBar from './ProgressBar';
 import CategoryList from './CategoryList';
+import { getImage } from '../trips/tripImage';
 
 function PackingList() {
 
@@ -135,6 +136,7 @@ function PackingList() {
   useEffect(() => {
     renderHeader();
     renderProgressBar();
+    getImage(trip.destination);
     renderTravelist();
     // do the API call here to update the backend intuitively?
     console.log('Items', items);
@@ -169,7 +171,7 @@ function PackingList() {
 
 
   return (
-    <div>
+    <div>  
       <div id="header"></div>
       <div id="travelist"></div>
       <Link to="/auth">

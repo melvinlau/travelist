@@ -8,8 +8,6 @@ router.get('/:tid', tripsControllers.getTripById);
 
 router.get('/:tid/weather', tripsControllers.getTripWeatherById);
 
-router.get('/user/:uid', tripsControllers.getTripsByUserId);
-
 // router.use(checkAuth);
 
 router.post('/', tripsControllers.createTrip);

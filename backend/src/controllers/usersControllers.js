@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const tripsController = require('../controllers/trips');
 
 const signup = async (req, res, next) => {
   // eslint-disable-next-line object-curly-newline
@@ -147,5 +148,31 @@ const login = async (req, res, next) => {
   });
 };
 
+const getUserTrips = async (req, res, next) => {
+  const userId = req.params.uid;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      'Fetching places failed, please try again later',
+      500,
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    return next(
+      new HttpError('Could not find user for the provided user id.', 404),
+    );
+  }
+
+  const trips = await tripsController.getTripsById(user.trips)
+  console.log("user trips", trips)
+  res.json({ trips: trips });
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.getUserTrips = getUserTrips;

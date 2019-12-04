@@ -70,33 +70,10 @@ const getTripWeatherById = async (req, res, next) => {
   res.json({ trip: trip.toObject({ getters: true }) });
 };
 
-const getTripsByUserId = async (req, res, next) => {
-  const userId = req.params.uid;
-
-  let trips;
-  try {
-    trips = await Trip.find({ user: userId });
-  } catch (err) {
-    const error = new HttpError(
-      'Fetching places failed, please try again later',
-      500,
-    );
-    return next(error);
-  }
-
-  if (!trips || trips.length === 0) {
-    return next(
-      new HttpError('Could not find trips for the provided user id.', 404),
-    );
-  }
-
-  res.json({ trips: trips.map((trip) => trip.toObject({ getters: true })) });
-};
-
 const createTrip = async (req, res, next) => {
   const {
- destination, dateFrom, dateTo, activities, user 
-} = req.body;
+    destination, dateFrom, dateTo, activities, user
+  } = req.body;
 
   let weather;
   try {
@@ -313,11 +290,34 @@ const updatePackedItems = async (req, res, next) => {
   res.status(200).json({ trip: trip.toObject({ getters: true }) });
 };
 
+const getTripsById = async (tripsIds) => {
+  let trips;
+
+  try {
+    trips = await Trip.find({ _id: { $in: tripsIds } });
+    console.log('trips query', trips)
+  } catch (err) {
+    const error = new HttpError('Fetching items failed, please try again', 500);
+    return next(error);
+  }
+
+  if (!trips || trips.length === 0) {
+    const error = new HttpError(
+      'Could not find a trip for the provided name.',
+      404,
+    );
+    return next(error);
+  }
+
+  console.log("Trips by Id", trips)
+  return trips
+}
+
 exports.getTripById = getTripById;
-exports.getTripsByUserId = getTripsByUserId;
 exports.getTripWeatherById = getTripWeatherById;
 exports.createTrip = createTrip;
 exports.addActivityItems = addActivityItems;
 exports.addCustomItem = addCustomItem;
 exports.deleteTrip = deleteTrip;
 exports.updatePackedItems = updatePackedItems;
+exports.getTripsById = getTripsById;
