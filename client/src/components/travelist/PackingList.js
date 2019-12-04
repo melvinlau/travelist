@@ -182,7 +182,12 @@ function PackingList() {
 
   return (
     <div>
-      <TripHeader />
+      <TripHeader key={trip._id}
+        destination={trip.destination}
+        dateFrom={trip.dateFrom}
+        dateTo={trip.dateTo}
+        id={trip._id}
+        link={trip.image} />
       <div id="header"></div>
       <div id="travelist"></div>
       <Link to="/auth">
