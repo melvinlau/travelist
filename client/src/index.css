@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:700|Nunito+Sans:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Cabin:700|Nunito+Sans:400,700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600&display=swap");
 
 body {
@@ -12,14 +12,17 @@ code {
     monospace;
 }
 
-/* .logo {
-  font-family: "Source Sans Pro", sans-serif;
+.navbar-brand {
+  font-family: "Cabin", "Source Sans Pro", "Nunito Sans", "Helvetica Neue", sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 27px;
   color: #545254;
-  letter-spacing: -0.5px;
 }
-*/
+
+.accent {
+  border-bottom: solid 3px #ffc107;
+}
+
 
 input {
   padding: 10px 14px;
@@ -107,13 +110,14 @@ input[type="checkbox"] {
 }
 
 .nav-button {
-  /* height: 20px; */
+  height: 45px;
   font-size: 14px;
   /* margin: 5px; */
   padding: 8px 18px;
   /* border: solid 1px #ccc; */
   /* background-color: red; */
   border-bottom: solid 2px #ccc;
+  margin-top: 10px;
 }
 
 .nav-button:focus {
@@ -137,4 +141,12 @@ input[type="checkbox"] {
 
 .list-group-item a:hover {
   text-decoration: none;
+}
+
+.nav-text {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+.nav-item {
+  text-align: center;
 }
