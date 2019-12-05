@@ -1,9 +1,17 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 
 function Navbar() {
+
   const auth = useContext(AuthContext);
+  let history = useHistory();
+
+  const doLogout = () => {
+    auth.logout();
+    history.push('/');
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white static-top mb-4 shadow">
@@ -41,7 +49,7 @@ function Navbar() {
             <button className="btn btn-outline-secondary my-2 my-sm-0">
               Login
             </button>
-            <button onClick={auth.logout}>Logout</button>
+            <button onClick={doLogout}>Logout</button>
           </div>
         </div>
       </nav>

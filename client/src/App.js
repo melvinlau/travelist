@@ -42,7 +42,6 @@ function App() {
         token: token
       })
     );
-    // redirect to /trips
   }, []);
 
   const logout = useCallback(() => {
@@ -52,7 +51,6 @@ function App() {
     updateTrip(null);
     updateTripList(null);
     localStorage.removeItem("userData");
-    // redirect to /
   }, []);
 
   useEffect(() => {
@@ -88,37 +86,38 @@ function App() {
         logout: logout
       }}
     >
-      <Navbar />
+      <Router>
+        <Navbar />
 
-      <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-12 col-sm-6">
-            <Router>
-              <Switch>
-                <Route exact path="/" component={Start} />
-                <Route exact path="/activities" component={ActivityList} />
-                <Route exact path="/packinglist" component={PackingList} />
-                <Route exact path="/auth" component={Auth} />
-                <Route path="/trips-list" exact>
-                  <TripsListNew />
-                </Route>
-                <Route path="/start-new" exact>
-                  <StartNew />
-                </Route>
-                <Route path="/packing-new" exact>
-                  <PackingNew />
-                </Route>
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-12 col-sm-6">
 
-                {routes}
-              </Switch>
-            </Router>
+                <Switch>
+                  <Route exact path="/" component={Start} />
+                  <Route exact path="/activities" component={ActivityList} />
+                  <Route exact path="/packinglist" component={PackingList} />
+                  <Route exact path="/auth" component={Auth} />
+                  <Route path="/trips-list" exact>
+                    <TripsListNew />
+                  </Route>
+                  <Route path="/start-new" exact>
+                    <StartNew />
+                  </Route>
+                  <Route path="/packing-new" exact>
+                    <PackingNew />
+                  </Route>
 
+                  {routes}
+                </Switch>
+
+
+            </div>
           </div>
         </div>
-      </div>
 
-      <Footer />
-
+        <Footer />
+      </Router>
     </AuthContext.Provider>
   );
 }
