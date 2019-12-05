@@ -119,13 +119,12 @@ function PackingList() {
     const now = new Date()
     const date = new Date(dateFrom)
     const result = (date - now)
-    const days = Math.floor(result / (1000 * 60 * 60 * 24))
+    const days = (Math.floor(result / (1000 * 60 * 60 * 24))) + 1
     return days
   }
 
   const renderTripStatus = () => {
-
-    if (trip) {
+    if (trip && getDays(trip.dateFrom) >= 0) {
       const header = (
         <div className="card">
           <div className="card-body">
