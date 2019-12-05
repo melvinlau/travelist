@@ -39,6 +39,7 @@ function App() {
         userId: userId,
         name: name,
         token: token
+        // trip: trip
       })
     );
   }, []);
@@ -55,7 +56,12 @@ function App() {
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (storedData && storedData.token) {
-      login(storedData.userId, storedData.name, storedData.token);
+      login(
+        storedData.userId,
+        storedData.name,
+        storedData.token
+        // storedData.trip
+      );
     }
   }, [login]);
 
