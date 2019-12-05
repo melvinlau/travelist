@@ -1,11 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // import StartFormNew from "./StartFormNew";
 
 import { AuthContext } from "../shared/context/auth-context";
+import { getImage } from "./tripImage";
 
-function TripCard() {
+function TripCard({ destination, dateFrom, dateTo, id, link }) {
   const auth = useContext(AuthContext);
+
+  const formatDate = (dateString) => {
+    const options = {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    };
+    return new Date(dateString).toLocaleString(undefined, options);
+  }
+
 
   return (
     <div className="card" style={{ width: "32rem" }}>
@@ -13,19 +24,20 @@ function TripCard() {
         className="card-img-top"
         style={{
           background:
-            "url(https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80) no-repeat center center",
+            `url(${link}) no-repeat center center`,
           backgroundSize: "100%",
           height: "16rem"
         }}
       ></div>
+
       <div className="card-body pt-4">
         <h3 className="card-title">
-          <strong>Rio de Janeiro</strong>
+          <strong>{destination}</strong>
         </h3>
         <p className="card-text">
-          <span className="text-muted small">FROM:</span>{" "}
-          16/12/2019&nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO:</span> 23/01/2020
+          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
+          &nbsp;&nbsp;&nbsp;
+          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
         </p>
         <a href="#" className="btn btn-warning">
           VIEW TRIP

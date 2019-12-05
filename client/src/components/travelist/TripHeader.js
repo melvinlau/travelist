@@ -4,8 +4,29 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { AuthContext } from "../shared/context/auth-context";
 
-function TripHeader() {
+function TripHeader({ destination, dateFrom, dateTo, id, link, weather }) {
   const auth = useContext(AuthContext);
+
+  const formatDate = (dateString) => {
+    const options = {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    };
+    return new Date(dateString).toLocaleString(undefined, options);
+  }
+
+  const displayWeather = (weatherArray) => {
+    const emojiHash = { "hot": "🥵", "cold": "🥶", "snowy": "☃", "rainy": "☔️", "sunny": "☀️", "moderate": "⛅" }
+    console.log('weatherArray', weatherArray)
+    const weather = weatherArray.map(tag => {
+      console.log('tag', tag)
+      return (
+        emojiHash[tag] + tag + "  "
+      )
+    })
+    return weather
+  }
 
   return (
     <div className="card mb-4" style={{ width: "32rem" }}>
@@ -13,24 +34,24 @@ function TripHeader() {
         className="card-img-top"
         style={{
           background:
-            "url(https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80) no-repeat center center",
+            `url(${link}) no-repeat center center`,
           backgroundSize: "100%",
           height: "16rem"
         }}
       ></div>
       <div className="card-body pt-4">
         <h3 className="card-title">
-          <strong>Rio de Janeiro</strong>
+          <strong>{destination}</strong>
         </h3>
         <p className="card-text">
-          <span className="text-muted small">FROM:</span>{" "}
-          16/12/2019&nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO:</span> 23/01/2020
+          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
+          &nbsp;&nbsp;&nbsp;
+          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
           <div className="card-weather">
             <div className="dropdown-divider"></div>
             <span className="text-muted small">WEATHER:</span>
             <br />
-            🥵hot, 🥶cold, ☃snowy, ☔️rainy, ☀️sunny
+            <div>{displayWeather(weather)}</div>
           </div>
         </p>
       </div>

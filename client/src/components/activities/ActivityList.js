@@ -40,27 +40,44 @@ function ActivityList() {
     setSelectedActivities(newSelectedActivities);
   };
 
-  const handleCreateList = e => {
-    axios
-      .patch(
-        `http://localhost:3001/api/trips/${trip._id}`,
-        {
-          destination: trip.destination,
-          activities: selectedActivities
-        },
-        {
-          headers: { Authorization: "bearer " + auth.token }
-        }
+  const getImage = async (destination) => {
+    const formattedDestination = destination.split(' ').join('+');
+    const apiKey = process.env.REACT_APP_IMAGE_API_KEY;
+    const url = `https://api.pexels.com/v1/search?query=${formattedDestination}&per_page=1&page=1`;
+
+    const imageUrl =
+      await axios.get(url,
+        { headers: { 'Authorization': `${apiKey}` } }
       )
-      .then(response => {
-        callUpdateTrip(response.data.trip);
-        console.log(
-          "update trip with activities: response",
-          response.data.trip
-        );
-        history.push('/packinglist');
-      })
-      .catch(console.log);
+        .then(response => { return response.data.photos[0].src.medium })
+    return imageUrl;
+  }
+
+  const handleCreateList = e => {
+    getImage(trip.destination)
+    .then(imageUrl => {
+      axios
+        .patch(
+          `http://localhost:3001/api/trips/${trip._id}`,
+          {
+            destination: trip.destination,
+            activities: selectedActivities,
+            imageUrl: imageUrl
+          },
+          {
+            headers: { Authorization: "bearer " + auth.token }
+          }
+        )
+        .then(response => {
+          callUpdateTrip(response.data.trip);
+          console.log(
+            "update trip with activities: response",
+            response.data.trip
+          );
+          history.push('/packinglist');
+        })
+        .catch(console.log);
+    });
   };
 
   const renderHeader = () => {
@@ -98,7 +115,7 @@ function ActivityList() {
       <button data-cy="generate-list-button" onClick={handleCreateList}>
         Generate a Travelist!
       </button>
-      
+
     </div>
   );
 }
