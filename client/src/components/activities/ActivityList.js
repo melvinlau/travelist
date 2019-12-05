@@ -84,12 +84,6 @@ function ActivityList() {
     });
   };
 
-  const renderHeader = () => {
-    if (trip.destination) {
-      return <h3>Things I'll be doing in {trip.destination}</h3>;
-    }
-  };
-
   const renderActivitiesList = () => {
     const activitiesList = activities.map((activity, index) => {
       return (

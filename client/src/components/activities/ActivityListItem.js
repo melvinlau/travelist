@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 function ActivityListItem({ name, select, deselect }) {
-
   const [isSelected, setSelectedStatus] = useState(false);
 
   const toggleSelection = () => {
@@ -10,21 +9,19 @@ function ActivityListItem({ name, select, deselect }) {
     } else {
       select(name);
     }
-    setSelectedStatus(!isSelected)
-  }
+    setSelectedStatus(!isSelected);
+  };
 
   useEffect(() => {
-    console.log(name + ' is ' + isSelected);
+    console.log(name + " is " + isSelected);
   });
 
   return (
     <div className="activity-list-item" data-cy="activity-list-item">
-      <input
-        type="checkbox"
-        checked={isSelected}
-        onChange={toggleSelection}
-      />
-      <label data-cy="activity-name"> &nbsp;
+      <input type="checkbox" checked={isSelected} onChange={toggleSelection} />
+      <label data-cy="activity-name">
+        {" "}
+        &nbsp;
         {name}
       </label>
     </div>
