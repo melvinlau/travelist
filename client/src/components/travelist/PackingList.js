@@ -1,22 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import axios from 'axios';
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 import { AuthContext } from "../shared/context/auth-context";
-import PackingListItem from './PackingListItem';
-import AddItemForm from './AddItemForm';
-import ProgressBar from './ProgressBar';
-import CategoryList from './CategoryList';
-import TripHeader from './TripHeader';
-import { getImage } from '../trips/tripImage';
+import PackingListItem from "./PackingListItem";
+import AddItemForm from "./AddItemForm";
+import ProgressBar from "./ProgressBar";
+import CategoryList from "./CategoryList";
+import TripHeader from "./TripHeader";
+import { getImage } from "../trips/tripImage";
+import MessageHeader from "../shared/components/MessageHeader";
 
 function PackingList() {
-
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
@@ -25,53 +20,52 @@ function PackingList() {
   const [completedItems, updateCompletedItems] = useState([]);
 
   const renderTravelist = async () => {
-
     const rawCategoryList = await items.map(item => item.category);
     const uniqueCategoryList = await Array.from(new Set(rawCategoryList));
-    let finalCategoryList = await uniqueCategoryList.filter(category => category !== 'miscellaneous');
-    finalCategoryList = await [...finalCategoryList, 'miscellaneous'];
-
-    const travelist = finalCategoryList.map(category =>
-       (
-        <CategoryList
-          key={category}
-          category={category}
-          items={items}
-          add={add}
-          remove={remove}
-          complete={complete}
-          unComplete={unComplete}
-          completedItems={completedItems}
-        />
-      )
+    let finalCategoryList = await uniqueCategoryList.filter(
+      category => category !== "miscellaneous"
     );
-    ReactDOM.render(travelist, document.getElementById('travelist'));
-  }
+    finalCategoryList = await [...finalCategoryList, "miscellaneous"];
+
+    const travelist = finalCategoryList.map(category => (
+      <CategoryList
+        key={category}
+        category={category}
+        items={items}
+        add={add}
+        remove={remove}
+        complete={complete}
+        unComplete={unComplete}
+        completedItems={completedItems}
+      />
+    ));
+    ReactDOM.render(travelist, document.getElementById("travelist"));
+  };
 
   const renderProgressBar = () => {
-    const percentComplete = Math.round((completedItems.length / items.length) * 100);
-    return (
-      <ProgressBar percentComplete={percentComplete.toString()} />
+    const percentComplete = Math.round(
+      (completedItems.length / items.length) * 100
     );
-  }
+    return <ProgressBar percentComplete={percentComplete.toString()} />;
+  };
 
   const findExistingMatches = (itemName, list) => {
     // Finds an item name (passed in as a string) within a list containing item objects.
-    return list.filter(element => element.name === itemName)
-  }
+    return list.filter(element => element.name === itemName);
+  };
 
   const complete = item => {
     if (findExistingMatches(item.name, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
-  }
+  };
 
   const unComplete = item => {
-    const foundExistingItems = findExistingMatches(item.name, completedItems)
+    const foundExistingItems = findExistingMatches(item.name, completedItems);
     if (foundExistingItems.length === 0) return;
     const newCompletedItems = [...completedItems];
     newCompletedItems.splice(completedItems.indexOf(foundExistingItems[0]), 1);
     updateCompletedItems(newCompletedItems);
-  }
+  };
 
   const callUpdateItems = trip => {
     updateItems(trip);
@@ -80,7 +74,7 @@ function PackingList() {
   const createItemObject = (name, category) => {
     axios
       .post(
-        'http://localhost:3001/api/items/custom',
+        "http://localhost:3001/api/items/custom",
         {
           name: name,
           category: category
@@ -90,16 +84,16 @@ function PackingList() {
         }
       )
       .then(response => {
-        console.log('Create custom item: response', response.data.item);
+        console.log("Create custom item: response", response.data.item);
         callUpdateItems([...items, response.data.item]);
       })
       .catch(console.log);
-  }
+  };
 
   const add = async (name, category) => {
     if (findExistingMatches(name, items).length > 0) return;
     createItemObject(name, category);
-  }
+  };
 
   const remove = async item => {
     const foundExistingItems = findExistingMatches(item.name, items);
@@ -108,16 +102,16 @@ function PackingList() {
     const newItems = [...items];
     newItems.splice(items.indexOf(foundExistingItems[0]), 1);
     await updateItems(newItems);
-  }
+  };
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     const options = {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
+      day: "numeric",
+      month: "short",
+      year: "numeric"
     };
     return new Date(dateString).toLocaleString(undefined, options);
-  }
+  };
 
   const renderHeader = () => {
     if (trip) {
@@ -125,14 +119,14 @@ function PackingList() {
         <div className="card">
           <div className="card-body">
             <span className="text-muted small">YOUR TRIP IS IN:</span>
-            <h2>8 day</h2>      
+            <h2>8 day</h2>
             {renderProgressBar()}
           </div>
         </div>
       );
-      ReactDOM.render(header, document.getElementById('header'));
+      ReactDOM.render(header, document.getElementById("header"));
     }
-  }
+  };
 
   useEffect(() => {
     renderHeader();
@@ -140,8 +134,8 @@ function PackingList() {
     getImage(trip.destination);
     renderTravelist();
     // do the API call here to update the backend intuitively?
-    console.log('Items', items);
-    console.log('Completed items', completedItems);
+    console.log("Items", items);
+    console.log("Completed items", completedItems);
   });
 
   const callUpdateTrip = trip => {
@@ -170,9 +164,13 @@ function PackingList() {
       .catch(console.log);
   };
 
-
   return (
     <div>
+      <MessageHeader
+        message="Let's start packing!"
+        // destination={trip.destination}
+        image="./images/trav06.png"
+      />
       <TripHeader />
       <div id="header"></div>
       <div id="travelist"></div>
