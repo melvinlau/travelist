@@ -4,56 +4,49 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { AuthContext } from "../shared/context/auth-context";
 
-function TripHeader({ destination, dateFrom, dateTo, id, link, weather }) {
+function TripHeader({ trip, formatDate }) {
+
   const auth = useContext(AuthContext);
 
-  const formatDate = (dateString) => {
-    const options = {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    };
-    return new Date(dateString).toLocaleString(undefined, options);
+  const imageStyle = {
+    background: `url(${trip.image}) no-repeat center center`,
+    backgroundSize: "cover",
+    height: "16rem"
   }
 
-  const displayWeather = (weatherArray) => {
-    const emojiHash = { "hot": "🥵", "cold": "🥶", "snowy": "☃", "rainy": "☔️", "sunny": "☀️", "moderate": "⛅" }
-    console.log('weatherArray', weatherArray)
-    const weather = weatherArray.map(tag => {
-      console.log('tag', tag)
-      return (
-        emojiHash[tag] + tag + "  "
-      )
-    })
-    return weather
+  const renderWeatherEmoji = weather => {
+    const emoji = {
+      "sunny": "☀️",
+      "rainy": "🌧",
+      "snowy": " 🌨",
+      "hot": "🔥",
+      "cold": "❄️"
+    }
+    const weatherEmojiList = weather.map(text => emoji[text]);
+    return weatherEmojiList;
   }
 
   return (
-    <div className="card mb-4" style={{ width: "32rem" }}>
-      <div
-        className="card-img-top"
-        style={{
-          background:
-            `url(${link}) no-repeat center center`,
-          backgroundSize: "100%",
-          height: "16rem"
-        }}
-      ></div>
+    <div className="card mb-4">
+      <div className="card-img-top" style={imageStyle}></div>
+
       <div className="card-body pt-4">
-        <h3 className="card-title">
-          <strong>{destination}</strong>
-        </h3>
-        <p className="card-text">
-          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
-          &nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
-          <div className="card-weather">
-            <div className="dropdown-divider"></div>
-            <span className="text-muted small">WEATHER:</span>
-            <br />
-            <div>{displayWeather(weather)}</div>
+        <h3>{auth.trip.destination}</h3>
+        <div className="row">
+          <div className="col-4">
+            <div className="text-muted small">FROM</div>
+            <h4>{formatDate(trip.dateFrom)}</h4>
           </div>
-        </p>
+          <div className="col-4">
+            <div className="text-muted small">TO</div>
+            <h4>{formatDate(trip.dateTo)}</h4>
+          </div>
+          <div className="col-4">
+            <div className="text-muted small">WEATHER FORECAST</div>
+            { renderWeatherEmoji(trip.weather) }
+          </div>
+        </div>
+
       </div>
     </div>
   );

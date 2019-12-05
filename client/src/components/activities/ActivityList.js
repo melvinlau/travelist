@@ -45,11 +45,14 @@ function ActivityList() {
     const apiKey = process.env.REACT_APP_IMAGE_API_KEY;
     const url = `https://api.pexels.com/v1/search?query=${formattedDestination}&per_page=1&page=1`;
 
-    const imageUrl =
-      await axios.get(url,
-        { headers: { 'Authorization': `${apiKey}` } }
+    const imageUrl = await axios.get(
+      url,
+      { headers: { 'Authorization': `${apiKey}` } }
       )
-        .then(response => { return response.data.photos[0].src.medium })
+      .then(response => {
+        const photoResults = response.data.photos;
+        if (photoResults.length > 0) return photoResults[0].src.medium;
+      })
     return imageUrl;
   }
 

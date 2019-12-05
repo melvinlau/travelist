@@ -1,12 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import StartFormNew from "./StartFormNew";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory
+} from "react-router-dom";
+import axios from 'axios';
 import { AuthContext } from "../shared/context/auth-context";
 import { getImage } from "./tripImage";
 
-function TripCard({ destination, dateFrom, dateTo, id, link }) {
+function TripCard({ trip }) {
+
   const auth = useContext(AuthContext);
+  let history = useHistory();
 
   const formatDate = (dateString) => {
     const options = {
@@ -17,31 +24,38 @@ function TripCard({ destination, dateFrom, dateTo, id, link }) {
     return new Date(dateString).toLocaleString(undefined, options);
   }
 
+  const loadListIntoSession = async () => {
+    await auth.updateTrip(trip);
+    history.push('/packinglist');
+  }
+
+  const imageStyle = {
+    background: `url(${trip.image}) no-repeat center center`,
+    backgroundSize: "cover",
+    height: "16rem"
+  }
 
   return (
-    <div className="card" style={{ width: "32rem" }}>
-      <div
-        className="card-img-top"
-        style={{
-          background:
-            `url(${link}) no-repeat center center`,
-          backgroundSize: "100%",
-          height: "16rem"
-        }}
-      ></div>
+    <div className="card">
+
+      <div className="card-img-top" style={imageStyle}></div>
 
       <div className="card-body pt-4">
-        <h3 className="card-title">
-          <strong>{destination}</strong>
+
+        <Link to="/packinglist">
+          <button onClick={loadListIntoSession} className="btn btn-warning float-right">
+            VIEW TRIP
+          </button>
+        </Link>
+        <h3>
+          <strong>{trip.destination}</strong>
         </h3>
         <p className="card-text">
-          <span className="text-muted small">FROM: </span>{formatDate(dateFrom)}
+          <span className="text-muted small">FROM: </span>{formatDate(trip.dateFrom)}
           &nbsp;&nbsp;&nbsp;
-          <span className="text-muted small">TO: </span>{formatDate(dateTo)}
+          <span className="text-muted small">TO: </span>{formatDate(trip.dateTo)}
         </p>
-        <a href="#" className="btn btn-warning">
-          VIEW TRIP
-        </a>
+
       </div>
     </div>
   );

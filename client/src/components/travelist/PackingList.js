@@ -23,7 +23,7 @@ function PackingList() {
   const updateTrip = auth.updateTrip;
 
   const [items, updateItems] = useState([...trip.items]);
-  const [completedItems, updateCompletedItems] = useState([]);
+  const [completedItems, updateCompletedItems] = useState([...trip.packedItems]);
 
   const renderTravelist = async () => {
 
@@ -114,7 +114,7 @@ function PackingList() {
   const formatDate = (dateString) => {
     const options = {
       day: 'numeric',
-      month: 'short',
+      month: 'numeric',
       year: 'numeric'
     };
     return new Date(dateString).toLocaleString(undefined, options);
@@ -128,7 +128,8 @@ function PackingList() {
     return days
   }
 
-  const renderHeader = () => {
+  const renderTripStatus = () => {
+
     if (trip) {
       const header = (
         <div className="card">
@@ -139,16 +140,13 @@ function PackingList() {
           </div>
         </div>
       );
-      ReactDOM.render(header, document.getElementById('header'));
+      ReactDOM.render(header, document.getElementById('trip-status'));
     }
   }
 
   useEffect(() => {
-    renderHeader();
-    renderProgressBar();
-    getImage(trip.destination);
+    renderTripStatus();
     renderTravelist();
-    // do the API call here to update the backend intuitively?
     console.log('Items', items);
     console.log('Completed items', completedItems);
   });
@@ -179,21 +177,38 @@ function PackingList() {
       .catch(console.log);
   };
 
+  const renderButton = () => {
+    if (auth.token) {
+      return (
+        <Link to="/trips">
+          <button onClick={handleSaveList}>Save list</button>
+        </Link>
+      );
+    } else {
+      return (
+        <Link to="/auth">
+          <button onClick={handleSaveList}>Save list</button>
+        </Link>
+      );
+    }
+  }
 
   return (
     <div>
-      <TripHeader key={trip._id}
-        destination={trip.destination}
-        dateFrom={trip.dateFrom}
-        dateTo={trip.dateTo}
-        id={trip._id}
-        weather={trip.weather}
-        link={trip.image} />
-      <div id="header"></div>
+
+      <TripHeader trip={trip} formatDate={formatDate} />
+      <div id="trip-status"></div>
+
+//       <TripHeader key={trip._id}
+//         destination={trip.destination}
+//         dateFrom={trip.dateFrom}
+//         dateTo={trip.dateTo}
+//         id={trip._id}
+//         weather={trip.weather}
+//         link={trip.image} />
+
       <div id="travelist"></div>
-      <Link to="/auth">
-        <button onClick={handleSaveList}>Save list</button>
-      </Link>
+      {renderButton()}
     </div>
   );
 }

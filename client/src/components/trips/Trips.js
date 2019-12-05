@@ -6,27 +6,18 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 import { AuthContext } from "../shared/context/auth-context";
 import axios from 'axios';
-
 import TripCard from "./TripCard";
-import TripsListHeader from "./TripsListHeader";
-// import { updatePackedItems } from "../../../../backend/src/controllers/trips";
 
 function Trips() {
 
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
+  console.log('trip loaded into tripcard', auth.trip);
 
-  const [userTrips, setUserTrips] = useState([])
-
-  const renderName = () => {
-    if (auth.name) return (
-      <h5>Hey, {auth.name}!</h5>
-    );
-  }
+  const [userTrips, setUserTrips] = useState([]);
 
   const handleGetTrips = async () => {
     let tripsArray = await axios.get(
@@ -47,24 +38,15 @@ function Trips() {
   }, []);
 
   return (
-    <div className="justify-content-center d-flex flex-column align-items-center">
-      <TripsListHeader />
-
-      <h2>{renderName()}</h2>
-      <h3>Trips</h3>
+    <div>
+      <Link to="/">
+        <button className="btn btn-primary btn-lg float-right">NEW TRIP</button>
+      </Link>
+      <h2 className="mb-4"><strong>{auth.name}</strong>'s trips</h2>
       <div>
         {
           userTrips.map(trip => {
-              return (
-              < TripCard
-                key={trip._id}
-                destination={trip.destination}
-                dateFrom={trip.dateFrom}
-                dateTo={trip.dateTo}
-                id={trip._id}
-                link={trip.image}
-              />
-            )
+              return (< TripCard key={trip._id} trip={trip} />)
           })
         }
       </div>
