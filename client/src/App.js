@@ -97,9 +97,6 @@ function App() {
                 <Route exact path="/activities" component={ActivityList} />
                 <Route exact path="/packinglist" component={PackingList} />
                 <Route exact path="/auth" component={Auth} />
-      
-                </Route>
-
                 {routes}
               </Switch>
             </div>

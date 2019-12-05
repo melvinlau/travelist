@@ -1,23 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import axios from 'axios';
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
+
 import { AuthContext } from "../shared/context/auth-context";
-import PackingListItem from './PackingListItem';
-import AddItemForm from './AddItemForm';
-import ProgressBar from './ProgressBar';
-import CategoryList from './CategoryList';
-import TripHeader from './TripHeader';
+import PackingListItem from "./PackingListItem";
+import AddItemForm from "./AddItemForm";
+import ProgressBar from "./ProgressBar";
+import CategoryList from "./CategoryList";
+import TripHeader from "./TripHeader";
+import { getImage } from "../trips/tripImage";
 import Countdown from './Countdown';
-import { getImage } from '../trips/tripImage';
+import MessageHeader from "../shared/components/MessageHeader";
 
 function PackingList() {
-
   const auth = useContext(AuthContext);
   const trip = auth.trip;
   const updateTrip = auth.updateTrip;
@@ -26,53 +22,52 @@ function PackingList() {
   const [completedItems, updateCompletedItems] = useState([...trip.packedItems]);
 
   const renderTravelist = async () => {
-
     const rawCategoryList = await items.map(item => item.category);
     const uniqueCategoryList = await Array.from(new Set(rawCategoryList));
-    let finalCategoryList = await uniqueCategoryList.filter(category => category !== 'miscellaneous');
+    let finalCategoryList = await uniqueCategoryList.filter(
+      category => category !== 'miscellaneous'
+    );
     finalCategoryList = await [...finalCategoryList, 'miscellaneous'];
 
-    const travelist = finalCategoryList.map(category =>
-      (
-        <CategoryList
-          key={category}
-          category={category}
-          items={items}
-          add={add}
-          remove={remove}
-          complete={complete}
-          unComplete={unComplete}
-          completedItems={completedItems}
-        />
-      )
-    );
-    ReactDOM.render(travelist, document.getElementById('travelist'));
-  }
+    const travelist = finalCategoryList.map(category => (
+      <CategoryList
+        key={category}
+        category={category}
+        items={items}
+        add={add}
+        remove={remove}
+        complete={complete}
+        unComplete={unComplete}
+        completedItems={completedItems}
+      />
+    ));
+    ReactDOM.render(travelist, document.getElementById("travelist"));
+  };
 
   const renderProgressBar = () => {
-    const percentComplete = Math.round((completedItems.length / items.length) * 100);
-    return (
-      <ProgressBar percentComplete={percentComplete.toString()} />
+    const percentComplete = Math.round(
+      (completedItems.length / items.length) * 100
     );
-  }
+    return <ProgressBar percentComplete={percentComplete.toString()} />;
+  };
 
   const findExistingMatches = (itemName, list) => {
     // Finds an item name (passed in as a string) within a list containing item objects.
-    return list.filter(element => element.name === itemName)
-  }
+    return list.filter(element => element.name === itemName);
+  };
 
   const complete = item => {
     if (findExistingMatches(item.name, completedItems).length > 0) return;
     updateCompletedItems([...completedItems, item]);
-  }
+  };
 
   const unComplete = item => {
-    const foundExistingItems = findExistingMatches(item.name, completedItems)
+    const foundExistingItems = findExistingMatches(item.name, completedItems);
     if (foundExistingItems.length === 0) return;
     const newCompletedItems = [...completedItems];
     newCompletedItems.splice(completedItems.indexOf(foundExistingItems[0]), 1);
     updateCompletedItems(newCompletedItems);
-  }
+  };
 
   const callUpdateItems = trip => {
     updateItems(trip);
@@ -81,7 +76,7 @@ function PackingList() {
   const createItemObject = (name, category) => {
     axios
       .post(
-        'http://localhost:3001/api/items/custom',
+        "http://localhost:3001/api/items/custom",
         {
           name: name,
           category: category
@@ -91,16 +86,16 @@ function PackingList() {
         }
       )
       .then(response => {
-        console.log('Create custom item: response', response.data.item);
+        console.log("Create custom item: response", response.data.item);
         callUpdateItems([...items, response.data.item]);
       })
       .catch(console.log);
-  }
+  };
 
   const add = async (name, category) => {
     if (findExistingMatches(name, items).length > 0) return;
     createItemObject(name, category);
-  }
+  };
 
   const remove = async item => {
     const foundExistingItems = findExistingMatches(item.name, items);
@@ -109,16 +104,16 @@ function PackingList() {
     const newItems = [...items];
     newItems.splice(items.indexOf(foundExistingItems[0]), 1);
     await updateItems(newItems);
-  }
+  };
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     const options = {
       day: 'numeric',
       month: 'numeric',
       year: 'numeric'
     };
     return new Date(dateString).toLocaleString(undefined, options);
-  }
+  };
 
   const getDays = (dateFrom) => {
     const now = new Date()
@@ -142,13 +137,11 @@ function PackingList() {
       );
       ReactDOM.render(header, document.getElementById('trip-status'));
     }
-  }
+  };
 
   useEffect(() => {
     renderTripStatus();
     renderTravelist();
-    console.log('Items', items);
-    console.log('Completed items', completedItems);
   });
 
   const callUpdateTrip = trip => {
@@ -195,18 +188,12 @@ function PackingList() {
 
   return (
     <div>
-
+      <MessageHeader
+        message="Let's start packing!"
+        image="./images/trav06.png"
+      />
       <TripHeader trip={trip} formatDate={formatDate} />
       <div id="trip-status"></div>
-
-//       <TripHeader key={trip._id}
-//         destination={trip.destination}
-//         dateFrom={trip.dateFrom}
-//         dateTo={trip.dateTo}
-//         id={trip._id}
-//         weather={trip.weather}
-//         link={trip.image} />
-
       <div id="travelist"></div>
       {renderButton()}
     </div>
