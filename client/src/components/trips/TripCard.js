@@ -47,7 +47,7 @@ function TripCard({ trip }) {
             VIEW TRIP
           </button>
         </Link>
-        <h3>
+        <h3 className="mb-3">
           <strong>{trip.destination}</strong>
         </h3>
         <p className="card-text">
