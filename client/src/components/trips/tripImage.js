@@ -8,18 +8,23 @@ export async function getImage(destination) {
   const url = `https://api.pexels.com/v1/search?query=${formattedDestination}&per_page=1&page=1`
   console.log(url)
   console.log(apiKey)
-  const response =
+  const result =
     await axios.get(url,
       { headers: { 'Authorization': `${apiKey}` } }
     )
-  const link = response.data.photos[0].src.medium
-  const image = renderImage(link)
+      .then(response => { return response.data.photos[0].src.medium })
+  return result
   // ReactDOM.render(image, document.getElementById('image'));
 }
 
 const renderImage = (link) => {
+  const renderStyle = {
+    background: `url(${link}) no-repeat center center`,
+    backgroundSize: "cover",
+    height: "16rem"
+  }
   return (
-    <img src={link}></img>
+    <div className="card-img-top"></div>
   );
 }
 

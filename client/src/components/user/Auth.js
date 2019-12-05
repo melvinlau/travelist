@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+  Link,
+  useHistory
+} from "react-router-dom";
 import Card from "../shared/components/UIElements/Card";
 import Input from "../shared/components/FormElements/Input";
 import Button from "../shared/components/FormElements/Button";
@@ -16,6 +23,7 @@ import "./Auth.css";
 
 function Auth() {
   const auth = useContext(AuthContext);
+  let history = useHistory();
 
   const trip = auth.trip;
 
@@ -89,7 +97,7 @@ function Auth() {
         console.log(responseData);
         setIsLoading(false);
         auth.login(responseData.userId, responseData.name, responseData.token);
-        console.log("Log in reponse data", responseData);
+        history.push('/trips');
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -116,6 +124,7 @@ function Auth() {
         }
         setIsLoading(false);
         auth.login(responseData.userId, responseData.name, responseData.token);
+        history.push('/trips');
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");

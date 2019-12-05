@@ -159,7 +159,7 @@ const createTrip = async (req, res, next) => {
 };
 
 const addActivityItems = async (req, res, next) => {
-  const { destination, activities } = req.body;
+  const { destination, activities, imageUrl } = req.body;
   const tripId = req.params.tid;
 
   let trip;
@@ -187,6 +187,7 @@ const addActivityItems = async (req, res, next) => {
   trip.destination = destination;
   trip.activities = [...trip.activities, ...activities];
   trip.items = [...trip.items, ...itemsByActivity];
+  trip.image = imageUrl;
 
   try {
     await trip.save();

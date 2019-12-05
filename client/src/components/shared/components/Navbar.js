@@ -4,12 +4,21 @@ import {
   Switch,
   Route,
   Link,
-  NavLink
+  NavLink,
+  useHistory
 } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 
 function Navbar() {
+
   const auth = useContext(AuthContext);
+  let history = useHistory();
+
+  const doLogout = () => {
+    auth.logout();
+    history.push('/');
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-light bg-white static-top mb-4 shadow">
@@ -45,16 +54,12 @@ function Navbar() {
               )}
               {auth.isLoggedIn && (
                 <li>
-                  <button onClick={auth.logout} className="nav-button">
+                  <button onClick={doLogout} className="nav-button">
                     LOGOUT
                   </button>
                 </li>
               )}
             </ul>
-            {/* <button className="btn btn-outline-secondary my-2 my-sm-0">
-              Login
-            </button> */}
-            {/* <button onClick={auth.logout}>Logout</button> */}
           </div>
         </div>
       </nav>

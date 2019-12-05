@@ -20,12 +20,31 @@ function CategoryList({ category, items, add, remove, complete, unComplete, comp
   }
 
   const capitalize = word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+    return (
+      <span className="category-title">
+        {word.charAt(0).toUpperCase() + word.slice(1)}
+      </span>
+    );
+  }
+
+  const renderEmoji = (categoryName) => {
+    const emoji = {
+      "documents": "💳",
+      "electronics": "📷",
+      "toiletries": "🧴",
+      "clothing": "🧥",
+      "accessories": "👓",
+      "miscellaneous": "🧸"
+    }
+    return (
+      <span className="category-emoji">{emoji[categoryName]}</span>
+    );
   }
 
   return (
     <div className="card">
       <div className="card-header category-header">
+        {renderEmoji(category)}
         {capitalize(category)}
       </div>
       <ul className="list-group list-group-flush">

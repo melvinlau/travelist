@@ -9,6 +9,7 @@ const TripSchema = new Schema(
     dateTo: Date,
     activities: Array,
     weather: Array,
+    image: String,
     items: Array,
     packedItems: Array,
     user: { type: mongoose.Types.ObjectId, ref: 'User' },
