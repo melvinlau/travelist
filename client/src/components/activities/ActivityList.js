@@ -53,7 +53,11 @@ function ActivityList() {
       )
       .then(response => {
         const photoResults = response.data.photos;
-        if (photoResults.length > 0) return photoResults[0].src.large;
+        if (photoResults.length > 0) {
+          return photoResults[0].src.large;
+        } else {
+          return 'https://images.pexels.com/photos/171053/pexels-photo-171053.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260';
+        }
       })
     return imageUrl;
   }
