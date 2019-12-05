@@ -49,7 +49,10 @@ function ActivityList() {
       url,
       { headers: { 'Authorization': `${apiKey}` } }
       )
-      .then(response => { return response.data.photos[0].src.medium })
+      .then(response => {
+        const photoResults = response.data.photos;
+        if (photoResults.length > 0) return photoResults[0].src.medium;
+      })
     return imageUrl;
   }
 
