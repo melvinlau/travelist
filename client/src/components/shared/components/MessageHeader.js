@@ -11,7 +11,7 @@ function MessageHeader({ name, message, image, destination }) {
       <h3 className="mt-2 text-center">
         {name ? `Hi ${name}!` : ""}
         {destination ? `${destination}, huh?` : ""}
-        <br />
+        {(name || destination) ? <br /> : '' }
         <strong>{message}</strong>
       </h3>
     </div>

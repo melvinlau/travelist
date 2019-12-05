@@ -185,10 +185,18 @@ function PackingList() {
     }
   }
 
+  const message = () => {
+    if (getDays(trip.dateFrom) >= 0) {
+      return "Let's start packing!"
+    } else {
+      return "Hope you had a good trip!"
+    }
+  }
+
   return (
     <div>
       <MessageHeader
-        message="Let's start packing!"
+        message={message()}
         image="./images/trav06.png"
       />
       <TripHeader trip={trip} formatDate={formatDate} />
