@@ -25,7 +25,7 @@ function Navbar() {
         <div className="container">
           <NavLink to="/" exact>
             <h2 className="navbar-brand">
-              <strong>Trave<span className="accent">list</span></strong>
+              <strong>Travelist</strong>
             </h2>
           </NavLink>
 
