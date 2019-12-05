@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import StartForm from "./StartForm";
+import MessageHeader from "../shared/components/MessageHeader";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { AuthContext } from "../shared/context/auth-context";
@@ -15,7 +16,12 @@ function Start() {
 
   return (
     <div className="mt-3">
-      {renderName()}
+      {/* {renderName()} */}
+      <MessageHeader
+        name={auth.name}
+        message="Where are we going next?"
+        image="./images/trav05.png"
+      />
       <StartForm trip={trip} updateTrip={updateTrip} />
     </div>
   );
