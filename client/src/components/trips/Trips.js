@@ -41,7 +41,7 @@ function Trips() {
       <TripsListHeader />
       <div>
         {
-          userTrips.map(trip => {
+          userTrips.reverse().map(trip => {
               return (< TripCard key={trip._id} trip={trip} />)
           })
         }
