@@ -173,13 +173,13 @@ function PackingList() {
     if (auth.token) {
       return (
         <Link to="/trips">
-          <button onClick={handleSaveList}>Save list</button>
+          <button className="btn btn-warning btn-block" onClick={handleSaveList}>Save list</button>
         </Link>
       );
     } else {
       return (
         <Link to="/auth">
-          <button onClick={handleSaveList}>Save list</button>
+          <button className="btn btn-warning btn-block" onClick={handleSaveList}>Save list</button>
         </Link>
       );
     }
@@ -201,9 +201,19 @@ function PackingList() {
       />
       <TripHeader trip={trip} formatDate={formatDate} />
       <div id="trip-status"></div>
-      <div id="travelist"></div>
-      {renderButton()}
+
+      <div className="card">
+        <div id="travelist"></div>
+
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            {renderButton()}
+          </li>
+        </ul>
+
+      </div>
     </div>
+
   );
 }
 
