@@ -23,7 +23,6 @@ import Footer from "./components/shared/components/Footer";
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
-
   const [userId, setUserId] = useState(false);
   const [name, setName] = useState(false);
   const [token, setToken] = useState(false);
@@ -90,7 +89,7 @@ function App() {
         <Navbar />
         <div className="container-fluid" id="content-wrap">
           <div className="row justify-content-center">
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-4">
               <Switch>
                 <Route exact path="/" component={Start} />
                 <Route exact path="/start" component={Start} />
