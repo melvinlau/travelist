@@ -146,6 +146,8 @@ function PackingList() {
 
   const callUpdateTrip = trip => {
     updateTrip(trip);
+    renderTripStatus(); // Re-render
+    renderTravelist(); // Re-render
   };
 
   const handleSaveList = e => {
