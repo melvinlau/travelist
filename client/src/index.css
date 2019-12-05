@@ -62,7 +62,6 @@ button .style1 {
   padding: 0;
 }
 
-
 input[type="checkbox"] {
   margin: 0 10px 0 0;
 }
@@ -128,14 +127,15 @@ input[type="checkbox"] {
 
 #root {
   position: relative;
-  min-height: 100vh;
+  min-height: 95vh;
 }
 
 #content-wrap {
-  padding-bottom: 1rem;
+  padding-bottom: 2.5rem;
 }
 
 #footer {
   position: absolute;
   bottom: 0;
+  height: 2.5rem;
 }

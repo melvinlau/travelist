@@ -20,9 +20,11 @@ function ActivityList() {
   let history = useHistory();
 
   const [activities, setActivities] = useState([
-    "skiing",
+    "business",
+    "leisure",
+    "beach",
     "hiking",
-    "business"
+    "skiing"
   ]);
   const [selectedActivities, setSelectedActivities] = useState([]);
 
@@ -42,15 +44,13 @@ function ActivityList() {
     setSelectedActivities(newSelectedActivities);
   };
 
-  const getImage = async (destination) => {
-    const formattedDestination = destination.split(' ').join('+');
+  const getImage = async destination => {
+    const formattedDestination = destination.split(" ").join("+");
     const apiKey = process.env.REACT_APP_IMAGE_API_KEY;
     const url = `https://api.pexels.com/v1/search?query=${formattedDestination}&per_page=1&page=1`;
 
-    const imageUrl = await axios.get(
-      url,
-      { headers: { 'Authorization': `${apiKey}` } }
-      )
+    const imageUrl = await axios
+      .get(url, { headers: { Authorization: `${apiKey}` } })
       .then(response => {
         const photoResults = response.data.photos;
         if (photoResults.length > 0) {
@@ -60,11 +60,10 @@ function ActivityList() {
         }
       })
     return imageUrl;
-  }
+  };
 
   const handleCreateList = e => {
-    getImage(trip.destination)
-    .then(imageUrl => {
+    getImage(trip.destination).then(imageUrl => {
       axios
         .patch(
           `http://localhost:3001/api/trips/${trip._id}`,
@@ -83,16 +82,10 @@ function ActivityList() {
             "update trip with activities: response",
             response.data.trip
           );
-          history.push('/packinglist');
+          history.push("/packinglist");
         })
         .catch(console.log);
     });
-  };
-
-  const renderHeader = () => {
-    if (trip.destination) {
-      return <h3>Things I'll be doing in {trip.destination}</h3>;
-    }
   };
 
   const renderActivitiesList = () => {

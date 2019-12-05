@@ -139,6 +139,7 @@ function PackingList() {
   };
 
   useEffect(() => {
+    console.log('Completed items', completedItems)
     renderTripStatus();
     renderTravelist();
   });
