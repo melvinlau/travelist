@@ -70,8 +70,7 @@ function Auth() {
   };
 
   const authSubmitHandler = async event => {
-
-    console.log('stored trip object at sign up submit', trip);
+    console.log("stored trip object at sign up submit", trip);
 
     event.preventDefault();
 
@@ -84,7 +83,7 @@ function Auth() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "bearer " + auth.token,
+            Authorization: "bearer " + auth.token
           },
           body: JSON.stringify({
             email: formState.inputs.email.value,
@@ -114,7 +113,7 @@ function Auth() {
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-            trips: [trip],
+            trips: [trip]
           })
         });
 
@@ -140,54 +139,52 @@ function Auth() {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={errorHandler} />
-      <Card className="authentication">
-        {isLoading && <LoadingSpinner asOverlay />}
-        <h2>Login Required</h2>
-        <hr />
-        <form onSubmit={authSubmitHandler}>
-          {!isLoginMode && (
+      <Card className="authentication ">
+        <div className="card-body ">
+          {isLoading && <LoadingSpinner asOverlay />}
+          <h2>Login Required</h2>
+          <hr />
+          <form onSubmit={authSubmitHandler}>
+            {!isLoginMode && (
+              <Input
+                element="input"
+                id="name"
+                type="text"
+                label="Your Name"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a name."
+                onInput={inputHandler}
+              />
+            )}
             <Input
               element="input"
-              id="name"
-              type="text"
-              label="Your Name"
-              validators={[VALIDATOR_REQUIRE()]}
-              errorText="Please enter a name."
+              id="email"
+              type="email"
+              label="E-mail"
+              validators={[VALIDATOR_EMAIL()]}
+              errorText="Please enter a valid email address."
               onInput={inputHandler}
             />
-          )}
-          <Input
-            element="input"
-            id="email"
-            type="email"
-            label="E-Mail"
-            validators={[VALIDATOR_EMAIL()]}
-            errorText="Please enter a valid email address."
-            onInput={inputHandler}
-          />
-          <Input
-            element="input"
-            id="password"
-            type="password"
-            label="Password"
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText="Please enter a valid password, at least 5 characters."
-            onInput={inputHandler}
-          />
-
-          <Button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? "Log In" : "Sign Up"}
+            <Input
+              element="input"
+              id="password"
+              type="password"
+              label="Password"
+              validators={[VALIDATOR_MINLENGTH(5)]}
+              errorText="Please enter a valid password, at least 5 characters."
+              onInput={inputHandler}
+            />
+            <Button type="submit" disabled={!formState.isValid}>
+              {isLoginMode ? "LOG IN" : "SIGN UP"}
+            </Button>
+          </form>
+          <Button inverse onClick={switchModeHandler}>
+            {isLoginMode ? "SIGN UP" : "LOG IN"}
           </Button>
-
-        </form>
-
-        <Button inverse onClick={switchModeHandler}>
-          Switch to {isLoginMode ? "Sign Up" : "Log In"}
-        </Button>
-
+        </div>
       </Card>
     </React.Fragment>
   );
-};
+}
 
 export default Auth;

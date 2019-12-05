@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+  useHistory
+} from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 
 function Navbar() {
@@ -14,42 +21,45 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-white static-top mb-4 shadow">
+      <nav className="navbar navbar-expand navbar-light bg-white static-top mb-4 shadow">
         <div className="container">
-          <a className="navbar-brand" href="#">
-            <h4>
+          <NavLink to="/" exact>
+            <h2 className="navbar-brand">
               <strong>Travelist</strong>
-            </h4>
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            </h2>
+          </NavLink>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  New Trip
-                </a>
+                <NavLink to="/start" exact className="nav-link">
+                  <i className="far fa-compass nav-icon"> </i> New Trip
+                </NavLink>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  My Trip
-                </a>
-              </li>
+
+              {auth.isLoggedIn && (
+                <li className="nav-item active">
+                  <NavLink to="/trips" exact className="nav-link">
+                    <i class="fas fa-suitcase-rolling nav-icon"> </i> My Trips
+                  </NavLink>
+                </li>
+              )}
+
+              {!auth.isLoggedIn && (
+                <li>
+                  <NavLink to="/auth">
+                    <button className="nav-button">LOGIN</button>
+                  </NavLink>
+                </li>
+              )}
+              {auth.isLoggedIn && (
+                <li>
+                  <button onClick={doLogout} className="nav-button">
+                    LOGOUT
+                  </button>
+                </li>
+              )}
             </ul>
-            <button className="btn btn-outline-secondary my-2 my-sm-0">
-              Login
-            </button>
-            <button onClick={doLogout}>Logout</button>
           </div>
         </div>
       </nav>

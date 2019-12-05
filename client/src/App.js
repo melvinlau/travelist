@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
   Switch,
@@ -88,30 +88,20 @@ function App() {
     >
       <Router>
         <Navbar />
-
-        <div className="container-fluid">
+        <div className="container-fluid" id="content-wrap">
           <div className="row justify-content-center">
             <div className="col-12 col-sm-6">
+              <Switch>
+                <Route exact path="/" component={Start} />
+                <Route exact path="/start" component={Start} />
+                <Route exact path="/activities" component={ActivityList} />
+                <Route exact path="/packinglist" component={PackingList} />
+                <Route exact path="/auth" component={Auth} />
+      
+                </Route>
 
-                <Switch>
-                  <Route exact path="/" component={Start} />
-                  <Route exact path="/activities" component={ActivityList} />
-                  <Route exact path="/packinglist" component={PackingList} />
-                  <Route exact path="/auth" component={Auth} />
-                  <Route path="/trips-list" exact>
-                    <TripsListNew />
-                  </Route>
-                  <Route path="/start-new" exact>
-                    <StartNew />
-                  </Route>
-                  <Route path="/packing-new" exact>
-                    <PackingNew />
-                  </Route>
-
-                  {routes}
-                </Switch>
-
-
+                {routes}
+              </Switch>
             </div>
           </div>
         </div>

@@ -50,15 +50,14 @@ function StartForm({ trip, updateTrip }) {
       .then(response => {
         callUpdateTrip(response.data.trip);
         console.log("Create trip: response", response.data.trip);
-        history.push('/activities');
+        history.push("/activities");
       })
       .catch(console.log);
   };
 
   return (
-    <div className="card">
+    <div className="card mt-2">
       <div className="card-body">
-
         <div className="row mb-3">
           <div className="col-12">
             <input
@@ -102,13 +101,12 @@ function StartForm({ trip, updateTrip }) {
         </div>
 
         <button
-          className="start-button form-control form-control-lg"
+          className="start-button form-control form-control-lg btn btn-warning"
           data-cy="start-button"
           onClick={handleCreateTrip}
         >
           Start planning!
         </button>
-
       </div>
     </div>
   );
