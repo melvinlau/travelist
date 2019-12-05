@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import { AuthContext } from "../shared/context/auth-context";
+import MessageHeader from "../shared/components/MessageHeader";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -51,7 +53,7 @@ function ActivityList() {
       )
       .then(response => {
         const photoResults = response.data.photos;
-        if (photoResults.length > 0) return photoResults[0].src.medium;
+        if (photoResults.length > 0) return photoResults[0].src.large;
       })
     return imageUrl;
   }
@@ -111,14 +113,27 @@ function ActivityList() {
 
   return (
     <div>
-      {renderHeader()}
-
-      <div id="activities-list"></div>
-
-      <button data-cy="generate-list-button" onClick={handleCreateList}>
-        Generate a Travelist!
-      </button>
-
+      <MessageHeader
+        message="Up to anything fun there?"
+        destination={trip.destination}
+        image="./images/trav06.png"
+      />
+      <div className="card mt-2">
+        <div className="card-body">
+          <div className="row mb-3">
+            <div className="col-12">
+              <div id="activities-list"></div>
+              <button
+                data-cy="generate-list-button"
+                onClick={handleCreateList}
+                className="btn btn-warning"
+              >
+                Generate a Travelist!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
