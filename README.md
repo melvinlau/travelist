@@ -4,7 +4,7 @@ A smart travel packing app that generates a packing list based on your destinati
 
 Optimised for both mobile and desktop.
 
-<img src="https://user-images.githubusercontent.com/44139464/70333583-ad6d9b00-183b-11ea-83bc-d6f37bc5ff4a.png" width="400"><img width="500" alt="Screenshot 2019-12-06 at 15 11 01" src="https://user-images.githubusercontent.com/44139464/70334218-ee19e400-183c-11ea-9fea-0e070d1cb5ac.png">
+<img src="https://user-images.githubusercontent.com/44139464/70333583-ad6d9b00-183b-11ea-83bc-d6f37bc5ff4a.png" width="300"><img width="500" alt="Screenshot 2019-12-06 at 15 11 01" src="https://user-images.githubusercontent.com/44139464/70334218-ee19e400-183c-11ea-9fea-0e070d1cb5ac.png">
 
 ## Visit our site
 
