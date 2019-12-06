@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 function ActivityListItem({ name, select, deselect }) {
   const [isSelected, setSelectedStatus] = useState(false);
 
+  const capitalize = word => {
+    return (
+      <span>
+        {word.charAt(0).toUpperCase() + word.slice(1)}
+      </span>
+    );
+  }
+
   const toggleSelection = () => {
     if (isSelected) {
       deselect(name);
@@ -22,7 +30,7 @@ function ActivityListItem({ name, select, deselect }) {
       <label data-cy="activity-name">
         {" "}
         &nbsp;
-        {name}
+        {capitalize(name)}
       </label>
     </div>
   );
