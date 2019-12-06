@@ -2,6 +2,11 @@
 
 A smart travel packing app that generates a packing list based on your destination, dates and and activities. It then allows you to sign up and save multiple trips as part of a user profile. On a profile, a user will be able to see a photo of their destination, a countdown to their trip, a progress bar to track their packing, and the high level weather forecast for their trip.
 
+Optimised for both mobile and desktop.
+
+![Screenshot 2019-12-06 at 14 56 55](https://user-images.githubusercontent.com/44139464/70333574-a8a8e700-183b-11ea-984f-2a06c669db31.png)
+![Screenshot 2019-12-06 at 14 57 11](https://user-images.githubusercontent.com/44139464/70333583-ad6d9b00-183b-11ea-83bc-d6f37bc5ff4a.png)
+
 ## Visit our site
 
 https://travelistmakers.herokuapp.com/
