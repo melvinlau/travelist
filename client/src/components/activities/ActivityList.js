@@ -56,9 +56,9 @@ function ActivityList() {
         if (photoResults.length > 0) {
           return photoResults[0].src.large;
         } else {
-          return 'https://images.pexels.com/photos/171053/pexels-photo-171053.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260';
+          return "https://images.pexels.com/photos/171053/pexels-photo-171053.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
         }
-      })
+      });
     return imageUrl;
   };
 
@@ -113,7 +113,7 @@ function ActivityList() {
       <MessageHeader
         message="Up to anything fun there?"
         destination={trip.destination}
-        image="./images/trav06.png"
+        image="./images/casie2.png"
       />
       <div className="card mt-2">
         <div className="card-body">

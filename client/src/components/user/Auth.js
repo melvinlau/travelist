@@ -20,6 +20,7 @@ import {
 import { useForm } from "../shared/hooks/form-hook";
 import { AuthContext } from "../shared/context/auth-context";
 import "./Auth.css";
+import MessageHeader from "../shared/components/MessageHeader";
 
 function Auth() {
   const auth = useContext(AuthContext);
@@ -97,7 +98,7 @@ function Auth() {
         console.log(responseData);
         setIsLoading(false);
         auth.login(responseData.userId, responseData.name, responseData.token);
-        history.push('/trips');
+        history.push("/trips");
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -124,7 +125,7 @@ function Auth() {
         }
         setIsLoading(false);
         auth.login(responseData.userId, responseData.name, responseData.token);
-        history.push('/trips');
+        history.push("/trips");
       } catch (err) {
         setIsLoading(false);
         setError(err.message || "Something went wrong, please try again.");
@@ -139,11 +140,13 @@ function Auth() {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={errorHandler} />
+      <MessageHeader
+        message="Who are you, friend?"
+        image="./images/casie4.png"
+      />
       <Card className="authentication ">
         <div className="card-body ">
           {isLoading && <LoadingSpinner asOverlay />}
-          <h2>Login Required</h2>
-          <hr />
           <form onSubmit={authSubmitHandler}>
             {!isLoginMode && (
               <Input
