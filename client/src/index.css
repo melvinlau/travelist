@@ -1,25 +1,16 @@
-@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:700|Nunito+Sans:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Cabin:700|Nunito+Sans:400,700&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600&display=swap");
 
 body {
   font-family: "Source Sans Pro", "Nunito Sans", "Helvetica Neue", sans-serif;
   background-color: #f5f5f5;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-/* .logo {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  color: #545254;
-  letter-spacing: -0.5px;
-}
-*/
 
 input {
   padding: 10px 14px;
@@ -32,18 +23,13 @@ button {
   padding: 10px 14px;
   background-color: #ddd;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   border-radius: 3px;
   border-bottom: solid 3px #ccc;
 }
 
-button .style1 {
-  margin: 5px;
-  padding: 5px 8px;
-  border: solid 1px #ccc;
-  border-radius: 5px;
-  background-color: #56505e;
-  color: #fff;
+.btn {
+  font-size: 1.2rem;
 }
 
 .delete-button {
@@ -81,10 +67,10 @@ input[type="checkbox"] {
 }
 
 .add-item-textinput {
-  width: 80%;
+  width: 70%;
 }
 .add-item-button {
-  width: 15%;
+  width: 25%;
 }
 
 .packinglistitem-enter {
@@ -107,18 +93,27 @@ input[type="checkbox"] {
   margin-right: 5px;
 }
 
+.navbar-brand {
+  font-family: "Cabin", "Source Sans Pro", "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+  color: #545254;
+  margin-right: 15px;
+}
+
 .nav-link {
   margin-right: 15px;
 }
 
 .nav-button {
-  /* height: 20px; */
+  height: 45px;
   font-size: 14px;
   /* margin: 5px; */
-  padding: 8px 18px;
+  padding: 8px 12px;
   /* border: solid 1px #ccc; */
   /* background-color: red; */
   border-bottom: solid 2px #ccc;
+  margin-top: 10px;
 }
 
 .nav-button:focus {
@@ -138,4 +133,16 @@ input[type="checkbox"] {
   position: absolute;
   bottom: 0;
   height: 2.5rem;
+}
+
+.list-group-item a:hover {
+  text-decoration: none;
+}
+
+.nav-text {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+.nav-item {
+  text-align: center;
 }

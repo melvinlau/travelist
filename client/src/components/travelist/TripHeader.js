@@ -35,14 +35,14 @@ function TripHeader({ trip, formatDate }) {
         <div className="row">
           <div className="col-4">
             <div className="text-muted small">FROM</div>
-            <h4>{formatDate(trip.dateFrom)}</h4>
+            <h5>{formatDate(trip.dateFrom)}</h5>
           </div>
           <div className="col-4">
             <div className="text-muted small">TO</div>
-            <h4>{formatDate(trip.dateTo)}</h4>
+            <h5>{formatDate(trip.dateTo)}</h5>
           </div>
           <div className="col-4">
-            <div className="text-muted small">WEATHER FORECAST</div>
+            <div className="text-muted small">FORECAST</div>
             { renderWeatherEmoji(trip.weather) }
           </div>
         </div>

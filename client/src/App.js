@@ -20,6 +20,9 @@ import Trips from "./components/trips/Trips";
 import Auth from "./components/user/Auth";
 import Navbar from "./components/shared/components/Navbar";
 import Footer from "./components/shared/components/Footer";
+
+import ScrollToTop from './components/shared/components/ScrollToTop';
+
 import { AuthContext } from "./components/shared/context/auth-context";
 
 function App() {
@@ -92,6 +95,7 @@ function App() {
       }}
     >
       <Router>
+        <ScrollToTop />
         <Navbar />
         <div className="container-fluid" id="content-wrap">
           <div className="row justify-content-center">

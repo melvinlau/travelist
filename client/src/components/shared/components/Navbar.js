@@ -33,14 +33,16 @@ function Navbar() {
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
                 <NavLink to="/start" exact className="nav-link">
-                  <i className="far fa-compass nav-icon"> </i> New Trip
+                  <i className="far fa-compass nav-icon"> </i>
+                  <div className="nav-text">New Trip</div>
                 </NavLink>
               </li>
 
               {auth.isLoggedIn && (
                 <li className="nav-item active">
                   <NavLink to="/trips" exact className="nav-link">
-                    <i class="fas fa-suitcase-rolling nav-icon"> </i> My Trips
+                    <i class="fas fa-suitcase-rolling nav-icon"> </i>
+                    <div className="nav-text">My Trips</div>
                   </NavLink>
                 </li>
               )}

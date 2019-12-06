@@ -42,8 +42,8 @@ function CategoryList({ category, items, add, remove, complete, unComplete, comp
   }
 
   return (
-    <div className="card">
-      <div className="card-header category-header">
+    <div>
+      <div className="card-header category-header border-top">
         {renderEmoji(category)}
         {capitalize(category)}
       </div>

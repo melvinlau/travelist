@@ -19,7 +19,7 @@ function Start() {
       <MessageHeader
         name={auth.name}
         message="Where are we going next?"
-        image="./images/trav05.png"
+        image="./images/casie1.png"
       />
       <StartForm trip={trip} updateTrip={updateTrip} />
     </div>
