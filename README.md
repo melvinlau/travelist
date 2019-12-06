@@ -23,6 +23,7 @@ https://travelistmakers.herokuapp.com/
 - Open the project
 - Type the following in your command line:
 * `npm install && cd backend npm install && cd ../client npm install`
+* `cd ../../`
 * `npm start`
 
 ## User stories
