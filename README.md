@@ -1,5 +1,31 @@
 # Travelist
 
+A smart travel packing app that generates a packing list based on your destination, dates and and activities. It then allows you to sign up and save multiple trips as part of a user profile. On a profile, a user will be able to see a photo of their destination, a countdown to their trip, a progress bar to track their packing, and the high level weather forecast for their trip.
+
+Optimised for both mobile and desktop.
+
+<img src="https://user-images.githubusercontent.com/44139464/70333583-ad6d9b00-183b-11ea-83bc-d6f37bc5ff4a.png" width="300"><img width="500" alt="Screenshot 2019-12-06 at 15 11 01" src="https://user-images.githubusercontent.com/44139464/70334218-ee19e400-183c-11ea-9fea-0e070d1cb5ac.png">
+
+## Visit our site
+
+https://travelistmakers.herokuapp.com/
+
+## Team
+
+<a href="https://www.github.com/zraso" target="new"><img src="https://avatars2.githubusercontent.com/u/44139464?s=460&v=4" width="60" height="60" hspace="5" title="Zaira Rasool"></a>
+<a href="https://www.github.com/bradjp" target="new"><img src="https://avatars1.githubusercontent.com/u/47543495?s=460&v=4" width="60" height="60" hspace="5" title="Brad Phillips"></a>
+<a href="https://www.github.com/ollyholly" target="new"><img src="https://avatars1.githubusercontent.com/u/49103095?s=460&v=4" width="60" height="60" hspace="5" title="Olly Holovchenko"></a>
+<a href="https://www.github.com/melvinlau" target="new"><img src="https://avatars1.githubusercontent.com/u/26098132?s=460&v=4" width="60" height="60" hspace="5" title="Melvin Lau"></a>
+
+## Install and Run
+
+- Clone this repo
+- Open the project
+- Type the following in your command line:
+* `npm install && cd backend npm install && cd ../client npm install`
+* `cd ../../`
+* `npm start`
+
 ## User stories
 
 ```
@@ -82,9 +108,4 @@ So I can amend or update my details
 I'd like to update my personal details
 ```
 
-## Team
 
-<a href="https://www.github.com/zraso" target="new"><img src="https://avatars2.githubusercontent.com/u/44139464?s=460&v=4" width="60" height="60" hspace="5" title="Zaira Rasool"></a>
-<a href="https://www.github.com/bradjp" target="new"><img src="https://avatars1.githubusercontent.com/u/47543495?s=460&v=4" width="60" height="60" hspace="5" title="Brad Phillips"></a>
-<a href="https://www.github.com/ollyholly" target="new"><img src="https://avatars1.githubusercontent.com/u/49103095?s=460&v=4" width="60" height="60" hspace="5" title="Olly Holovchenko"></a>
-<a href="https://www.github.com/melvinlau" target="new"><img src="https://avatars1.githubusercontent.com/u/26098132?s=460&v=4" width="60" height="60" hspace="5" title="Melvin Lau"></a>
